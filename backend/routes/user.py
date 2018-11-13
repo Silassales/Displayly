@@ -48,8 +48,11 @@ class UserRoutes(object):
 			try:
 				cursor.execute(sql, (body['email']))
 				data = cursor.fetchone()
-
+				
 				print(data)
+				if len(data) == 0
+					res.body = '{"error":"Invalid credentials"}'
+					res.status = falcon.HTTP_401
 				
 				if bcrypt.checkpw(body['password'], data[0][0]):
 					res.status = falcon.HTTP_200
