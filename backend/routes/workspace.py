@@ -44,16 +44,16 @@ class WorkspaceRoutes(object):
 				cursor.execute(sql) #(tokenContents['userId'],))
 				data = cursor.fetchall()
 
-				json = '{"success": true'
+				json = '{"success": true, workspaces: ['
 
 				for workspaceId, workspaceName in data:
-					json += (', "worksapceId": ' + str(workspaceId) + ' { "workspaceName": ' + workspaceName + ' }')
+					json += ('{"worksapceId": ' + str(workspaceId) + ', "workspaceName": ' + workspaceName + ' }')
 
 				db.close()
 
 				res.status = falcon.HTTP_200
                 
-				res.body = json + '}'
+				res.body = json + ']}'
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
