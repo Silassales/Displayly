@@ -1,0 +1,32 @@
+<mat-card class="form-container center-div form-card">
+  <img class="form-logo" src="assets/logo.png">
+  <mat-form-field>
+    <input matInput placeholder="full name" required [formControl]="nameValidator">
+    <mat-error *ngIf="nameValidator.invalid">Name is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="email" required [formControl]="emailValidator">
+    <mat-error *ngIf="emailValidator.invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="password" [type]="hide ? 'password' : 'text'" required [formControl]="passwordValidator">
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    <mat-error *ngIf="passwordValidator.invalid">{{getPasswordErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="confirm password" [type]="hide ? 'password' : 'text'" required [formControl]="passwordConfirmValidator">-->
+    <!--<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>-->
+    <!--<mat-error *ngIf="passwordConfirmValidator.invalid">{{getConfirmErrorMessage()}}</mat-error>-->
+  <!--</mat-form-field>-->
+  <mat-form-field>
+    <input matInput placeholder="security question" required [formControl]="questionValidator">
+    <mat-hint>This question will be prompted if you need to recover your account</mat-hint>
+    <mat-error *ngIf="questionValidator.invalid">Security question is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="security question answer" required [formControl]="answerValidator">
+    <mat-error *ngIf="answerValidator.invalid">Security answer is required</mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="buttonDisabled()">Register</button>
+  <a class="form-alternative" href="/login">Already have an account? Click here to login</a>
+</mat-card>
