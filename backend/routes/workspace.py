@@ -20,6 +20,12 @@ class WorkspaceRoutes(object):
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
 
+	def intToBoolString(self, number):
+		if number == 1:
+			return "true"
+		else:
+			return "false"
+
 	def on_post(self, req, res):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
@@ -90,7 +96,7 @@ class WorkspaceRoutes(object):
 				json = '{"success": true, "workspaces": ['
 
 				for workspaceId, workspaceName, isAdmin in data:
-					json += ('{"id": ' + str(workspaceId) + ', "name": "' + workspaceName + ', "isAdmin": "' + bool(isAdmin) + '" },')
+					json += ('{"id": ' + str(workspaceId) + ', "name": "' + workspaceName + '", "isAdmin": ' + self.intToBoolString(isAdmin) + ' },')
 
 				if len(data) > 0:
 					json = json[:-1]
