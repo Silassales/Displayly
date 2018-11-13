@@ -1,0 +1,20 @@
+
+<div id = "toolBar">
+	<img width="250px" src="assets/logo.png"/>
+	<button id="accountMenu"  mat-button [matMenuTriggerFor]="account"><mat-icon>person</mat-icon>Account</button>
+	<mat-menu #account="matMenu">
+		<button mat-menu-item>Logout</button>
+	</mat-menu>
+</div>
+
+<mat-sidenav-container id = "pageBody">
+	<mat-sidenav id="mySidenav" mode="side" #sidenav opened>
+		<button [routerLink] = "['/dashboard/workspace']" mat-button>Workspaces</button>
+		<button [routerLink] = "['/dashboard/slide']" mat-button>Slides</button>
+		<button [routerLink] = "['/dashboard/scene']" mat-button>Scenes</button>
+		<button [routerLink] = "['/dashboard/display']" mat-button>Displays</button>
+	</mat-sidenav>
+  <mat-sidenav-content  id="innerComponent">
+		<router-outlet #myAss></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>
