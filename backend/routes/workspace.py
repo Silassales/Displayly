@@ -75,20 +75,22 @@ class WorkspaceRoutes(object):
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
-			sql = """SELECT Workspaces.WorkspaceId, Workspaces.Name
-				FROM Workspaces
-				INNER JOIN UsersToWorkspaces
-				ON Workspaces.WorkspaceId = UsersToWorkspaces.WorkspaceId
+
+			sql = """SELECT Workspaces.WorkspaceId, Workspaces.Name, 
+				CASE WHEN Workspaces.AdminId = %s THEN 1 ELSE 0 END AS IsAdmin 
+				FROM Workspaces 
+				INNER JOIN UsersToWorkspaces 
+				ON Workspaces.WorkspaceId = UsersToWorkspaces.WorkspaceId 
 				WHERE UsersToWorkspaces.UserId = %s"""
 
 			try:
-				cursor.execute(sql, (tokenContents['userId'],))
+				cursor.execute(sql, (tokenContents['userId'], tokenContents['userId'],))
 				data = cursor.fetchall()
 
 				json = '{"success": true, "workspaces": ['
 
-				for workspaceId, workspaceName in data:
-					json += ('{"id": ' + str(workspaceId) + ', "name": "' + workspaceName + '" },')
+				for workspaceId, workspaceName, isAdmin in data:
+					json += ('{"id": ' + str(workspaceId) + ', "name": "' + workspaceName + ', "isAdmin": "' + bool(isAdmin) + '" },')
 
 				if len(data) > 0:
 					json = json[:-1]
