@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModulesModule} from './material-modules/material-modules.module';
+import { DisplaylyToolbarWrapperComponent } from './displayly-toolbar-wrapper/displayly-toolbar-wrapper.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DisplaylyToolbarWrapperComponent
   ],
   imports: [
     BrowserModule,
