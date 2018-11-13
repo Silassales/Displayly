@@ -1,11 +1,13 @@
 #accountMenu{
     float: right;
+    margin-top: 1.0em;
 }
 
 #toolBar{
     display: block;
     border-bottom-width: 1px;
     border-bottom-style: solid;
+    background-color: whitesmoke;
     border-bottom-color: gainsboro;
 }
 
@@ -19,6 +21,7 @@
 
 #mySidenav button{
     display: block;
-    
+    width: 100%;
+    text-align: left;
     margin-bottom: 5px;
 }
