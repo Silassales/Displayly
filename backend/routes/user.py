@@ -1,5 +1,6 @@
 import falcon
 import json
+import bcrypt
 import mysql.connector
 
 class UserRoutes(object):
@@ -19,7 +20,10 @@ class UserRoutes(object):
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
 			sql = "INSERT INTO Users (Email, Password, SecurityQuestion, SecurityAnswer) VALUES (%s, %s, %s, %s)"
-			cursor.execute(sql, (body['username'], body['password'], body['question'], body['answer']))
+			hashedPassword = bcrypt.hashpw(body['password'], bcrypt.gensalt())
+			hashedQuestion = bcrypt.hashpw(body['answer'], bcrypt.gensalt())
+			hashedAnswer = bcrypt.hashpw(body['answer'], bcrypt.gensalt())
+			cursor.execute(sql, (body['username'], hashedPassword, hashedQuestion, hashedAnswer))
 			db.commit()
 			res.status = falcon.HTTP_200
 
