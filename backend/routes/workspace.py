@@ -88,8 +88,11 @@ class WorkspaceRoutes(object):
 				for workspaceId, workspaceName in data:
 					json += ('{"id": ' + str(workspaceId) + ', "name": "' + workspaceName + '" },')
 
+				if len(data) > 0:
+					json = json[:-1]
+
 				res.status = falcon.HTTP_200
-				res.body = json[:-1] + ']}'
+				res.body = json + ']}'
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
