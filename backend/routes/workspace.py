@@ -46,9 +46,11 @@ class WorkspaceRoutes(object):
 
 			try:
 				cursor.execute(sql, (body['name'], tokenContents['userId'], ))
+				db.commit()
 				cursor.execute(sql2, (body['name'], ))
 				data = cursor.fetchone()
 				cursor.execute(sql3, (tokenContents['userId'], data[0]))
+				db.commit()
 
 				res.body = '{"success": true, "workspaceId": ' + data[0] + '}'
 				res.status = falcon.HTTP_200
