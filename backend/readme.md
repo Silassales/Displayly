@@ -39,8 +39,8 @@ In the body, you must include the following properties: Email, and Password. If 
 
 ```
 {
-"success": true
-"token": jwt_token_here
+	"success": true
+	"token": jwt_token_here
 }
 ```
 
