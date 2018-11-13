@@ -31,7 +31,7 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_200
 			except (mysql.connector.errors.IntegrityError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
-				res.status = falcon.HTTP_404
+				res.status = falcon.HTTP_400
 
 	def on_post_login(self, req, res):
 		res.status = falcon.HTTP_200
