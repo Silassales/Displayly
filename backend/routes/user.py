@@ -4,7 +4,7 @@ import bcrypt
 import mysql.connector
 
 class UserRoutes(object):
-	def getBodyFromRequest(req):
+	def getBodyFromRequest(self, req):
 		raw_json = req.bounded_stream.read()
 		data = raw_json.decode('utf8').replace("'", '"')
 		return json.loads(data)
@@ -15,7 +15,7 @@ class UserRoutes(object):
 		mydb.close()
 
 	def on_post_register(self, req, res):
-		body = getBodyFromRequest(req)
+		body = self.getBodyFromRequest(req)
 		if 'name' not in body or 'email' not in body or 'password' not in body or 'question' not in body or 'answer' not in body:
 			res.body = '{"error":"Name, email, password, security question and answer are required."}'
 			res.status = falcon.HTTP_400
@@ -37,14 +37,14 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_400
 
 	def on_post_login(self, req, res):
-		body = getBodyFromRequest(req)
+		body = self.getBodyFromRequest(req)
 		if 'email' not in body or 'password' not in body:
 			res.body = '{"error":"Email and password are required to login."}'
 			res.status = falcon.HTTP_400
 		else:
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
-			sql = "SELECT Password FROM Users WHERE Email = %s"
+			sql = "SELECT Password FROM Users WHERE Email = '%s'"
 			try:
 				cursor.execute(sql, (body['email']))
 				data = cursor.fetchone()
