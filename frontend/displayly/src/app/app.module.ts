@@ -11,6 +11,8 @@ import { WorkspaceComponent } from './workspace/workspace.component';
 import { DisplayComponent } from './display/display.component';
 import { SlideComponent } from './slide/slide.component';
 import { SceneComponent } from './scene/scene.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { SceneComponent } from './scene/scene.component';
     WorkspaceComponent,
     DisplayComponent,
     SlideComponent,
-    SceneComponent
+    SceneComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -4,3 +4,32 @@
 *{
     margin: 0;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 100%;
+}
+
+.center-div {
+  margin: 0 auto;
+}
+
+.form-card {
+  margin-top: 75px;
+  width: 600px;
+}
+
+img.form-logo {
+  width: 250px;
+  display: block;
+  margin: auto;
+}
+
+a.form-alternative {
+  display: inline-block;
+  margin-top: 10px;
+}
