@@ -8,5 +8,9 @@ class UserRoutes(object):
 		res.body = ('This is me, Falcon, serving a resource!')
 		mydb.close()
 
-	def on_post(self, req, res):
-		print(req.body)
+	def on_post_register(self, req, res):
+		if 'username' not in req.params or 'password' not in req.params or 'question' not in req.params or 'answer' not in req.params:
+			resp.body = json.dumps(doc, ensure_ascii=False)
+			resp.status = falcon.HTTP_400
+		else:
+			print(req.body)
