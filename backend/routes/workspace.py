@@ -41,13 +41,13 @@ class WorkspaceRoutes(object):
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
 			sql = "INSERT INTO Workspaces (Name, AdminId) VALUES (%s, %s)"
-			sql2 = "SELECT WorkspaceId FROM Workspaces where Name = %s"
+			sql2 = "SELECT MAX(WorkspaceId) FROM Workspaces"
 			sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
 
 			try:
 				cursor.execute(sql, (body['name'], tokenContents['userId'], ))
 				db.commit()
-				cursor.execute(sql2, (body['name'], ))
+				cursor.execute(sql2)
 				data = cursor.fetchone()
 				cursor.execute(sql3, (tokenContents['userId'], data[0]))
 				db.commit()
