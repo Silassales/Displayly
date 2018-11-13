@@ -1,12 +1,16 @@
 import falcon
 import json
+import jwt
 import bcrypt
 import mysql.connector
+from datetime import datetime, timedelta
 
 class UserRoutes(object):
 	def getBodyFromRequest(self, req):
 		raw_json = req.bounded_stream.read()
 		data = raw_json.decode('utf8').replace("'", '"')
+		if len(data) == 0:
+			return None
 		return json.loads(data)
 
 	def on_get(self, req, res):
@@ -16,7 +20,7 @@ class UserRoutes(object):
 
 	def on_post_register(self, req, res):
 		body = self.getBodyFromRequest(req)
-		if 'name' not in body or 'email' not in body or 'password' not in body or 'question' not in body or 'answer' not in body:
+		if body == None or 'name' not in body or 'email' not in body or 'password' not in body or 'question' not in body or 'answer' not in body:
 			res.body = '{"error":"Name, email, password, security question and answer are required."}'
 			res.status = falcon.HTTP_400
 		else:
@@ -38,25 +42,28 @@ class UserRoutes(object):
 
 	def on_post_login(self, req, res):
 		body = self.getBodyFromRequest(req)
-		if 'email' not in body or 'password' not in body:
+		if body == None or 'email' not in body or 'password' not in body:
 			res.body = '{"error":"Email and password are required to login."}'
 			res.status = falcon.HTTP_400
 		else:
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
-			sql = "SELECT Password FROM Users WHERE Email = '%s'"
+			sql = "SELECT Password, UserId FROM Users WHERE Email = %s"
 			try:
-				cursor.execute(sql, (body['email']))
+				cursor.execute(sql, (body['email'],))
 				data = cursor.fetchone()
-				
-				print(data)
-				if len(data) == 0
+
+				if data == None or len(data) == 0:
 					res.body = '{"error":"Invalid credentials"}'
 					res.status = falcon.HTTP_401
-				
-				if bcrypt.checkpw(body['password'], data[0][0]):
+					return
+
+				if bcrypt.checkpw(body['password'].encode('utf8'), data[0].encode('utf8')):
+					token = jwt.encode({'token':data[1], 'exp':datetime.utcnow() + timedelta(seconds=60)}, 'secret', algorithm='HS256').decode('utf8')
+					res.body = '{"success":true, "token":' + '"{}"'.format(token) + '}'
 					res.status = falcon.HTTP_200
 				else:
+					res.body = '{"error":"Invalid credentials"}'
 					res.status = falcon.HTTP_401
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
