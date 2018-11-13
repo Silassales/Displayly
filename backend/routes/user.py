@@ -23,9 +23,15 @@ class UserRoutes(object):
 			hashedPassword = bcrypt.hashpw(body['password'].encode('utf-8'), bcrypt.gensalt())
 			hashedQuestion = bcrypt.hashpw(body['question'].encode('utf-8'), bcrypt.gensalt())
 			hashedAnswer = bcrypt.hashpw(body['answer'].encode('utf-8'), bcrypt.gensalt())
-			cursor.execute(sql, (body['name'], body['email'], hashedPassword, hashedQuestion, hashedAnswer))
-			db.commit()
-			res.status = falcon.HTTP_200
+
+			try:
+				cursor.execute(sql, (body['name'], body['email'], hashedPassword, hashedQuestion, hashedAnswer))
+				db.commit()
+				res.body = '{"success":"New account created."}'
+				res.status = falcon.HTTP_200
+			except (MySQLdb.Error, MySQLdb.Warning) as e:
+				res.body = '{"error":{}}'.format(e)
+				res.status = falcon.HTTP_404
 
 	def on_post_login(self, req, res):
 		res.status = falcon.HTTP_200
