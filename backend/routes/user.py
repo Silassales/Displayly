@@ -42,7 +42,11 @@ class UserRoutes(object):
 				db.close()
 
 				res.status = falcon.HTTP_200
-				res.body = '{"success": true, "userId": %s, "email": %s, "name": %s}' % tokenContents['userId'], data[0], data[1]
+				res.body = '{"success": true, "userId": %s, "email": "%s", "name": "%s"}' % (tokenContents['userId'], data[0], data[1])
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
 
 	def on_post_register(self, req, res):
 		body = self.getBodyFromRequest(req)
