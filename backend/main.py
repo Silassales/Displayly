@@ -1,6 +1,6 @@
-from flask_api import FlaskAPI
+import falcon
 from routes.user import UserRoutes
 
-app = FlaskAPI(__name__)
-userRoutes = UserRoutes(app)
+app = falcon.API()
+userRoutes = UserRoutes()
 app.add_route('/user', userRoutes, suffix='register')
