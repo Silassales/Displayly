@@ -4,6 +4,11 @@ import bcrypt
 import mysql.connector
 
 class UserRoutes(object):
+	def getBodyFromRequest(req):
+		raw_json = req.bounded_stream.read()
+		data = raw_json.decode('utf8').replace("'", '"')
+		return json.loads(data)
+
 	def on_get(self, req, res):
 		res.status = falcon.HTTP_200
 		res.body = ('This is me, Falcon, serving a resource!')
@@ -53,9 +58,3 @@ class UserRoutes(object):
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_401
-			except 
-
-	def getBodyFromRequest(req):
-		raw_json = req.bounded_stream.read()
-		data = raw_json.decode('utf8').replace("'", '"')
-		return json.loads(data)
