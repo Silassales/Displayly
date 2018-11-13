@@ -42,12 +42,19 @@ class UserRoutes(object):
 				db.close()
 
 				res.status = falcon.HTTP_200
-				res.body = '{"success": true, "userId": %s, "email": %s, "name": %s}' % tokenContents['userId'], data[0], data[1]
+				res.body = '{"success": true, "userId": %s, "email": "%s", "name": "%s"}' % (tokenContents['userId'], data[0], data[1])
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
 
 	def on_post_register(self, req, res):
 		body = self.getBodyFromRequest(req)
 		if body == None or 'name' not in body or 'email' not in body or 'password' not in body or 'question' not in body or 'answer' not in body:
 			res.body = '{"error":"Name, email, password, security question and answer are required."}'
+			res.status = falcon.HTTP_400
+		elif len(body['password']) < 8:
+			res.body = '{"error":"Password must be at least 8 characters long"}'
 			res.status = falcon.HTTP_400
 		else:
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
@@ -60,7 +67,7 @@ class UserRoutes(object):
 			try:
 				cursor.execute(sql, (body['name'], body['email'], hashedPassword, hashedQuestion, hashedAnswer))
 				db.commit()
-				res.body = '{"success":"New account created."}'
+				res.body = '{"success": true}'
 				res.status = falcon.HTTP_200
 				db.close()
 			except (mysql.connector.errors.IntegrityError) as e:
