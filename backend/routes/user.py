@@ -8,7 +8,9 @@ class UserRoutes(object):
 		mydb.close()
 
 	def on_post_register(self, req, res):
-		if 'username' not in req.params or 'password' not in req.params or 'question' not in req.params or 'answer' not in req.params:
+		raw_json = req.bounded_stream.read()
+		body = result.json(raw_json, encoding='utf-8')
+		if 'username' not in body or 'password' not in body or 'question' not in body or 'answer' not in body:
 			res.body = '{"error":"Username, password, security question and answer are required."}'
 			res.status = falcon.HTTP_400
 		else:
