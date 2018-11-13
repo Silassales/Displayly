@@ -20,9 +20,9 @@ class UserRoutes(object):
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
 			sql = "INSERT INTO Users (Email, Password, SecurityQuestion, SecurityAnswer) VALUES (%s, %s, %s, %s)"
-			hashedPassword = bcrypt.hashpw(body['password'], bcrypt.gensalt())
-			hashedQuestion = bcrypt.hashpw(body['answer'], bcrypt.gensalt())
-			hashedAnswer = bcrypt.hashpw(body['answer'], bcrypt.gensalt())
+			hashedPassword = bcrypt.hashpw(body['password'].encode('utf-8'), bcrypt.gensalt())
+			hashedQuestion = bcrypt.hashpw(body['answer'].encode('utf-8'), bcrypt.gensalt())
+			hashedAnswer = bcrypt.hashpw(body['answer'].encode('utf-8'), bcrypt.gensalt())
 			cursor.execute(sql, (body['username'], hashedPassword, hashedQuestion, hashedAnswer))
 			db.commit()
 			res.status = falcon.HTTP_200
