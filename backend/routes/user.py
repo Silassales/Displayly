@@ -53,6 +53,9 @@ class UserRoutes(object):
 		if body == None or 'name' not in body or 'email' not in body or 'password' not in body or 'question' not in body or 'answer' not in body:
 			res.body = '{"error":"Name, email, password, security question and answer are required."}'
 			res.status = falcon.HTTP_400
+		elif len(body['password']) < 8:
+			res.body = '{"error":"Password must be at least 8 characters long"}'
+			res.status = falcon.HTTP_400
 		else:
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
@@ -64,7 +67,7 @@ class UserRoutes(object):
 			try:
 				cursor.execute(sql, (body['name'], body['email'], hashedPassword, hashedQuestion, hashedAnswer))
 				db.commit()
-				res.body = '{"success":"New account created."}'
+				res.body = '{"success": true}'
 				res.status = falcon.HTTP_200
 				db.close()
 			except (mysql.connector.errors.IntegrityError) as e:
