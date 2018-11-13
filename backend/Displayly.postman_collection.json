@@ -79,13 +79,19 @@
 			"name": "Get User Info",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://131.104.48.83:5000/user?Authorization",
+					"raw": "http://131.104.48.83:5000/user",
 					"protocol": "http",
 					"host": [
 						"131",
@@ -96,15 +102,81 @@
 					"port": "5000",
 					"path": [
 						"user"
-					],
-					"query": [
-						{
-							"key": "Authorization",
-							"value": ""
-						}
 					]
 				},
 				"description": "Get information about a user.\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workspaces",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIxNTA5OTIsInVzZXJJZCI6MTZ9.yZ5wlao8Z9sOwD6CfnOJNDgcA-3_N9rpZKP36ux2pkE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://131.104.48.83:5000/workspaces",
+					"protocol": "http",
+					"host": [
+						"131",
+						"104",
+						"48",
+						"83"
+					],
+					"port": "5000",
+					"path": [
+						"workspaces"
+					]
+				},
+				"description": "Get the list of workspaces that the user belongs to\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Workspace",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIxNDkxNDUsInVzZXJJZCI6MTZ9.uGQfBq1OTBT345yu-B7N_qO7IOIfcgiYBy2i8XlNXC4"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"A test workspace2\"\n}"
+				},
+				"url": {
+					"raw": "http://131.104.48.83:5000/workspaces",
+					"protocol": "http",
+					"host": [
+						"131",
+						"104",
+						"48",
+						"83"
+					],
+					"port": "5000",
+					"path": [
+						"workspaces"
+					]
+				},
+				"description": "Create a new workspace. The user that creates the workspace automatically becomes the admin of the workspace\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
 			},
 			"response": []
 		}
