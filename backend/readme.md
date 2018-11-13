@@ -12,6 +12,8 @@ NOTE: To stop the API you will need to kill the actual process for now. Also wor
 API Reference
 -------------
 
+**There is a Postman collection in this folder that you can use to test all of the endpoints**
+
 **1. Registering A New User**
 
 Endpoint: `POST 131.104.48.83:5000/user/register`
