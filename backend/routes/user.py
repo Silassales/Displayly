@@ -1,3 +1,4 @@
+import falcon
 import mysql.connector
 
 class UserRoutes(object):
