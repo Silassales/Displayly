@@ -5,14 +5,12 @@ import mysql.connector
 
 class UserRoutes(object):
 	def on_get(self, req, res):
-		res.status = falcon.HTTP_200  # This is the default status
+		res.status = falcon.HTTP_200
 		res.body = ('This is me, Falcon, serving a resource!')
 		mydb.close()
 
 	def on_post_register(self, req, res):
-		raw_json = req.bounded_stream.read()
-		data = raw_json.decode('utf8').replace("'", '"')
-		body = json.loads(data)
+		body = getBodyFromRequest(req)
 		if 'name' not in body or 'email' not in body or 'password' not in body or 'question' not in body or 'answer' not in body:
 			res.body = '{"error":"Name, email, password, security question and answer are required."}'
 			res.status = falcon.HTTP_400
@@ -34,4 +32,30 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_400
 
 	def on_post_login(self, req, res):
-		res.status = falcon.HTTP_200
+		body = getBodyFromRequest(req)
+		if 'email' not in body or 'password' not in body:
+			res.body = '{"error":"Email and password are required to login."}'
+			res.status = falcon.HTTP_400
+		else:
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+			cursor = db.cursor()
+			sql = "SELECT Password FROM Users WHERE Email = %s"
+			try:
+				cursor.execute(sql, (body['email']))
+				data = cursor.fetchone()
+
+				print(data)
+				
+				if bcrypt.checkpw(body['password'], data[0][0]):
+					res.status = falcon.HTTP_200
+				else:
+					res.status = falcon.HTTP_401
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
+			except 
+
+	def getBodyFromRequest(req):
+		raw_json = req.bounded_stream.read()
+		data = raw_json.decode('utf8').replace("'", '"')
+		return json.loads(data)
