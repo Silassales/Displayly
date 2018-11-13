@@ -35,25 +35,24 @@ class WorkspaceRoutes(object):
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
 			sql = """SELECT Workspaces.WorkspaceId, Workspaces.Name
-                    FROM Workspaces
-                    INNER JOIN UsersToWorkspaces
-                    ON Workspaces.WorkspaceId = UsersToWorkspaces.WorkspaceId
-                    WHERE UsersToWorkspaces.UserId = 14"""
+				FROM Workspaces
+				INNER JOIN UsersToWorkspaces
+				ON Workspaces.WorkspaceId = UsersToWorkspaces.WorkspaceId
+				WHERE UsersToWorkspaces.UserId = %s"""
 
 			try:
-				cursor.execute(sql) #(tokenContents['userId'],))
+				cursor.execute(sql, (tokenContents['userId'],))
 				data = cursor.fetchall()
 
-				json = '{"success": true, workspaces: ['
+				json = '{"success": true, "workspaces": ['
 
 				for workspaceId, workspaceName in data:
-					json += ('{"worksapceId": ' + str(workspaceId) + ', "workspaceName": ' + workspaceName + ' }')
+					json += ('{"id": ' + str(workspaceId) + ', "name": "' + workspaceName + '" },')
 
 				db.close()
 
 				res.status = falcon.HTTP_200
-                
-				res.body = json + ']}'
+				res.body = json[:-1] + ']}'
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
