@@ -1,3 +1,20 @@
-<p>
-  displayly-toolbar-wrapper works!
-</p>
+
+<div id = "toolBar">
+	<img width="250px" src="assets/logo.png"/>
+	<button id="accountMenu"  mat-button [matMenuTriggerFor]="account"><mat-icon>person</mat-icon>Account</button>
+	<mat-menu #account="matMenu">
+		<button mat-menu-item>Logout</button>
+	</mat-menu>
+</div>
+
+<mat-sidenav-container id = "pageBody">
+	<mat-sidenav id="mySidenav" mode="side" #sidenav opened>
+		<button mat-button>Workspaces</button>
+		<button mat-button>Slides</button>
+		<button mat-button>Scenes</button>
+		<button mat-button>Displays</button>
+	</mat-sidenav>
+  <mat-sidenav-content  id="innerComponent">
+		Main
+	</mat-sidenav-content>
+</mat-sidenav-container>
