@@ -52,9 +52,9 @@ class WorkspaceRoutes(object):
 				cursor.execute(sql3, (tokenContents['userId'], data[0]))
 				db.commit()
 
-				res.body = '{"success": true, "workspaceId": ' + data[0] + '}'
+				res.body = '{"success": true, "workspaceId": ' + str(data[0]) + '}'
 				res.status = falcon.HTTP_200
-				
+
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_400
