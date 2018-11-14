@@ -1,9 +1,7 @@
 import falcon
 import json
 import jwt
-import bcrypt
 import mysql.connector
-from datetime import datetime, timedelta
 
 class WorkspaceRoutes(object):
 	def getBodyFromRequest(self, req):
