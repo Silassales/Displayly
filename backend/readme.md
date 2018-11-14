@@ -120,6 +120,8 @@ If the password is successfully saved, a `200` status code will be returned, oth
 
 **IMPORTANT**: The reset access token will expire 5 minutes after being issued. If the token expiries, you will need to call the previous endpoint (answer validation) to get a new token. Also, after reseting the password, this token can not be used to access other endpoints. You will need to login using the proper login endpoint to get a "full" access token.
 
+----
+
 ### Workspaces
 
 **1. Create A New Workspace**
@@ -170,6 +172,8 @@ If a user belongs to two workspaces, the response would look like:
     ]
 }
 ```
+
+----
 
 ### Displays
 
