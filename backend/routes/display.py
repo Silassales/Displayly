@@ -24,7 +24,7 @@ class DisplayRoutes(object):
 		else:
 			return "false"
 
-	def valueToString(self, value)
+	def valueToString(self, value):
 		if value == None:
 			return 'null'
 		return str(value)
