@@ -109,39 +109,6 @@
 			"response": []
 		},
 		{
-			"name": "Get Workspaces",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIxNTA5OTIsInVzZXJJZCI6MTZ9.yZ5wlao8Z9sOwD6CfnOJNDgcA-3_N9rpZKP36ux2pkE",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://131.104.48.83:5000/workspaces",
-					"protocol": "http",
-					"host": [
-						"131",
-						"104",
-						"48",
-						"83"
-					],
-					"port": "5000",
-					"path": [
-						"workspaces"
-					]
-				},
-				"description": "Get the list of workspaces that the user belongs to\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
-			},
-			"response": []
-		},
-		{
 			"name": "Create Workspace",
 			"request": {
 				"method": "POST",
@@ -177,6 +144,112 @@
 					]
 				},
 				"description": "Create a new workspace. The user that creates the workspace automatically becomes the admin of the workspace\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workspaces",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIxNTA5OTIsInVzZXJJZCI6MTZ9.yZ5wlao8Z9sOwD6CfnOJNDgcA-3_N9rpZKP36ux2pkE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://131.104.48.83:5000/workspaces",
+					"protocol": "http",
+					"host": [
+						"131",
+						"104",
+						"48",
+						"83"
+					],
+					"port": "5000",
+					"path": [
+						"workspaces"
+					]
+				},
+				"description": "Get the list of workspaces that the user belongs to\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Displays",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIxNjQxNjV9.P3O6zojH3EgqbIu4Vb_TfRoov-bpEgCOZAPJKIjoD40"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"A Display\",\n\t\"workspaceId\": 1\n}"
+				},
+				"url": {
+					"raw": "http://131.104.48.83:5000/displays",
+					"protocol": "http",
+					"host": [
+						"131",
+						"104",
+						"48",
+						"83"
+					],
+					"port": "5000",
+					"path": [
+						"displays"
+					]
+				},
+				"description": "Create a new display. Provide the name of the display and the workspace ID that the display should be added to. Only users who have access to a workspace can add displays to it\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Displays",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIxNjQxNjV9.P3O6zojH3EgqbIu4Vb_TfRoov-bpEgCOZAPJKIjoD40"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://131.104.48.83:5000/displays/1",
+					"protocol": "http",
+					"host": [
+						"131",
+						"104",
+						"48",
+						"83"
+					],
+					"port": "5000",
+					"path": [
+						"displays",
+						"1"
+					]
+				},
+				"description": "Get a list of all displays that belong to a workspace. The URL format is /displays/{workspaceId}. Only users who have access to a workspace can view its displays.\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
 			},
 			"response": []
 		}
