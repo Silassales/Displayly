@@ -33,7 +33,7 @@ class DisplayRoutes(object):
 			data = cursor.fetchall()
 
 			for workspaceIdentifier in data:
-				if workspaceId == workspaceIdentifier[0]:
+				if int(workspaceId) == int(workspaceIdentifier[0]):
 					return True
 
 			return False
@@ -65,6 +65,7 @@ class DisplayRoutes(object):
 			if not self.authroizedWorkspace(db, tokenContents['userId'], body['workspaceId']):
 				res.body = '{"error":"This user does not have permissions to add displays to this workspace."}'
 				res.status = falcon.HTTP_401
+				db.close()
 				return
 
 			cursor = db.cursor()
@@ -85,7 +86,7 @@ class DisplayRoutes(object):
 				res.status = falcon.HTTP_400
 
 			db.close()
-	
+
 	def on_get(self, req, res, workspaceId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
@@ -99,15 +100,16 @@ class DisplayRoutes(object):
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
-			
-			if not self.authroizedWorkspace(db, tokenContents['userId'], body['workspaceId']):
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
 				res.body = '{"error":"This user does not have permissions to view displays that belong to this workspace."}'
 				res.status = falcon.HTTP_401
+				db.close()
 				return
-			
+
 			cursor = db.cursor()
 
-			sql = """SELECT Displays.WorkspaceId, Displays.Name, 
+			sql = """SELECT Displays.WorkspaceId, Displays.Name
 				FROM Displays
 				WHERE Displays.WorkspaceId = %s"""
 
@@ -117,7 +119,7 @@ class DisplayRoutes(object):
 
 				json = '{"success": true, "displays": ['
 
-				for displayId, displayName, isAdmin in data:
+				for displayId, displayName in data:
 					json += ('{"id": ' + str(displayId) + ', "name": "' + displayName + '" },')
 
 				if len(data) > 0:
