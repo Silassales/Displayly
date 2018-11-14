@@ -23,6 +23,7 @@ app.add_route('/user', userRoutes)
 app.add_route('/user/register', userRoutes, suffix='register')
 app.add_route('/user/login', userRoutes, suffix='login')
 app.add_route('/user/forgot', userRoutes, suffix='forgot')
+app.add_route('/user/reset', userRoutes, suffix='reset')
 
 app.add_route('/workspaces', workspaceRoutes)
 

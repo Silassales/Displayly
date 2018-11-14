@@ -173,3 +173,39 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_401
 
 			db.close()
+
+	#Reset password
+	def on_post_reset(self, req, res):
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Reset token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+
+			body = self.getBodyFromRequest(req)
+
+			if body == None or 'password' not in body:
+				res.body = '{"error":"New password required."}'
+				res.status = falcon.HTTP_400
+
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+			cursor = db.cursor()
+			sql = "UPDATE Users SET Password = %s WHERE UserId = %s"
+
+			hashedPassword = bcrypt.hashpw(body['password'].encode('utf-8'), bcrypt.gensalt())
+
+			try:
+				cursor.execute(sql, (hashedPassword, tokenContents['userId'],))
+				db.commit()
+				res.body = '{"success": true}'
+				res.status = falcon.HTTP_200
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
+
+			db.close()
