@@ -18,13 +18,13 @@ class TokenRoutes(object):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
-			else:
-				tokenContents = self.decodeToken(req.auth)
+		else:
+			tokenContents = self.decodeToken(req.auth)
 
-				if tokenContents == None:
-					res.status = falcon.HTTP_401
-					res.body = '{"error":"Invalid token"}'
-				else:
-					token = jwt.encode({'userId':tokenContents['userId'], 'exp':datetime.utcnow() + timedelta(seconds=1800)}, 'secret', algorithm='HS256').decode('utf8')
-					res.body = '{"success":true, "token":' + '"{}"'.format(token) + '}'
-					res.status = falcon.HTTP_200
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+			else:
+				token = jwt.encode({'userId':tokenContents['userId'], 'exp':datetime.utcnow() + timedelta(seconds=1800)}, 'secret', algorithm='HS256').decode('utf8')
+				res.body = '{"success":true, "token":' + '"{}"'.format(token) + '}'
+				res.status = falcon.HTTP_200
