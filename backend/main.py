@@ -1,11 +1,8 @@
 import falcon
 from routes.user import UserRoutes
 from routes.workspace import WorkspaceRoutes
-<<<<<<< HEAD
 from routes.display import DisplayRoutes
-=======
 from falcon.http_status import HTTPStatus
->>>>>>> master
 
 class HandleCORS(object):
 	def process_request(self, req, resp):
