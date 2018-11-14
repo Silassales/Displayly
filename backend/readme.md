@@ -60,6 +60,8 @@ This endpoint will return the following information regarding the user: User ID,
 
 In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request for the user you are trying to get details for.
 
+----
+
 ### Reseting Passwords
 
 There are 3 steps to resetting a password: getting the security question, validating the answer, and then changing the password. There is an endpoint for each step as described below:
