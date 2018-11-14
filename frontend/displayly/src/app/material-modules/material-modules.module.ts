@@ -3,7 +3,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatIconModule, MatInputModule, MatSidenavModule, MatMenuModule, MatProgressSpinnerModule
+  MatIconModule, MatInputModule, MatSidenavModule, MatMenuModule, MatProgressSpinnerModule, MatGridListModule
 } from '@angular/material';
 
 import {NgModule} from '@angular/core';
@@ -18,7 +18,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatIconModule,
     MatSidenavModule,
     MatMenuModule,
-    MatProgressSpinnerModule],
+    MatProgressSpinnerModule,
+    MatGridListModule],
   exports: [MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
@@ -27,7 +28,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatIconModule,
     MatSidenavModule,
     MatMenuModule,
-    MatProgressSpinnerModule],
+    MatProgressSpinnerModule,
+    MatGridListModule],
 
 })
 export class MaterialModulesModule {
