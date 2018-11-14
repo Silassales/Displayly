@@ -8,9 +8,10 @@ import {SceneComponent} from './scene/scene.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
+import {RecoverComponent} from './recover/recover.component';
 
 const routes: Routes = [
-  
+
   {path: '', component: HomeComponent},
   {
     path: 'dashboard',
@@ -20,12 +21,13 @@ const routes: Routes = [
       {path: 'workspace', component: WorkspaceComponent},
       {path: 'slide', component: SlideComponent},
       {path: 'scene', component: SceneComponent},
-      {path: 'display', component: DisplayComponent},
+      {path: 'display', component: DisplayComponent}
     ]
   },
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: '**', redirectTo: 'dashboard'}
+  {path: 'recover', component: RecoverComponent},
+  {path: '**', redirectTo: 'dashboard'} // This route must be the last route in the array or it will trigger before routes after it.
 ];
 
 
