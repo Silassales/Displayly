@@ -99,6 +99,12 @@ class DisplayRoutes(object):
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+			
+			if not self.authroizedWorkspace(db, tokenContents['userId'], body['workspaceId']):
+				res.body = '{"error":"This user does not have permissions to view displays that belong to this workspace."}'
+				res.status = falcon.HTTP_401
+				return
+			
 			cursor = db.cursor()
 
 			sql = """SELECT Displays.WorkspaceId, Displays.Name, 
