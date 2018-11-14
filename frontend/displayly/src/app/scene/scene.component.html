@@ -1,10 +1,11 @@
+<p> {{clicked}} </p>
 <div *ngIf="scenes; else else_block">
   <div style="margin: 30px">
     <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-      <mat-grid-tile class="element-content" *ngFor="let scene of scenes">
+      <mat-grid-tile class="grid-element content-element" *ngFor="let scene of scenes" (click)="elementClicked(scene)">
         {{scene}}
       </mat-grid-tile>
-      <mat-grid-tile class="add-element">
+      <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
         <mat-icon>add</mat-icon>
         <p>scene</p>
       </mat-grid-tile>
@@ -14,7 +15,7 @@
 <ng-template #else_block>
   <div style="margin: 30px">
     <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-      <mat-grid-tile class="add-element">
+      <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
         <mat-icon>add</mat-icon>
         <p>scene</p>
       </mat-grid-tile>

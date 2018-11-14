@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SceneComponent implements OnInit {
 
+  clicked: number;
   adjustedCols: number;
   adjustedColsList = {
     xl: 10,
@@ -19,6 +20,7 @@ export class SceneComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.clicked = 0;
     if (window.innerWidth >= 1000) {
       this.adjustedCols = this.adjustedColsList.xl;
     } else if (window.innerWidth >= 500) {
@@ -38,5 +40,11 @@ export class SceneComponent implements OnInit {
     }
   }
 
+  elementClicked(scene: number) {
+    this.clicked = scene;
+  }
 
+  addElementClicked() {
+    this.clicked = -99999;
+  }
 }

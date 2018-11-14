@@ -1,4 +1,8 @@
-.element-content {
+.grid-element {
+  border-radius: 5px;
+}
+
+.content-element {
   background: grey;
 }
 
