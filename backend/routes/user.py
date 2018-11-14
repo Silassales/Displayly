@@ -119,7 +119,7 @@ class UserRoutes(object):
 
 		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 		cursor = db.cursor()
-		sql = "SELECT SecurityQuestion, FROM Users WHERE Email = %s"
+		sql = "SELECT SecurityQuestion FROM Users WHERE Email = %s"
 
 		try:
 			cursor.execute(sql, (email,))
