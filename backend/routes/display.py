@@ -33,7 +33,7 @@ class DisplayRoutes(object):
 			data = cursor.fetchall()
 
 			for workspaceIdentifier in data:
-				if workspaceId == workspaceIdentifier:
+				if workspaceId == workspaceIdentifier[0]:
 					return True
 
 			return False
