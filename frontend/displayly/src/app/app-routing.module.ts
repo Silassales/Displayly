@@ -7,8 +7,11 @@ import {SlideComponent} from './slide/slide.component';
 import {SceneComponent} from './scene/scene.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {HomeComponent} from './home/home.component';
 
 const routes: Routes = [
+  
+  {path: '', component: HomeComponent},
   {
     path: 'dashboard',
     component: DisplaylyToolbarWrapperComponent,
@@ -21,7 +24,8 @@ const routes: Routes = [
     ]
   },
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: '**', component: LoginComponent}
 ];
 
 

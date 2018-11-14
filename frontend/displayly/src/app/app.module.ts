@@ -6,13 +6,15 @@ import {AppComponent} from './app.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModulesModule} from './material-modules/material-modules.module';
-import {DisplaylyToolbarWrapperComponent} from './displayly-toolbar-wrapper/displayly-toolbar-wrapper.component';
-import {WorkspaceComponent} from './workspace/workspace.component';
-import {DisplayComponent} from './display/display.component';
-import {SlideComponent} from './slide/slide.component';
-import {SceneComponent} from './scene/scene.component';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
+
+import { DisplaylyToolbarWrapperComponent } from './displayly-toolbar-wrapper/displayly-toolbar-wrapper.component';
+import { WorkspaceComponent } from './workspace/workspace.component';
+import { DisplayComponent } from './display/display.component';
+import { SlideComponent } from './slide/slide.component';
+import { SceneComponent } from './scene/scene.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
@@ -24,7 +26,8 @@ import {HttpClientModule} from '@angular/common/http';
     SlideComponent,
     SceneComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
