@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
+import {AuthenticationService} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +16,11 @@ export class RegisterComponent {
   answerValidator = new FormControl('', [Validators.required]);
   // passwordConfirmValidator = new FormControl('', [Validators.required]);
   hide = true;
+  loading = false;
+  error: string = null;
+
+  constructor(private auth: AuthenticationService, private router: Router) {
+  }
 
   getEmailErrorMessage() {
     return this.emailValidator.hasError('required') ? 'You must enter a value' :
@@ -26,6 +33,23 @@ export class RegisterComponent {
       return 'Password is required';
     }
     return null;
+  }
+
+  submit() {
+    this.loading = true;
+    this.auth.register(this.emailValidator.value,
+      this.passwordValidator.value,
+      this.questionValidator.value,
+      this.answerValidator.value,
+      this.nameValidator.value).subscribe(data => {
+      console.log(data);
+      this.router.navigate(['/login']);
+    }, err => {
+      console.log(err);
+      this.loading = false;
+      // If authentication was not successful, display the error. If no error was provided, show a generic error
+      this.error = (err.error.error) ? err.error.error : 'There was an error with the system, try again later';
+    });
   }
 
   //
@@ -55,6 +79,7 @@ export class RegisterComponent {
       this.passwordValidator.hasError('required') ||
       this.nameValidator.hasError('required') ||
       this.questionValidator.hasError('required') ||
-      this.answerValidator.hasError('required');
+      this.answerValidator.hasError('required') ||
+      this.loading;
   }
 }
