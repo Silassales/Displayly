@@ -107,9 +107,8 @@ class UserRoutes(object):
 
 			db.close()
 
-	#Forgot password
+	#Forgot password, get question
 	def on_get_forgot(self, req, res):
-
 		email = req.get_param("email")
 
 		if email == None:
@@ -136,3 +135,37 @@ class UserRoutes(object):
 			res.status = falcon.HTTP_401
 
 		db.close()
+
+	#Forgot password, authorize answer
+	def on_post_forgot(self, req, res):
+		body = self.getBodyFromRequest(req)
+		if body == None or 'email' not in body or 'answer' not in body:
+			res.body = '{"error":"Email and answer to security question are required."}'
+			res.status = falcon.HTTP_400
+		else:
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+			cursor = db.cursor()
+			sql = "SELECT UserId, SecurityAnswer FROM Users WHERE Email = %s"
+
+			try:
+				cursor.execute(sql, (body['email'],))
+				data = cursor.fetchone()
+
+				if data == None or len(data) == 0:
+					res.body = '{"error":"Account not found"}'
+					res.status = falcon.HTTP_400
+					db.close()
+					return
+
+				if bcrypt.checkpw(body['answer'].encode('utf8'), data[1].encode('utf8')):
+					token = jwt.encode({'userId':data[0], 'validForPasswordReset':True, 'exp':datetime.utcnow() + timedelta(seconds=300)}, 'secret', algorithm='HS256').decode('utf8')
+					res.body = '{"success":true, "resetToken":' + '"{}"'.format(token) + '}'
+					res.status = falcon.HTTP_200
+				else:
+					res.body = '{"error":"Incorrect answer"}'
+					res.status = falcon.HTTP_401
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
+
+			db.close()
