@@ -58,12 +58,14 @@ class DisplayRoutes(object):
 			if body == None or 'name' not in body or "workspaceId" not in body:
 				res.body = '{"error":"Display name and Workspace ID required."}'
 				res.status = falcon.HTTP_400
+				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 			if not self.authroizedWorkspace(db, tokenContents['userId'], body['workspaceId']):
 				res.body = '{"error":"This user does not have permissions to add displays to this workspace."}'
 				res.status = falcon.HTTP_401
+				return
 
 			cursor = db.cursor()
 			sql = "INSERT INTO Displays (Name, WorkspaceId) VALUES (%s, %s)"
