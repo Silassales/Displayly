@@ -154,11 +154,17 @@ A sample response would look like:
         {
             "id": 1,
             "name": "A display"
+	    "sceneId": null
         },
         {
             "id": 2,
             "name": "Another display",
+	    "sceneId": 1
         }
     ]
 }
 ```
+
+* `id`: A unique identifier for the display.
+* `name`: The name of the display. This is not unique.
+* `sceneId`: The unique identifier of the scene that is currently being displayed on the display. `null` if no scene is assigned to the display.
