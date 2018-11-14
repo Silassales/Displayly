@@ -24,6 +24,11 @@ class DisplayRoutes(object):
 		else:
 			return "false"
 
+	def valueToString(self, value)
+		if value == None:
+			return 'null'
+		return str(value)
+
 	def authroizedWorkspace(self, db, userId, workspaceId):
 		cursor = db.cursor()
 		sql = "SELECT WorkspaceId FROM UsersToWorkspaces WHERE UserId = %s"
@@ -120,7 +125,7 @@ class DisplayRoutes(object):
 				json = '{"success": true, "displays": ['
 
 				for displayId, displayName, sceneId in data:
-					json += ('{"id": ' + str(displayId) + ', "name": "' + displayName + '", "sceneId": "' + sceneId + '"},')
+					json += ('{"id": ' + str(displayId) + ', "name": "' + displayName + '", "sceneId": ' + self.valueToString(sceneId) + '},')
 
 				if len(data) > 0:
 					json = json[:-1]
