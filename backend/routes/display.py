@@ -109,7 +109,7 @@ class DisplayRoutes(object):
 
 			cursor = db.cursor()
 
-			sql = """SELECT Displays.DisplayId, Displays.Name
+			sql = """SELECT DisplayId, Name, SceneId
 				FROM Displays
 				WHERE Displays.WorkspaceId = %s"""
 
@@ -119,8 +119,8 @@ class DisplayRoutes(object):
 
 				json = '{"success": true, "displays": ['
 
-				for displayId, displayName in data:
-					json += ('{"id": ' + str(displayId) + ', "name": "' + displayName + '" },')
+				for displayId, displayName, sceneId in data:
+					json += ('{"id": ' + str(displayId) + ', "name": "' + displayName + '", "sceneId": "' + sceneId + '"},')
 
 				if len(data) > 0:
 					json = json[:-1]
