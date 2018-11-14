@@ -140,4 +140,22 @@ Endpoint: `GET http://131.104.48.83:5000/displays/{workspaceId}`
 
 This endpoint functions a bit differently than the other current endpoints. There is no body required, instead, to get a list of displays belonging to a workspace, you specify the Workspace ID directly in the URL. For example, if I wanted to see the list of displays for a workspace with ID 1: `GET http://131.104.48.83:5000/displays/1`.
 
-In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to access its displays
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to access its displays.
+
+A sample response would look like:
+
+```
+{
+    "success": true,
+    "displays": [
+        {
+            "id": 1,
+            "name": "A display"
+        },
+        {
+            "id": 2,
+            "name": "Another display",
+        }
+    ]
+}
+```
