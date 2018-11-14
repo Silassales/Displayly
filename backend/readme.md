@@ -98,7 +98,7 @@ If the answer is incorrect, a `401` error will be returned. If the answer is cor
 ```
 {
     "success": true,
-    "resetToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjI5LCJleHAiOjE1NDIyMjg4OTEsInZhbGlkRm9yUGFzc3dvcmRSZXNldCI6dHJ1ZX0.pDAGf1Y0vKjUeVzr2fG1pckjMXsRp1EMnvVxtFbYqmk"
+    "resetToken": reset_token_here
 }
 ```
 
