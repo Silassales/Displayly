@@ -108,3 +108,36 @@ If a user belongs to two workspaces, the response would look like:
     ]
 }
 ```
+
+### Displays
+
+**1. Create A New Display**
+
+Endpoint: `POST http://131.104.48.83:5000/displays`
+
+In the body, you must include the following properties: Name (the name of the display), and Workspace ID.
+
+```
+{
+	"name": "Name of display",
+	"workspaceId": #
+}
+```
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to add displays to it
+
+If created successfully, the following will be returned (where `displayId` refers to the unique id belonging to the display):
+
+```
+{
+	"success": true,
+	"displayId": #
+}
+```
+**2. Get A List Of Displays In A Workspace**
+
+Endpoint: `GET http://131.104.48.83:5000/displays/{workspaceId}`
+
+This endpoint functions a bit differently than the other current endpoints. There is no body required, instead, to get a list of displays belonging to a workspace, you specify the Workspace ID directly in the URL. For example, if I wanted to see the list of displays for a workspace with ID 1: `GET http://131.104.48.83:5000/displays/1`.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to access its displays
