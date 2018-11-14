@@ -41,7 +41,7 @@ class DisplayRoutes(object):
 		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 			return False
 
-	def on_post(self, req, res):
+	def on_post(self, req, res, workspaceId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
@@ -55,14 +55,14 @@ class DisplayRoutes(object):
 
 			body = self.getBodyFromRequest(req)
 
-			if body == None or 'name' not in body or "workspaceId" not in body:
-				res.body = '{"error":"Display name and Workspace ID required."}'
+			if body == None or 'name' not in body:
+				res.body = '{"error":"Display name required."}'
 				res.status = falcon.HTTP_400
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
-			if not self.authroizedWorkspace(db, tokenContents['userId'], body['workspaceId']):
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
 				res.body = '{"error":"This user does not have permissions to add displays to this workspace."}'
 				res.status = falcon.HTTP_401
 				db.close()
