@@ -13,10 +13,14 @@ class UserRoutes(object):
 			return None
 		return json.loads(data)
 
-	def decodeToken(self, token):
+	def decodeToken(self, token, expectedResetToken = False):
 		try:
 			options = {'verify_exp': True}
-			return jwt.decode(token, 'secret', verify='True', algorithms=['HS256'], options=options)
+			decodedToken = jwt.decode(token, 'secret', verify='True', algorithms=['HS256'], options=options)
+	
+			if expectedResetToken == False or decodedToken["validForPasswordReset"] == None:
+				return decodedToken
+			return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
 

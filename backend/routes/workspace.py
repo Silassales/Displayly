@@ -14,7 +14,11 @@ class WorkspaceRoutes(object):
 	def decodeToken(self, token):
 		try:
 			options = {'verify_exp': True}
-			return jwt.decode(token, 'secret', verify='True', algorithms=['HS256'], options=options)
+			decodedToken = jwt.decode(token, 'secret', verify='True', algorithms=['HS256'], options=options)
+
+			if decodedToken["validForPasswordReset"] == None:
+				return decodedToken
+			return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
 
