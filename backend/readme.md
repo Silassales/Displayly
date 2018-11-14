@@ -2,7 +2,7 @@
 Starting The API
 ----------------
 
-To start the API, navigate to the following location on the server: "~/Displaly/backend" and then enter the following command:
+To start the API, navigate to the following location on the server: `~/Displaly/backend` and then enter the following command:
 
 `gunicorn -b 131.104.48.83:5000 main:app --reload`
 
@@ -121,6 +121,16 @@ In order to access this endpoint, you must include the JWT password reset token 
 If the password is successfully saved, a `200` status code will be returned, otherwise `400` or `401` with a description explaining why the password could not be reset.
 
 **IMPORTANT**: The reset access token will expire 5 minutes after being issued. If the token expiries, you will need to call the previous endpoint (answer validation) to get a new token. Also, after reseting the password, this token can not be used to access other endpoints. You will need to login using the proper login endpoint to get a "full" access token.
+
+----
+
+### JWT Token Refreshing
+
+Endpoint: `GET http://131.104.48.83:5000/token`
+
+When a user logs in, the JWT token generate is set to expire in 30 minutes. Use this endpoint to get a new JWT token that will expiry 30 minutes from when it is issued.
+
+In order to access this endpoint, you must include the current JWT token in the `Authorization` header of the network request. Also worth noting, if you attempt to call this endpoint after the current JWT token expires, you will need to use the login endpoint instead. 
 
 ----
 
