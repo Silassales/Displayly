@@ -61,18 +61,18 @@ class UserRoutes(object):
 			cursor = db.cursor()
 			sql = "INSERT INTO Users (Name, Email, Password, SecurityQuestion, SecurityAnswer) VALUES (%s, %s, %s, %s, %s)"
 			hashedPassword = bcrypt.hashpw(body['password'].encode('utf-8'), bcrypt.gensalt())
-			hashedQuestion = bcrypt.hashpw(body['question'].encode('utf-8'), bcrypt.gensalt())
 			hashedAnswer = bcrypt.hashpw(body['answer'].encode('utf-8'), bcrypt.gensalt())
 
 			try:
-				cursor.execute(sql, (body['name'], body['email'], hashedPassword, hashedQuestion, hashedAnswer))
+				cursor.execute(sql, (body['name'], body['email'], hashedPassword, body['question'], hashedAnswer))
 				db.commit()
 				res.body = '{"success": true}'
 				res.status = falcon.HTTP_200
-				db.close()
 			except (mysql.connector.errors.IntegrityError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_400
+
+			db.close()
 
 	def on_post_login(self, req, res):
 		body = self.getBodyFromRequest(req)
@@ -83,14 +83,15 @@ class UserRoutes(object):
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
 			sql = "SELECT Password, UserId FROM Users WHERE Email = %s"
+
 			try:
 				cursor.execute(sql, (body['email'],))
 				data = cursor.fetchone()
-				db.close()
 
 				if data == None or len(data) == 0:
 					res.body = '{"error":"Invalid credentials"}'
 					res.status = falcon.HTTP_401
+					db.close()
 					return
 
 				if bcrypt.checkpw(body['password'].encode('utf8'), data[0].encode('utf8')):
@@ -103,3 +104,35 @@ class UserRoutes(object):
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_401
+
+			db.close()
+
+	#Forgot password
+	def on_get_forgot(self, req, res);
+
+		email = req.get_param("email")
+
+		if email == None:
+			res.body = '{"error":"Email not included in request"}'
+			res.status = falcon.HTTP_400
+			return
+
+		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+		cursor = db.cursor()
+		sql = "SELECT SecurityQuestion, FROM Users WHERE Email = %s"
+
+		try:
+			cursor.execute(sql, (email,))
+			data = cursor.fetchone()
+
+			if data == None or len(data) == 0:
+				res.body = '{"error":"Account not found"}'
+				res.status = falcon.HTTP_400
+			else:
+				res.body = '{"success":true, "question":' + ' "' + data[0] + '"}'
+				res.status = falcon.HTTP_200
+		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+			res.body = '{' + '"error":"{}"'.format(e) + '}'
+			res.status = falcon.HTTP_401
+
+		db.close()
