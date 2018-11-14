@@ -1,0 +1,11 @@
+p{
+    text-align: center;
+}
+
+button{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display: block;
+    margin-left: 25%;
+    width: 50%;
+}
