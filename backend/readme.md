@@ -100,7 +100,7 @@ If the answer is incorrect, a `401` error will be returned. If the answer is cor
 }
 ```
 
-**IMPORTANT**: The reset access token can only be used in the next endpoint described and will expiry 5 minutes after being issued. If the token expiries, you will need to call this endpoint again to get a new token.
+**IMPORTANT**: The reset access token can only be used in the next endpoint described and will expire 5 minutes after being issued. If the token expiries, you will need to call this endpoint again to get a new token.
 
 **3. Resetting The Password**
 
@@ -118,7 +118,7 @@ In order to access this endpoint, you must include the JWT password reset token 
 
 If the password is successfully saved, a `200` status code will be returned, otherwise `400` or `401` with a description explaining why the password could not be reset.
 
-**IMPORTANT**: The reset access token will expiry 5 minutes after being issued. If the token expiries, you will need to call the previous endpoint (answer validation) to get a new token. Also, after reseting the password, this token can not be used to access other endpoints. You will need to login using the proper login endpoint to get a "full" access token.
+**IMPORTANT**: The reset access token will expire 5 minutes after being issued. If the token expiries, you will need to call the previous endpoint (answer validation) to get a new token. Also, after reseting the password, this token can not be used to access other endpoints. You will need to login using the proper login endpoint to get a "full" access token.
 
 ### Workspaces
 
