@@ -109,7 +109,7 @@ class DisplayRoutes(object):
 
 			cursor = db.cursor()
 
-			sql = """SELECT Displays.WorkspaceId, Displays.Name
+			sql = """SELECT Displays.DisplayId, Displays.Name
 				FROM Displays
 				WHERE Displays.WorkspaceId = %s"""
 
