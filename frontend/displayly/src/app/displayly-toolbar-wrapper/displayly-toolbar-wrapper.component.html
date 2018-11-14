@@ -3,7 +3,7 @@
 	<img width="250px" src="assets/logo.png"/>
 	<button id="accountMenu"  mat-button [matMenuTriggerFor]="account"><mat-icon>person</mat-icon>Account</button>
 	<mat-menu #account="matMenu">
-		<button mat-menu-item>Logout</button>
+		<button mat-menu-item (click)="logout()">Logout</button>
 	</mat-menu>
 </div>
 

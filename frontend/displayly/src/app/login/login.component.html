@@ -1,5 +1,6 @@
 <mat-card class="form-container center-div form-card">
   <img class="form-logo" src="assets/logo.png">
+  <mat-error>{{error}}</mat-error>
   <mat-form-field>
     <input matInput placeholder="email" required [formControl]="emailValidator">
     <mat-error *ngIf="emailValidator.invalid">{{getErrorMessage()}}</mat-error>
@@ -9,6 +10,9 @@
     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     <mat-error *ngIf="passwordValidator.invalid">Password is required</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="buttonDisabled()">Login</button>
+  <button mat-raised-button color="primary" [disabled]="buttonDisabled()" (click)="submit()">
+    <mat-spinner *ngIf="loading" [diameter]="25" style="margin: 0 auto;"></mat-spinner>
+    <div *ngIf="!loading">Login</div>
+  </button>
   <a class="form-alternative" href="/register">Need an account? Click here to register</a>
 </mat-card>
