@@ -26,3 +26,4 @@ app.add_route('/user/login', userRoutes, suffix='login')
 app.add_route('/workspaces', workspaceRoutes)
 
 app.add_route('/displays', displayRoutes)
+app.add_route('/displays/{workspaceId}', displayRoutes)

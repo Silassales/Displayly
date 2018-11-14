@@ -85,3 +85,43 @@ class DisplayRoutes(object):
 				res.status = falcon.HTTP_400
 
 			db.close()
+	
+	def on_get(self, req, res, workspaceId):
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Authorization token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+			cursor = db.cursor()
+
+			sql = """SELECT Displays.WorkspaceId, Displays.Name, 
+				FROM Displays
+				WHERE Displays.WorkspaceId = %s"""
+
+			try:
+				cursor.execute(sql, (workspaceId,))
+				data = cursor.fetchall()
+
+				json = '{"success": true, "displays": ['
+
+				for displayId, displayName, isAdmin in data:
+					json += ('{"id": ' + str(displayId) + ', "name": "' + displayName + '" },')
+
+				if len(data) > 0:
+					json = json[:-1]
+
+				res.status = falcon.HTTP_200
+				res.body = json + ']}'
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
+
+			db.close()
