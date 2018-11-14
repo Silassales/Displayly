@@ -1,5 +1,6 @@
 <mat-card class="form-container center-div form-card">
   <img class="form-logo" src="assets/logo.png">
+  <mat-error>{{error}}</mat-error>
   <mat-form-field>
     <input matInput placeholder="full name" required [formControl]="nameValidator">
     <mat-error *ngIf="nameValidator.invalid">Name is required</mat-error>
@@ -27,6 +28,9 @@
     <input matInput placeholder="security question answer" required [formControl]="answerValidator">
     <mat-error *ngIf="answerValidator.invalid">Security answer is required</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="buttonDisabled()">Register</button>
+  <button mat-raised-button color="primary" [disabled]="buttonDisabled()" (click)="submit()">
+    <mat-spinner *ngIf="loading" [diameter]="25" style="margin: 0 auto;"></mat-spinner>
+    <div *ngIf="!loading">Register</div>
+  </button>
   <a class="form-alternative" href="/login">Already have an account? Click here to login</a>
 </mat-card>

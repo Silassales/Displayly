@@ -1,4 +1,6 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-displayly-toolbar-wrapper',
@@ -7,13 +9,19 @@ import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 })
 export class DisplaylyToolbarWrapperComponent implements OnInit {
 
-  constructor()
-  {
-    
+  constructor(private auth: AuthenticationService, private router: Router) { }
+
+  ngOnInit() {
+    console.log(this.auth.isAuthenticated());
+    if (!this.auth.isAuthenticated()) { // If the user is not authenticated, then redirect them to the homepage
+      this.router.navigate(['/']);
+    }
   }
 
-  ngOnInit()
-  {
+  logout() {
+    // Call logout and move the user to the homepage
+    this.auth.logout();
+    this.router.navigate(['/']);
   }
 
 }
