@@ -73,7 +73,7 @@ class DisplayRoutes(object):
 			sql2 = "SELECT MAX(DisplayId) FROM Displays"
 
 			try:
-				cursor.execute(sql, (body['name'], body['workspaceId'], ))
+				cursor.execute(sql, (body['name'], workspaceId, ))
 				db.commit()
 				cursor.execute(sql2)
 				data = cursor.fetchone()
