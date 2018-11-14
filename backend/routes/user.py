@@ -108,7 +108,7 @@ class UserRoutes(object):
 			db.close()
 
 	#Forgot password
-	def on_get_forgot(self, req, res);
+	def on_get_forgot(self, req, res):
 
 		email = req.get_param("email")
 
