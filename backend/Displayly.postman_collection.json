@@ -327,7 +327,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"dbianchi@uoguelph.com\",\n\t\"password\":\"mypassword\"\n}"
+							"raw": "{\n\t\"email\":\"dbianchi@uoguelph.ca\",\n\t\"password\":\"domenicbianchi\"\n}"
 						},
 						"url": {
 							"raw": "http://131.104.48.83:5000/user/login",
@@ -378,6 +378,39 @@
 							]
 						},
 						"description": "Get information about a user.\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjMzLCJleHAiOjE1NDIyMzgzODB9.JVNCHM5GPiGarC7DqDkLxSy4hpIgnuASQBkbY9tET58",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://131.104.48.83:5000/token",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"83"
+							],
+							"port": "5000",
+							"path": [
+								"token"
+							]
+						},
+						"description": "The JWT access token is set to expire ever 30 minutes. Use this endpoint to get a new token (aka, another 30 minutes of access). You must call this endpoint before the current token expires, otherwise you will have log in again.\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
 					},
 					"response": []
 				}
