@@ -175,6 +175,8 @@ If a user belongs to two workspaces, the response would look like:
 
 **1. Create A New Display**
 
+**WARNING: The URL of this endpoint may change in the future**
+
 Endpoint: `POST http://131.104.48.83:5000/displays/{workspaceId}`
 
 In the body, you must include the following properties: Name (the name of the display). In the actual URL, you must specify the workspace ID that you wish to add the display to. For example:
@@ -198,6 +200,8 @@ If created successfully, the following will be returned (where `displayId` refer
 }
 ```
 **2. Get A List Of Displays In A Workspace**
+
+**WARNING: The URL of this endpoint may change in the future**
 
 Endpoint: `GET http://131.104.48.83:5000/displays/{workspaceId}`
 
