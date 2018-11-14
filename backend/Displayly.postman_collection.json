@@ -188,7 +188,7 @@
 					{
 						"key": "Authorization",
 						"type": "text",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIxNjQxNjV9.P3O6zojH3EgqbIu4Vb_TfRoov-bpEgCOZAPJKIjoD40"
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIxNjY1NjV9.5FLD8NoLo7W-s19aVqeVbVr5NgTIji5eIYnyN6f47Do"
 					},
 					{
 						"key": "Content-Type",
@@ -199,10 +199,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"A Display\",\n\t\"workspaceId\": 1\n}"
+					"raw": "{\n\t\"name\": \"A Display\"\n}"
 				},
 				"url": {
-					"raw": "http://131.104.48.83:5000/displays",
+					"raw": "http://131.104.48.83:5000/displays/1",
 					"protocol": "http",
 					"host": [
 						"131",
@@ -212,7 +212,8 @@
 					],
 					"port": "5000",
 					"path": [
-						"displays"
+						"displays",
+						"1"
 					]
 				},
 				"description": "Create a new display. Provide the name of the display and the workspace ID that the display should be added to. Only users who have access to a workspace can add displays to it\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
@@ -227,7 +228,7 @@
 					{
 						"key": "Authorization",
 						"type": "text",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIxNjQxNjV9.P3O6zojH3EgqbIu4Vb_TfRoov-bpEgCOZAPJKIjoD40"
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIxNjY1NjV9.5FLD8NoLo7W-s19aVqeVbVr5NgTIji5eIYnyN6f47Do"
 					}
 				],
 				"body": {
