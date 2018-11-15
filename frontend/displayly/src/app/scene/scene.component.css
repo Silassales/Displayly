@@ -2,11 +2,16 @@
   border-radius: 5px;
 }
 
-.content-element {
-  background: grey;
+.content-element mat-card{
+  width: 95%;
+  height: 95%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-.add-element {
+.add-element mat-card{
+  width: 95%;
+  height: 95%;
+  box-sizing: border-box;
   text-align: center;
-  background: grey;
 }

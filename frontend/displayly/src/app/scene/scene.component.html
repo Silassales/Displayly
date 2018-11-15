@@ -3,11 +3,20 @@
   <div style="margin: 30px">
     <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
       <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
-        <mat-icon>add</mat-icon>
-        <p>scene</p>
+        <mat-card>
+          <mat-icon>add</mat-icon>
+          <mat-card-content>
+            <p>Scene</p>
+          </mat-card-content>
+        </mat-card>
       </mat-grid-tile>
       <mat-grid-tile class="grid-element content-element" *ngFor="let scene of scenes" (click)="elementClicked(scene)">
-        {{scene}}
+        <mat-card>
+          <mat-icon>dashboard</mat-icon>
+         <mat-card-content>
+           {{scene}}
+         </mat-card-content>
+        </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
