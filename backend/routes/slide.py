@@ -84,8 +84,8 @@ class SlideRoutes(object):
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_400
-                db.close()
-                return
+				db.close()
+				return
 
 			for image in body['images']:
                 with open("~/imgs/" + image['name'], "wb") as fh:
