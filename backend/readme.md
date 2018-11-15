@@ -18,6 +18,7 @@ API Reference
 * Resetting Passwords: https://github.com/jzavarella/Displayly/tree/master/backend#reseting-passwords
 * Workspaces: https://github.com/jzavarella/Displayly/tree/master/backend#workspaces
 * Scenes: https://github.com/jzavarella/Displayly/tree/master/backend#scenes
+* Slides: https://github.com/jzavarella/Displayly/tree/master/backend#slides
 * Displays: https://github.com/jzavarella/Displayly/tree/master/backend#displays
 
 ### Users
