@@ -88,7 +88,7 @@ class SlideRoutes(object):
 				return
 
 			for image in body['images']:
-				f = open("~/imgs/" + image['name'] , "wb+"):
+				f = open("~/imgs/" + image['name'] , "w+"):
 				f.write(base64.decodebytes(image['data']))
 				f.close()
 
