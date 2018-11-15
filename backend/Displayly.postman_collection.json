@@ -130,7 +130,7 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIxNDkxNDUsInVzZXJJZCI6MTZ9.uGQfBq1OTBT345yu-B7N_qO7IOIfcgiYBy2i8XlNXC4"
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDIyNDYwMDgsInVzZXJJZCI6MzB9.eGL95-uxTqvEJqcDOwj7SADHC8l2c4U4xDjEgqb98iU"
 							},
 							{
 								"key": "Content-Type",
@@ -141,7 +141,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"A test workspace2\"\n}"
+							"raw": "{\n\t\"name\": \"Jack is Awesome\"\n}"
 						},
 						"url": {
 							"raw": "http://131.104.48.83:5000/workspaces",
@@ -168,7 +168,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjI5LCJleHAiOjE1NDIyMjc4ODIsInZhbGlkRm9yUGFzc3dvcmRSZXNldCI6dHJ1ZX0.rSpOrf17byUtvnkjt1DgDrT9F15BkeXbURKorG19CNY",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjMwLCJleHAiOjE1NDIzMzI0NTV9.2rn3_03UZ_iqYAx7yB_Wr8h9CKDlwUYo6mPwNQEbVMk",
 								"type": "text"
 							}
 						],
@@ -327,7 +327,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"dbianchi@uoguelph.ca\",\n\t\"password\":\"domenicbianchi\"\n}"
+							"raw": "{\n\t\"email\":\"email@test.com\",\n\t\"password\":\"password\"\n}"
 						},
 						"url": {
 							"raw": "http://131.104.48.83:5000/user/login",
@@ -411,6 +411,85 @@
 							]
 						},
 						"description": "The JWT access token is set to expire ever 30 minutes. Use this endpoint to get a new token (aka, another 30 minutes of access). You must call this endpoint before the current token expires, otherwise you will have log in again.\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scenes",
+			"item": [
+				{
+					"name": "Create Scene",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMwLCJleHAiOjE1NDIzMzIwOTh9.Q7IhFGaNW4B400OAbLsWhk3gy-UvMiz3W7W-Dm3mnFk",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"A scene3\"\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.83:5000/workspaces/39/scenes",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"83"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"39",
+								"scenes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Scenes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjMwLCJleHAiOjE1NDIzMzY1MjN9.1qoggFklO4fFvEvFBVFsGw64qVSWObsZdee19vSSYOU"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://131.104.48.83:5000/workspaces/39/scenes",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"83"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"39",
+								"scenes"
+							]
+						}
 					},
 					"response": []
 				}
