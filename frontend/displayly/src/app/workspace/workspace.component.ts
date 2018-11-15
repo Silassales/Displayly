@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {SceneserviceService} from '../sceneservice.service';
 import {WorkspaceserviceService} from '../workspaceservice.service';
+import {MatDialog} from '@angular/material';
+import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-workspace-modal.component';
 
 @Component({
   selector: 'app-workspace-component',
@@ -18,7 +20,7 @@ export class WorkspaceComponent implements OnInit {
   };
   workspaces: Object;
 
-  constructor(private workspaceService: WorkspaceserviceService) { }
+  constructor(private workspaceService: WorkspaceserviceService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.clicked = 0;
@@ -42,7 +44,7 @@ export class WorkspaceComponent implements OnInit {
     }
   }
 
-  getWorkspaces(){
+  getWorkspaces() {
     this.workspaceService.getWorkspaces().subscribe( workspaces => this.workspaces = workspaces);
   }
 
@@ -51,7 +53,13 @@ export class WorkspaceComponent implements OnInit {
   }
 
   addElementClicked() {
-    this.clicked = -99999;
+    const dialogRef = this.dialog.open(CreateWorkspaceModalComponent, {
+      width: 'auto'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getWorkspaces();
+    });
   }
 
 }
