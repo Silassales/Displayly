@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SceneserviceService} from '../sceneservice.service';
+import {WorkspaceserviceService} from '../workspaceservice.service';
 
 @Component({
   selector: 'app-workspace-component',
@@ -7,9 +9,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkspaceComponent implements OnInit {
 
-  constructor() { }
+  clicked: number;
+  adjustedCols: number;
+  adjustedColsList = {
+    xl: 10,
+    md: 5,
+    xs: 1
+  };
+  scenes = [];
 
-  ngOnInit() {
+  constructor(private workspaceService: WorkspaceserviceService) { }
+
+  ngOnInit(): void {
+    this.clicked = 0;
+    if (window.innerWidth >= 1000) {
+      this.adjustedCols = this.adjustedColsList.xl;
+    } else if (window.innerWidth >= 500) {
+      this.adjustedCols = this.adjustedColsList.md;
+    } else {
+      this.adjustedCols = this.adjustedColsList.xs;
+    }
+    this.getWorkspaces();
+  }
+
+  onResize(event) {
+    if (event.target.innerWidth >= 1000) {
+      this.adjustedCols = this.adjustedColsList.xl;
+    } else if (event.target.innerWidth >= 500) {
+      this.adjustedCols = this.adjustedColsList.md;
+    } else {
+      this.adjustedCols = this.adjustedColsList.xs;
+    }
+  }
+
+  getWorkspaces(){
+    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
+  }
+
+  elementClicked(workspace: number) {
+    this.clicked = workspace;
+  }
+
+  addElementClicked() {
+    this.clicked = -99999;
   }
 
 }

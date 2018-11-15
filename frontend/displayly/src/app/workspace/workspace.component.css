@@ -1,0 +1,12 @@
+.grid-element {
+  border-radius: 5px;
+}
+
+.content-element {
+  background: grey;
+}
+
+.add-element {
+  text-align: center;
+  background: grey;
+}
