@@ -37,7 +37,7 @@ class SceneRoutes(object):
 		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 			return False
 
-    def on_post(self, req, res):
+	def on_post(self, req, res):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
