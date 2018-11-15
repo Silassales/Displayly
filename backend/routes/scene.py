@@ -57,19 +57,16 @@ class SceneRoutes(object):
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
-			sql = "INSERT INTO Scenes (Name) VALUES (%s)"
+			sql = "INSERT INTO Scenes (Name, WorkspaceId) VALUES (%s)"
 			sql2 = "SELECT MAX(SceneId) FROM Scenes"
-			sql3 = "INSERT INTO ScenesToWorkspaces (SceneId, WorkspaceId) VALUES (%s, %s)"
 
 			try:
-				cursor.execute(sql, (body['name'],))
+				cursor.execute(sql, (body['name'], body['workspaceId'], ))
 				db.commit()
 				cursor.execute(sql2)
 				data = cursor.fetchone()
-				cursor.execute(sql3, (data[0], body['workspaceId']))
-				db.commit()
 
-				res.body = '{"success": true, "workspaceId": ' + str(data[0]) + '}'
+				res.body = '{"success": true, "sceneId": ' + str(data[0]) + '}'
 				res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:

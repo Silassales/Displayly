@@ -99,7 +99,7 @@ class UserRoutes(object):
 					return
 
 				if bcrypt.checkpw(body['password'].encode('utf8'), data[0].encode('utf8')):
-					token = jwt.encode({'userId':data[1], 'exp':datetime.utcnow() + timedelta(seconds=1800)}, 'secret', algorithm='HS256').decode('utf8')
+					token = jwt.encode({'userId':data[1], 'exp':datetime.utcnow() + timedelta(seconds=86400)}, 'secret', algorithm='HS256').decode('utf8')
 					res.body = '{"success":true, "token":' + '"{}"'.format(token) + '}'
 					res.status = falcon.HTTP_200
 				else:
