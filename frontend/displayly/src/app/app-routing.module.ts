@@ -18,12 +18,11 @@ const routes: Routes = [
     component: DisplaylyToolbarWrapperComponent,
     children: [
       {path: '', redirectTo: 'workspace', pathMatch: 'full'},
-      {path: 'workspace', component: WorkspaceComponent},
-      {path: 'slide', component: SlideComponent},
-      {path: 'scene', component: SceneComponent},
-      {path: 'display', component: DisplayComponent}
-    ]
-  },
+      {path: 'workspace', component: WorkspaceComponent,
+      children:[
+
+      ]},
+  ]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'recover', component: RecoverComponent},
