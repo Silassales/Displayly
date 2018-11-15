@@ -16,7 +16,7 @@ export class WorkspaceComponent implements OnInit {
     md: 5,
     xs: 1
   };
-  scenes = [];
+  workspaces: Object;
 
   constructor(private workspaceService: WorkspaceserviceService) { }
 
@@ -43,7 +43,7 @@ export class WorkspaceComponent implements OnInit {
   }
 
   getWorkspaces(){
-    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
+    this.workspaceService.getWorkspaces().subscribe( workspaces => this.workspaces = workspaces);
   }
 
   elementClicked(workspace: number) {

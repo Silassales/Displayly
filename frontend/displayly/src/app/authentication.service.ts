@@ -16,6 +16,10 @@ export class AuthenticationService {
     return (sessionStorage.getItem('token') !== null);
   }
 
+  getToken() {
+    return sessionStorage.getItem('token');
+  }
+
   authenticate(email: string, password: string): Observable<Object> {
     return this.http.post(`http://${this.host}/user/login`, {
       email,

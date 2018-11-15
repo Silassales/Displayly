@@ -6,8 +6,8 @@
         <mat-icon>add</mat-icon>
         <p>Workspace</p>
       </mat-grid-tile>
-      <mat-grid-tile class="grid-element content-element" *ngFor="let workspace of workspaces" (click)="elementClicked(workspace)">
-        {{workspace}}
+      <mat-grid-tile class="grid-element content-element" *ngFor="let workspace of workspaces['workspaces']" (click)="elementClicked(workspace['id'])">
+        {{workspace['name']}}
       </mat-grid-tile>
     </mat-grid-list>
   </div>
