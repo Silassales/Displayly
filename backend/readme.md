@@ -8,8 +8,6 @@ To start the API, navigate to the following location on the server: `~/Displaly/
 
 NOTE: To stop the API you will need to kill the actual process for now. Also worth noting, stoping the API does not kill the SQL Database (no data will be lost).
 
-ANOTHER NOTE: We are using port 5000 as our "production" port. If you want to play around with the API (changing code), when running the `gunicorn` command, change the port number to something else.
-
 -------------
 API Reference
 -------------
