@@ -10,7 +10,6 @@ class TokenRoutes(object):
 
 			if expectedResetToken == False or decodedToken["validForPasswordReset"] == None:
 				return decodedToken
-				return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
 
