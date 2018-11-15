@@ -294,7 +294,7 @@ If the slide is saved successfully, the following will be returned:
 ```
 {
     "success": true,
-    "slideId": 19
+    "slideId": #
 }
 ```
 

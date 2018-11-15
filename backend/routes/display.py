@@ -139,6 +139,6 @@ class DisplayRoutes(object):
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
-				res.status = falcon.HTTP_401
+				res.status = falcon.HTTP_400
 
 			db.close()

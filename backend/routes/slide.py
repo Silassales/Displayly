@@ -112,4 +112,49 @@ class SlideRoutes(object):
 
 			db.close()
 
-#	def on_get(self, req, res, workspaceId):
+	def on_get(self, req, res, workspaceId):
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Authorization token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+			
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
+				res.body = '{"error":"This user does not have permissions to view slides that belong to this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return
+
+			cursor = db.cursor()
+
+			sql = """SELECT SlideId, Name, LayoutId
+				FROM Slides
+				WHERE WorkspaceId = %s"""
+
+			try:
+				cursor.execute(sql, (workspaceId,))
+				data = cursor.fetchall()
+
+				json = '{"success": true, "slides": ['
+
+				for slideId, slideName, layoutId in data:
+					json += ('{"id": ' + str(slideId) + ', "name": "' + slideName + '", "layoutId": ' + str(layoutId) + '},')
+
+				if len(data) > 0:
+					json = json[:-1]
+
+				res.status = falcon.HTTP_200
+				res.body = json + ']}'
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_400
+
+			db.close()
