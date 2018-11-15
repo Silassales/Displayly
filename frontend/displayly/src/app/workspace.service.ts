@@ -6,7 +6,7 @@ import {HttpHeaders, HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class WorkspaceserviceService {
+export class WorkspaceService {
 
 
   private host = '131.104.48.83:5000';

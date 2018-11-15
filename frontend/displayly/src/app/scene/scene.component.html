@@ -1,4 +1,7 @@
 <p> {{clicked}} </p>
+<div *ngIf="loading" class="full-width">
+  <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
+</div>
 <div *ngIf="scenes; else else_block">
   <div style="margin: 30px">
     <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
@@ -14,7 +17,7 @@
         <mat-card class="scene-card">
           <mat-icon>view_carousel</mat-icon>
          <mat-card-content>
-           {{scene}}
+           {{scene.name}}
          </mat-card-content>
         </mat-card>
       </mat-grid-tile>

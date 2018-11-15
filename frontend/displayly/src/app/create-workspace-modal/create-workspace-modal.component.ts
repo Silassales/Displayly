@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
-import {WorkspaceserviceService} from '../workspaceservice.service';
+import {WorkspaceService} from '../workspace.service';
 
 @Component({
   selector: 'app-create-workspace-modal',
@@ -14,7 +14,7 @@ export class CreateWorkspaceModalComponent {
   loading = false;
   error = '';
 
-  constructor(private workspaceService: WorkspaceserviceService, private dialog: MatDialog) {
+  constructor(private workspaceService: WorkspaceService, private dialog: MatDialog) {
   }
 
   submit() {

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {SceneserviceService} from '../sceneservice.service';
+import {ScenesService} from '../scenes.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-scene',
@@ -16,10 +17,12 @@ export class SceneComponent implements OnInit {
     xs: 1
   };
   scenes = [];
+  workspaceId: string; // Stores the workspace id from the path
+  loading: boolean;
 
 
-
-  constructor(private sceneService: SceneserviceService) { }
+  constructor(private route: ActivatedRoute, private scenesService: ScenesService) {
+  }
 
   ngOnInit(): void {
     this.clicked = 0;
@@ -30,6 +33,8 @@ export class SceneComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
+    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
+    this.workspaceId = '29';
     this.getScenes();
   }
 
@@ -43,8 +48,18 @@ export class SceneComponent implements OnInit {
     }
   }
 
-  getScenes(){
-    this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
+  getScenes() {
+    this.loading = true;
+    this.scenesService.getScenes(this.workspaceId).subscribe(
+      scenes => {
+        console.log(scenes);
+        this.scenes = scenes;
+      },
+      err => {
+        // TODO handle error here
+      }, () => this.loading = false
+    );
+    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
   }
 
   elementClicked(scene: number) {
