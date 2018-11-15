@@ -266,6 +266,14 @@ In the body you must include several properties as described below:
 		{
 			"name": "Image1.jpg",
 			"data": base_64_encoded_string
+		},
+        {
+			"name": "Image2.jpg",
+			"data": base_64_encoded_string
+		},
+        {
+			"name": "Image3.jpg",
+			"data": base_64_encoded_string
 		}
 	]
 }
