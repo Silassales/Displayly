@@ -3,11 +3,20 @@
   <div style="margin: 30px">
     <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
       <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
-        <mat-icon>add</mat-icon>
-        <p>Workspace</p>
+        <mat-card class="workspace-card">
+          <mat-icon>add</mat-icon>
+          <mat-card-content>
+            <p>Workspace</p>
+          </mat-card-content>
+        </mat-card>
       </mat-grid-tile>
       <mat-grid-tile class="grid-element content-element" *ngFor="let workspace of workspaces['workspaces']" (click)="elementClicked(workspace['id'])">
-        {{workspace['name']}}
+        <mat-card class="workspace-card">
+          <mat-icon>work</mat-icon>
+          <mat-card-content>
+            {{workspace['name']}}
+          </mat-card-content>
+        </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
@@ -16,8 +25,12 @@
   <div style="margin: 30px">
     <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
       <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
-        <mat-icon>add</mat-icon>
-        <p>Workspace</p>
+        <mat-card class="workspace-card">
+          <mat-icon>add</mat-icon>
+          <mat-card-content>
+            <p>Workspace</p>
+          </mat-card-content>
+        </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>

@@ -1,12 +1,22 @@
 .grid-element {
-  border-radius: 5px;
 }
 
-.content-element {
-  background: grey;
+.workspace-card {
+  padding-top: 30%;
 }
 
-.add-element {
+.content-element mat-card{
+  width: 95%;
+  height: 95%;
+  box-sizing: border-box;
   text-align: center;
-  background: grey;
+  word-wrap: break-word;
+}
+
+.add-element mat-card{
+  width: 95%;
+  height: 95%;
+  box-sizing: border-box;
+  text-align: center;
+  word-wrap: break-word;
 }
