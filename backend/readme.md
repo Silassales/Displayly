@@ -16,6 +16,12 @@ API Reference
 
 **There is a Postman collection in this folder that you can use to test all of the endpoints**
 
+* Users: https://github.com/jzavarella/Displayly/tree/master/backend#users
+* Resetting Passwords: https://github.com/jzavarella/Displayly/tree/master/backend#reseting-passwords
+* Workspaces: https://github.com/jzavarella/Displayly/tree/master/backend#workspaces
+* Scenes: https://github.com/jzavarella/Displayly/tree/master/backend#scenes
+* Displays: https://github.com/jzavarella/Displayly/tree/master/backend#displays
+
 ### Users
 
 **1. Registering A New User**
