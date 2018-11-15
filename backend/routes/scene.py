@@ -55,6 +55,7 @@ class SceneRoutes(object):
 			if body == None or 'name' not in body or 'workspaceId' not in body:
 				res.body = '{"error":"Scene name and Workspace ID required."}'
 				res.status = falcon.HTTP_400
+				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
