@@ -35,5 +35,4 @@ app.add_route('/workspaces', workspaceRoutes)
 
 app.add_route('/workspaces/{workspaceId}/scenes', sceneRoutes)
 
-app.add_route('/displays', displayRoutes)
-app.add_route('/displays/{workspaceId}', displayRoutes)
+app.add_route('/workspaces/{workspaceId}/displays', displayRoutes)
