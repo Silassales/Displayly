@@ -1,5 +1,6 @@
 import falcon
 import jwt
+import mysql.connector
 
 class SceneRoutes(object):
 	def getBodyFromRequest(self, req):
