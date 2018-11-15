@@ -112,4 +112,4 @@ class SlideRoutes(object):
 
 			db.close()
 
-	def on_get(self, req, res, workspaceId):
+#	def on_get(self, req, res, workspaceId):
