@@ -16,7 +16,7 @@ class SlideRoutes(object):
 		try:
 			options = {'verify_exp': True}
 			decodedToken = jwt.decode(token, 'secret', verify='True', algorithms=['HS256'], options=options)
-	
+
 			if expectedResetToken == False or decodedToken["validForPasswordReset"] == None:
 				return decodedToken
 			return None
@@ -89,7 +89,7 @@ class SlideRoutes(object):
 
 			for image in body['images']:
 				imageData = base64.b64decode(image['data'])
-				with open("/var/images/" + image['name'], "wb+") as f:
+				with open("/var/images/" + workspaceId + "_" + image['name'], "wb+") as f:
 					f.write(imageData)
 
 				sql3 = "INSERT INTO ImagesToSlides (ImagePath, SlideId) VALUES (%s, %s)"
@@ -111,3 +111,5 @@ class SlideRoutes(object):
 			res.status = falcon.HTTP_200
 
 			db.close()
+
+	def on_get(self, req, res, workspaceId):
