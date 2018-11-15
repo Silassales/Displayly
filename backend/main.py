@@ -4,6 +4,7 @@ from routes.workspace import WorkspaceRoutes
 from routes.display import DisplayRoutes
 from routes.token import TokenRoutes
 from routes.scene import SceneRoutes
+from routes.slide import SlideRoutes
 from falcon.http_status import HTTPStatus
 
 class HandleCORS(object):
@@ -22,6 +23,7 @@ workspaceRoutes = WorkspaceRoutes()
 displayRoutes = DisplayRoutes()
 tokenRoutes = TokenRoutes()
 sceneRoutes = SceneRoutes()
+slideRoutes = SlideRoutes()
 
 app.add_route('/user', userRoutes)
 app.add_route('/user/register', userRoutes, suffix='register')
@@ -34,5 +36,7 @@ app.add_route('/token', tokenRoutes)
 app.add_route('/workspaces', workspaceRoutes)
 
 app.add_route('/workspaces/{workspaceId}/scenes', sceneRoutes)
+
+app.add_route('/workspaces/{workspaceId}/slides', slideRoutes)
 
 app.add_route('/workspaces/{workspaceId}/displays', displayRoutes)
