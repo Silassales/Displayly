@@ -249,6 +249,46 @@ A sample response would look like:
 
 ----
 
+### Slides
+
+**1. Create A New Slide**
+
+Endpoint: `POST http://131.104.48.83:5000/workspaces/{workspaceId}/slides`
+
+In the body you must include several properties as described below:
+
+```
+{
+	"name": "A slide",
+	"layoutId": 1,
+	"images" : [
+		{
+			"name": "Image1.jpg",
+			"data": base_64_encoded_string
+		}
+	]
+}
+```
+
+* `name`: The name of the slide. This is not unique.
+* `layoutId`: The layout of the slide. Currently, there are only two valid layouts. `1` for 3 images, `2` for 6 images.
+* `images`: An array of all the images being used on the slide. 
+* * `name`: The name of the image.
+* * `data`: A Base64 encoded string of the image
+
+If the slide is saved successfully, the following will be returned:
+
+```
+{
+    "success": true,
+    "slideId": 19
+}
+```
+
+* `slideId`: The ID of the newly created slide.
+
+----
+
 ### Displays
 
 **1. Create A New Display**
