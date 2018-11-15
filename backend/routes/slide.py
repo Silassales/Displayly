@@ -79,7 +79,7 @@ class SlideRoutes(object):
 				cursor.execute(sql2)
 				data = cursor.fetchone()
 
-			slideId = str(data[0])
+				slideId = str(data[0])
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
