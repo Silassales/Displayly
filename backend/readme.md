@@ -187,6 +187,34 @@ If a user belongs to two workspaces, the response would look like:
 
 ----
 
+### Scenes
+
+**1. Create A New Scene**
+
+Endpoint: `POST http://131.104.48.83:5000/scenes`
+
+In the body, you must include the following properties: Name (the name of the scene) and the Workspace ID.
+
+```
+{
+	"name": "Name of scene",
+	"workspaceId": #
+}
+```
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to add displays to it
+
+If created successfully, the following will be returned:
+
+```
+{
+	"success": true,
+	"sceneId": #
+}
+```
+
+----
+
 ### Displays
 
 **1. Create A New Display**
@@ -205,7 +233,7 @@ In the body, you must include the following properties: Name (the name of the di
 }
 ```
 
-In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to add displays to it
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to add displays to it.
 
 If created successfully, the following will be returned (where `displayId` refers to the unique id belonging to the display):
 
