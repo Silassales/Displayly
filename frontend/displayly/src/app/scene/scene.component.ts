@@ -11,8 +11,8 @@ export class SceneComponent implements OnInit {
   clicked: number;
   adjustedCols: number;
   adjustedColsList = {
-    xl: 10,
-    md: 5,
+    xl: 6,
+    md: 3,
     xs: 1
   };
   scenes = [];
