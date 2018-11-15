@@ -253,13 +253,11 @@ A sample response would look like:
 
 **1. Create A New Display**
 
-**WARNING: The URL of this endpoint may change in the future**
-
-Endpoint: `POST http://131.104.48.83:5000/displays/{workspaceId}`
+Endpoint: `POST http://131.104.48.83:5000/workspaces/{workspaceId}/displays`
 
 In the body, you must include the following properties: Name (the name of the display). In the actual URL, you must specify the workspace ID that you wish to add the display to. For example:
 
-`POST http://131.104.48.83:5000/displays/1`
+`POST http://131.104.48.83:5000/workspaces/1/displays`
 
 ```
 {
@@ -279,11 +277,9 @@ If created successfully, the following will be returned (where `displayId` refer
 ```
 **2. Get A List Of Displays In A Workspace**
 
-**WARNING: The URL of this endpoint may change in the future**
+Endpoint: `GET http://131.104.48.83:5000/workspaces/{workspaceId}/displays`
 
-Endpoint: `GET http://131.104.48.83:5000/displays/{workspaceId}`
-
-There is no body required, instead, to get a list of displays belonging to a workspace, you specify the Workspace ID directly in the URL. For example, if I wanted to see the list of displays for a workspace with ID 1: `GET http://131.104.48.83:5000/displays/1`.
+There is no body required, instead, to get a list of displays belonging to a workspace, you specify the Workspace ID directly in the URL. For example, if I wanted to see the list of displays for a workspace with ID 1: `GET http://131.104.48.83:5000/workspaces/1/displays`.
 
 In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to access its displays.
 
@@ -295,13 +291,13 @@ A sample response would look like:
     "displays": [
         {
             "id": 1,
-            "name": "A display"
-	    "sceneId": null
+            "name": "A display",
+            "sceneId": null
         },
         {
             "id": 2,
             "name": "Another display",
-	    "sceneId": 1
+            "sceneId": 1
         }
     ]
 }

@@ -207,7 +207,7 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIxNjY1NjV9.5FLD8NoLo7W-s19aVqeVbVr5NgTIji5eIYnyN6f47Do"
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjMwLCJleHAiOjE1NDIzMzY1MjN9.1qoggFklO4fFvEvFBVFsGw64qVSWObsZdee19vSSYOU"
 							},
 							{
 								"key": "Content-Type",
@@ -218,10 +218,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"A Display\"\n}"
+							"raw": "{\n\t\"name\": \"A Display Test\"\n}"
 						},
 						"url": {
-							"raw": "http://131.104.48.83:5000/displays/1",
+							"raw": "http://131.104.48.83:5000/workspaces/39/displays",
 							"protocol": "http",
 							"host": [
 								"131",
@@ -231,8 +231,9 @@
 							],
 							"port": "5000",
 							"path": [
-								"displays",
-								"1"
+								"workspaces",
+								"39",
+								"displays"
 							]
 						},
 						"description": "Create a new display. Provide the name of the display and the workspace ID that the display should be added to. Only users who have access to a workspace can add displays to it\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
@@ -247,7 +248,7 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjE2LCJleHAiOjE1NDIyMjUwOTZ9._2nyUclcP9TrmtBkFRsFEGkstWhlWLCzjg7yHJUrnUs"
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjMwLCJleHAiOjE1NDIzMzY1MjN9.1qoggFklO4fFvEvFBVFsGw64qVSWObsZdee19vSSYOU"
 							}
 						],
 						"body": {
@@ -255,7 +256,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://131.104.48.83:5200/displays/17",
+							"raw": "http://131.104.48.83:5000/workspaces/39/displays",
 							"protocol": "http",
 							"host": [
 								"131",
@@ -263,10 +264,11 @@
 								"48",
 								"83"
 							],
-							"port": "5200",
+							"port": "5000",
 							"path": [
-								"displays",
-								"17"
+								"workspaces",
+								"39",
+								"displays"
 							]
 						},
 						"description": "Get a list of all displays that belong to a workspace. The URL format is /displays/{workspaceId}. Only users who have access to a workspace can view its displays.\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
