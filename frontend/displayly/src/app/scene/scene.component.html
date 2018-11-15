@@ -1,41 +1,42 @@
-<p> {{clicked}} </p>
-<div *ngIf="loading" class="full-width">
+<div *ngIf="loading; else mainContent" class="full-width">
   <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
 </div>
-<div *ngIf="scenes; else else_block">
-  <div style="margin: 30px">
-    <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-      <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
-        <mat-card class="scene-card">
-          <mat-icon>add</mat-icon>
-          <mat-card-content>
-            <p>Scene</p>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile class="grid-element content-element" *ngFor="let scene of scenes" (click)="elementClicked(scene)">
-        <mat-card class="scene-card">
-          <mat-icon>view_carousel</mat-icon>
-         <mat-card-content>
-           {{scene.name}}
-         </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+<ng-template #mainContent>
+  <div *ngIf="scenes; else else_block">
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+          <mat-card class="scene-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Scene</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-element content-element" *ngFor="let scene of scenes" (click)="elementClicked(scene)">
+          <mat-card class="scene-card">
+            <mat-icon>view_carousel</mat-icon>
+            <mat-card-content>
+              {{scene.name}}
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
   </div>
-</div>
-<ng-template #else_block>
-  <div style="margin: 30px">
-    <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-      <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
-        <mat-card class="scene-card">
-          <mat-icon>add</mat-icon>
-          <mat-card-content>
-            <p>Scene</p>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+  <ng-template #else_block>
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+          <mat-card class="scene-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Scene</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </ng-template>
 </ng-template>
 

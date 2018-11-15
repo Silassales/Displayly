@@ -10,7 +10,6 @@ import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-wo
 })
 export class WorkspaceComponent implements OnInit {
 
-  clicked: number;
   adjustedCols: number;
   adjustedColsList = {
     xl: 6,
@@ -23,7 +22,6 @@ export class WorkspaceComponent implements OnInit {
   constructor(private workspaceService: WorkspaceService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.clicked = 0;
     if (window.innerWidth >= 1000) {
       this.adjustedCols = this.adjustedColsList.xl;
     } else if (window.innerWidth >= 500) {
@@ -54,7 +52,7 @@ export class WorkspaceComponent implements OnInit {
   }
 
   elementClicked(workspace: number) {
-    this.clicked = workspace;
+    // TODO: Make this go to something
   }
 
   addElementClicked() {
