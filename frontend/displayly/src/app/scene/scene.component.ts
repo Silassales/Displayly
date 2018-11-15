@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {SceneserviceService} from '../sceneservice.service';
+import {ScenesService} from '../scenes.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
+import {CreateSceneModalComponent} from '../create-scene-modal/create-scene-modal.component';
 
 @Component({
   selector: 'app-scene',
@@ -8,7 +11,6 @@ import {SceneserviceService} from '../sceneservice.service';
 })
 export class SceneComponent implements OnInit {
 
-  clicked: number;
   adjustedCols: number;
   adjustedColsList = {
     xl: 6,
@@ -16,19 +18,25 @@ export class SceneComponent implements OnInit {
     xs: 1
   };
   scenes = [];
+  workspaceId: string; // Stores the workspace id from the path
+  loading: boolean;
 
 
-
-  constructor(private sceneService: SceneserviceService) { }
+  constructor(private route: ActivatedRoute, private scenesService: ScenesService, private dialog: MatDialog, private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.clicked = 0;
     if (window.innerWidth >= 1000) {
       this.adjustedCols = this.adjustedColsList.xl;
     } else if (window.innerWidth >= 500) {
       this.adjustedCols = this.adjustedColsList.md;
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
+    }
+    this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
+    if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
+      this.router.navigate(['dashboard']);
+      return;
     }
     this.getScenes();
   }
@@ -43,15 +51,33 @@ export class SceneComponent implements OnInit {
     }
   }
 
-  getScenes(){
-    this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
+  getScenes() {
+    this.loading = true;
+    this.scenesService.getScenes(this.workspaceId).subscribe(
+      scenes => {
+        this.scenes = scenes; // Set the scenes
+      },
+      err => {
+        // TODO handle error here
+      }, () => this.loading = false
+    );
+    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
   }
 
   elementClicked(scene: number) {
-    this.clicked = scene;
+    // TODO: Make this go to something
   }
 
   addElementClicked() {
-    this.clicked = -99999;
+    const dialogRef = this.dialog.open(CreateSceneModalComponent, {
+      width: 'auto',
+      data: {
+        workspaceId: this.workspaceId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getScenes(); // Refresh the scenes after the dialog has closed
+    });
   }
 }

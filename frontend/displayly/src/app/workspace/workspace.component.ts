@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WorkspaceserviceService} from '../workspaceservice.service';
+import {WorkspaceService} from '../workspace.service';
 import {MatDialog} from '@angular/material';
 import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-workspace-modal.component';
 
@@ -10,7 +10,6 @@ import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-wo
 })
 export class WorkspaceComponent implements OnInit {
 
-  clicked: number;
   adjustedCols: number;
   adjustedColsList = {
     xl: 6,
@@ -20,10 +19,9 @@ export class WorkspaceComponent implements OnInit {
   workspaces: Object;
   loading = true;
 
-  constructor(private workspaceService: WorkspaceserviceService, private dialog: MatDialog) { }
+  constructor(private workspaceService: WorkspaceService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.clicked = 0;
     if (window.innerWidth >= 1000) {
       this.adjustedCols = this.adjustedColsList.xl;
     } else if (window.innerWidth >= 500) {
@@ -48,14 +46,13 @@ export class WorkspaceComponent implements OnInit {
     this.loading = true;
     this.workspaceService.getWorkspaces().subscribe( workspaces => {
       this.workspaces = workspaces;
-      this.loading = false;
     }, err => {
-      this.loading = false;
-    });
+      // TODO: Add some error handling
+    }, () => this.loading = false);
   }
 
   elementClicked(workspace: number) {
-    this.clicked = workspace;
+    // TODO: Make this go to something
   }
 
   addElementClicked() {

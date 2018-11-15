@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SceneserviceService } from './sceneservice.service';
+import { ScenesService } from './scenes.service';
 
-describe('SceneserviceService', () => {
+describe('ScenesService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SceneserviceService = TestBed.get(SceneserviceService);
+    const service: ScenesService = TestBed.get(ScenesService);
     expect(service).toBeTruthy();
   });
 });
