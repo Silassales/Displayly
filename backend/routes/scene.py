@@ -59,6 +59,13 @@ class SceneRoutes(object):
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], body['workspaceId']):
+				res.body = '{"error":"This user does not have permissions to add scenes to this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return
+
 			cursor = db.cursor()
 			sql = "INSERT INTO Scenes (Name, WorkspaceId) VALUES (%s, %s)"
 			sql2 = "SELECT MAX(SceneId) FROM Scenes"
