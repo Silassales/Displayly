@@ -89,7 +89,7 @@ class SlideRoutes(object):
 
 			for image in body['images']:
 				imageData = base64.b64decode(image['data'])
-				while open("/var/www/html/assets/" + image['name'] , "w+") as f:
+				with open("/var/www/html/assets/" + image['name'] , "w+") as f:
 					f.write(imageData)
 
 				# sql3 = "INSERT INTO ImagesToSlides (ImagePath, SlideId) VALUES (%s, %s)"
