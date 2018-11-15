@@ -1,0 +1,39 @@
+<mat-card class="form-container center-div form-card">
+  <img class="form-logo" src="assets/logo.png">
+  <mat-error>{{error}}</mat-error>
+
+  <div *ngIf="step1 && !step2 && !step3">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="email" required [formControl]="emailValidator">
+      <mat-error *ngIf="emailValidator.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="recoverDisabled()" (click)="forgotButton()">
+      <mat-spinner *ngIf="loading" [diameter]="25" style="margin: 0 auto;"></mat-spinner>
+      <div *ngIf="!loading">Recover</div>
+    </button>
+  </div>
+  <div *ngIf="!step1 && step2 && !step3">
+    <mat-form-field class="full-width">
+      <input matInput [placeholder]="question" required [formControl]="answerValidator">
+      <mat-error *ngIf="answerValidator.invalid">This is required</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="submitDisabled()" (click)="answerQuestion()">
+      <mat-spinner *ngIf="loading" [diameter]="25" style="margin: 0 auto;"></mat-spinner>
+      <div *ngIf="!loading">Submit</div>
+    </button>
+  </div>
+  <div *ngIf="!step1 && !step2 && step3">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="enter new password" [type]="hide ? 'password' : 'text'" required [formControl]="passwordValidator">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="passwordValidator.invalid">Password is required</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="resetDisabled()" (click)="resetPassword()">
+      <mat-spinner *ngIf="loading" [diameter]="25" style="margin: 0 auto;"></mat-spinner>
+      <div *ngIf="!loading">Reset Password</div>
+    </button>
+  </div>
+
+  <a class="form-alternative" href="/register">Need an account? Click here to register</a>
+  <a class="form-alternative" href="/login">Know your password? Click here to login</a>
+</mat-card>

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {SceneserviceService} from '../sceneservice.service';
 
 @Component({
   selector: 'app-scene',
@@ -14,10 +15,11 @@ export class SceneComponent implements OnInit {
     md: 5,
     xs: 1
   };
+  scenes = [];
 
-  scenes = [1, 2, 3, 4 , 5, 6, 7, 8];
 
-  constructor() { }
+
+  constructor(private sceneService: SceneserviceService) { }
 
   ngOnInit(): void {
     this.clicked = 0;
@@ -28,6 +30,7 @@ export class SceneComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
+    this.getScenes();
   }
 
   onResize(event) {
@@ -38,6 +41,10 @@ export class SceneComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
+  }
+
+  getScenes(){
+    this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
   }
 
   elementClicked(scene: number) {
