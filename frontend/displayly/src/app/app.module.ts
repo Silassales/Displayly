@@ -17,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RecoverComponent } from './recover/recover.component';
+import { CreateWorkspaceModalComponent } from './create-workspace-modal/create-workspace-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RecoverComponent } from './recover/recover.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    RecoverComponent
+    RecoverComponent,
+    CreateWorkspaceModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ import { RecoverComponent } from './recover/recover.component';
     AppRoutingModule,
     HttpClientModule
   ],
+  entryComponents: [CreateWorkspaceModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
