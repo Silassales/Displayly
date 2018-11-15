@@ -99,7 +99,7 @@ class WorkspaceRoutes(object):
 				json = '{"success": true, "workspaces": ['
 
 				for workspaceId, workspaceName, isAdmin in data:
-					formattedWorkspaceName = replace('\\"', "'")
+					formattedWorkspaceName = workspaceName.replace('\\"', "'")
 					json += ('{"id": ' + str(workspaceId) + ', "name": "' + formattedWorkspaceName + '", "isAdmin": ' + self.intToBoolString(isAdmin) + ' },')
 
 				if len(data) > 0:
