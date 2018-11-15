@@ -18,6 +18,7 @@ API Reference
 * Resetting Passwords: https://github.com/jzavarella/Displayly/tree/master/backend#reseting-passwords
 * Workspaces: https://github.com/jzavarella/Displayly/tree/master/backend#workspaces
 * Scenes: https://github.com/jzavarella/Displayly/tree/master/backend#scenes
+* Slides: https://github.com/jzavarella/Displayly/tree/master/backend#slides
 * Displays: https://github.com/jzavarella/Displayly/tree/master/backend#displays
 
 ### Users
@@ -274,7 +275,11 @@ In the body you must include several properties as described below:
 * `layoutId`: The layout of the slide. Currently, there are only two valid layouts. `1` for 3 images, `2` for 6 images.
 * `images`: An array of all the images being used on the slide. 
 * * `name`: The name of the image.
-* * `data`: A Base64 encoded string of the image
+* * `data`: A Base64 encoded string of the image.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to add displays to it.
+
+It is also worth noting that the images sent in the body of this endpoint will be decoded, and saved on the server.
 
 If the slide is saved successfully, the following will be returned:
 
