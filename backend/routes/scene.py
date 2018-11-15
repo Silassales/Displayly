@@ -60,7 +60,7 @@ class SceneRoutes(object):
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
-			sql = "INSERT INTO Scenes (Name, WorkspaceId) VALUES (%s)"
+			sql = "INSERT INTO Scenes (Name, WorkspaceId) VALUES (%s, %s)"
 			sql2 = "SELECT MAX(SceneId) FROM Scenes"
 
 			try:
