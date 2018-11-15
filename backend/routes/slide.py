@@ -88,7 +88,7 @@ class SlideRoutes(object):
 				return
 
 			for image in body['images']:
-                with open("~/imgs/" + image['name'], "wb") as fh:
+				with open("~/imgs/" + image['name'], "wb") as fh:
 					fh.write(base64.decodebytes(image['data']))
 
 				# sql3 = "INSERT INTO ImagesToSlides (ImagePath, SlideId) VALUES (%s, %s)"
