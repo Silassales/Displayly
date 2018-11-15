@@ -21,6 +21,7 @@ userRoutes = UserRoutes()
 workspaceRoutes = WorkspaceRoutes()
 displayRoutes = DisplayRoutes()
 tokenRoutes = TokenRoutes()
+sceneRoutes = SceneRoutes()
 
 app.add_route('/user', userRoutes)
 app.add_route('/user/register', userRoutes, suffix='register')

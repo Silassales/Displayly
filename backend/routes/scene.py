@@ -76,4 +76,4 @@ class SceneRoutes(object):
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_400
 
-		db.close()
+			db.close()
