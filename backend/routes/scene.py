@@ -39,7 +39,7 @@ class SceneRoutes(object):
 		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 			return False
 
-	def on_post(self, req, res):
+	def on_post(self, req, res, workspaceId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
@@ -53,14 +53,14 @@ class SceneRoutes(object):
 
 			body = self.getBodyFromRequest(req)
 
-			if body == None or 'name' not in body or 'workspaceId' not in body:
-				res.body = '{"error":"Scene name and Workspace ID required."}'
+			if body == None or 'name' not in body:
+				res.body = '{"error":"Scene name required."}'
 				res.status = falcon.HTTP_400
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
-			if not self.authroizedWorkspace(db, tokenContents['userId'], body['workspaceId']):
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
 				res.body = '{"error":"This user does not have permissions to add scenes to this workspace."}'
 				res.status = falcon.HTTP_401
 				db.close()
@@ -71,7 +71,7 @@ class SceneRoutes(object):
 			sql2 = "SELECT MAX(SceneId) FROM Scenes"
 
 			try:
-				cursor.execute(sql, (body['name'], body['workspaceId'], ))
+				cursor.execute(sql, (body['name'], workspaceId, ))
 				db.commit()
 				cursor.execute(sql2)
 				data = cursor.fetchone()
@@ -85,7 +85,7 @@ class SceneRoutes(object):
 
 			db.close()
 
-	def on_get(self, req, res):
+	def on_get(self, req, res, workspaceId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
@@ -95,13 +95,6 @@ class SceneRoutes(object):
 			if tokenContents == None:
 				res.status = falcon.HTTP_401
 				res.body = '{"error":"Invalid token"}'
-				return
-
-			workspaceId = req.get_param("workspaceId")
-
-			if workspaceId == None:
-				res.body = '{"error":"Workspace ID required"}'
-				res.status = falcon.HTTP_400
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
