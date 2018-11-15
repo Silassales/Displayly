@@ -6,7 +6,7 @@ import mysql.connector
 class SceneRoutes(object):
 	def getBodyFromRequest(self, req):
 		raw_json = req.bounded_stream.read()
-		data = raw_json.decode('utf8').replace("'", '"')
+		data = raw_json.decode('utf8').replace("'", '\\"')
 		if len(data) == 0:
 			return None
 		return json.loads(data)
