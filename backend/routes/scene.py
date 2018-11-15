@@ -1,5 +1,6 @@
 import falcon
 import jwt
+import json
 import mysql.connector
 
 class SceneRoutes(object):
