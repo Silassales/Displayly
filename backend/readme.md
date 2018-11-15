@@ -199,7 +199,7 @@ In the body, you must include the following properties: Name (the name of the sc
 
 ```
 {
-	"name": "Name of scene",
+	"name": "Name of scene"
 }
 ```
 
@@ -216,7 +216,7 @@ If created successfully, the following will be returned:
 
 **2. Get List Of Scenes In Workspace**
 
-Endpoint: `GET http://131.104.48.83:5000/workspaces/{workspaceId}/scenes
+Endpoint: `GET http://131.104.48.83:5000/workspaces/{workspaceId}/scenes`
 
 There is no body required, instead, to get a list of scenes belonging to a workspace, you specify the Workspace ID directly in the URL. For example, if I wanted to see the list of scenes for a workspace with ID 1: `GET http://131.104.48.83:5000/workspaces/1/scenes`.
 
