@@ -6,7 +6,7 @@ import mysql.connector
 class WorkspaceRoutes(object):
 	def getBodyFromRequest(self, req):
 		raw_json = req.bounded_stream.read()
-		data = raw_json.decode('utf8').replace("'", '\\"')
+		data = raw_json.decode('utf8') #.replace("'", "\\'")
 		if len(data) == 0:
 			return None
 		return json.loads(data)
@@ -99,7 +99,7 @@ class WorkspaceRoutes(object):
 				json = '{"success": true, "workspaces": ['
 
 				for workspaceId, workspaceName, isAdmin in data:
-					formattedWorkspaceName = workspaceName.replace('\\"', "'")
+					formattedWorkspaceName = workspaceName.replace('"', '\\"')
 					json += ('{"id": ' + str(workspaceId) + ', "name": "' + formattedWorkspaceName + '", "isAdmin": ' + self.intToBoolString(isAdmin) + ' },')
 
 				if len(data) > 0:
