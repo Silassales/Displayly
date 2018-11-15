@@ -89,23 +89,23 @@ class SlideRoutes(object):
 
 			for image in body['images']:
 				imageData = base64.b64decode(image['data'])
-				with open("/var/www/html/assets/" + image['name'] , "w+") as f:
+				with open("/var/images/" + image['name'], "wb+") as f:
 					f.write(imageData)
 
-				# sql3 = "INSERT INTO ImagesToSlides (ImagePath, SlideId) VALUES (%s, %s)"
+				sql3 = "INSERT INTO ImagesToSlides (ImagePath, SlideId) VALUES (%s, %s)"
 
-				# try:
-				# 	cursor.execute(sql3, ("TODO", slideId,))
-				# 	db.commit()
+				try:
+					cursor.execute(sql3, ("TODO", slideId,))
+					db.commit()
 
-				# 	res.body = '{"success": true, "slideId": ' + slideId + '}'
-				# 	res.status = falcon.HTTP_200
+					res.body = '{"success": true, "slideId": ' + slideId + '}'
+					res.status = falcon.HTTP_200
 
-				# except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
-				# 	res.body = '{' + '"error":"{}"'.format(e) + '}'
-				# 	res.status = falcon.HTTP_400
-				# 	db.close()
-				# 	return
+				except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+					res.body = '{' + '"error":"{}"'.format(e) + '}'
+					res.status = falcon.HTTP_400
+					db.close()
+					return
 
 			res.body = '{"success": true, "slideId": ' + slideId + '}'
 			res.status = falcon.HTTP_200
