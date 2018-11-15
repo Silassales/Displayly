@@ -95,7 +95,7 @@ class SlideRoutes(object):
 				sql3 = "INSERT INTO ImagesToSlides (ImagePath, SlideId) VALUES (%s, %s)"
 
 				try:
-					cursor.execute(sql3, ("TODO", slideId,))
+					cursor.execute(sql3, (image['name'], slideId,))
 					db.commit()
 
 					res.body = '{"success": true, "slideId": ' + slideId + '}'
