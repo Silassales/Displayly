@@ -1,3 +1,42 @@
-<section style = "height: 50vh; border: 4px solid blue">
+<div *ngIf="loading; else mainContent" class="full-width">
+  <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
+</div>
+<ng-template #mainContent>
+  <div *ngIf="displays; else else_block">
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+          <mat-card class="display-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Display</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-element content-element" *ngFor="let display of displays" (click)="elementClicked(display)">
+          <mat-card class="display-card">
+            <mat-icon>tv</mat-icon>
+            <mat-card-content>
+              {{display.name}}
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  <ng-template #else_block>
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+          <mat-card class="display-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Display</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </ng-template>
+</ng-template>
 
-</section>

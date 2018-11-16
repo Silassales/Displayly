@@ -1,4 +1,42 @@
-<section style = "height: 50vh; border: 4px solid yellow">
+<div *ngIf="loading; else mainContent" class="full-width">
+  <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
+</div>
+<ng-template #mainContent>
+  <div *ngIf="slides; else else_block">
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+          <mat-card class="slide-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Slide</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-element content-element" *ngFor="let slide of slides" (click)="elementClicked(slide)">
+          <mat-card class="slide-card">
+            <mat-icon>view_compact</mat-icon>
+            <mat-card-content>
+              {{slide.name}}
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  <ng-template #else_block>
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+          <mat-card class="slide-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Slide</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </ng-template>
+</ng-template>
 
-</section>
-  
