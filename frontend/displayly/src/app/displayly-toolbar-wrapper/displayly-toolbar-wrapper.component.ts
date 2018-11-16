@@ -12,7 +12,6 @@ export class DisplaylyToolbarWrapperComponent implements OnInit {
   constructor(private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.auth.isAuthenticated());
     if (!this.auth.isAuthenticated()) { // If the user is not authenticated, then redirect them to the homepage
       this.router.navigate(['/']);
     }

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DisplayserviceService {
+export class DisplayService {
 
 
   scenes = ["1", "2", "3", "4", "5", "6", "7", "8"];

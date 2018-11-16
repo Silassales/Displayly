@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
@@ -47,5 +47,11 @@ export class AuthenticationService {
 
   logout() {
     sessionStorage.removeItem('token'); // Clear the user's session token
+  }
+
+  buildAuthHeader() {
+    return new HttpHeaders({
+      'Authorization': this.getToken()
+    });
   }
 }
