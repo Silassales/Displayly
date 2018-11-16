@@ -164,10 +164,20 @@ class SceneRoutes(object):
 				json = '{"success": true, "scenes": ['
 
 				for sceneId, sceneName in data:
-					json += ('{"id": ' + str(sceneId) + ', "name": "' + sceneName + '"},')
+					sql2 = """SELECT SlideId
+								FROM SlidesToScenes
+								WHERE SceneId = %s """
+
+					cursor.execute(sql2, (sceneId,))
+					data2 = cursor.fetchall()
+
+					json += '{"id": ' + str(sceneId) + ', "name": "' + sceneName + '", "slides": ['
+
+					for slideId in data2:
+						json += slideId + ', '
 
 				if len(data) > 0:
-					json = json[:-1]
+					json = json[:-2]
 
 				res.status = falcon.HTTP_200
 				res.body = json + ']}'
