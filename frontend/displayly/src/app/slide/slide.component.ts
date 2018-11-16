@@ -32,12 +32,11 @@ export class SlideComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
-    this.workspaceId = '61';
-    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
-    //   this.router.navigate(['dashboard']);
-    //   return;
-    // }
+    this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
+    if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
+      this.router.navigate(['dashboard']);
+      return;
+    }
     this.getSlides();
   }
 
