@@ -121,7 +121,7 @@ class SceneRoutes(object):
 				db.commit()
 
 				for slideId in body['slides']:
-					cursor.execute(sql, (slideId, sceneId,))
+					cursor.execute(sql2, (slideId, sceneId,))
 					db.commit()
 
 				res.body = '{"success": true}'
