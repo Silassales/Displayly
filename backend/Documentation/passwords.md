@@ -1,6 +1,8 @@
 **There is a Postman collection in this folder that you can use to test all of the endpoints**
 
-### Reseting Passwords
+-------------------
+Resetting Passwords
+-------------------
 
 There are 3 steps to resetting a password: getting the security question, validating the answer, and then changing the password. There is an endpoint for each step as described below:
 

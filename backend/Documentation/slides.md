@@ -1,6 +1,8 @@
 **There is a Postman collection in this folder that you can use to test all of the endpoints**
 
-### Slides
+------
+Slides
+------
 
 **1. Create A New Slide**
 
