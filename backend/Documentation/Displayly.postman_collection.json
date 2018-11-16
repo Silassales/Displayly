@@ -274,6 +274,47 @@
 						"description": "Get a list of all displays that belong to a workspace. The URL format is /displays/{workspaceId}. Only users who have access to a workspace can view its displays.\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
 					},
 					"response": []
+				},
+				{
+					"name": "Assign a Scene",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDI0Njc2NjEsInVzZXJJZCI6Mzl9.DOVZ3JAaN6LdZLL6aPvA2RTdrHIkJd0a4ZwXmGEL8lQ",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"sceneId\": 1\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.83:5000/workspaces/57/displays/11",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"83"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"57",
+								"displays",
+								"11"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

@@ -59,3 +59,27 @@ A sample response would look like:
 * `id`: A unique identifier for the display.
 * `name`: The name of the display. This is not unique.
 * `sceneId`: The unique identifier of the scene that is currently being displayed on the display. `null` if no scene is assigned to the display.
+
+**3. Assing A Scene To A Display**
+
+Endpoint: `PUT http://131.104.48.83:5000/workspaces/{workspaceId}/displays/{displayId}`
+
+In the body you must include the ID of the scene you wish to assign to the display:
+
+```
+{
+    "sceneId": #
+}
+```
+
+If you want to unassign a scene to a display (effectively making the display show nothing):
+
+```
+{
+    "sceneId": null
+}
+```
+
+If changed successfully, a `200` status code will be returned. Otherwise, `400` or `401` with an error message.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its displays.
