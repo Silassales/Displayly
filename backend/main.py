@@ -41,3 +41,4 @@ app.add_route('/workspaces/{workspaceId}/slides', slideRoutes)
 app.add_route('/workspaces/{workspaceId}/slides/{slideId}', slideRoutes, suffix='images')
 
 app.add_route('/workspaces/{workspaceId}/displays', displayRoutes)
+app.add_route('/workspaces/{workspaceId}/displays/{displayId}', displayRoutes, suffix='assign')
