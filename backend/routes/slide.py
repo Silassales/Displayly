@@ -192,7 +192,7 @@ class SlideRoutes(object):
 				json = '{"success": true, "images": ['
 
 				for imageName in data:
-					json += ('"path": "/var/images/"' + imageName + '",')
+					json += ('"/var/images/' + str(imageName[0]) + '",')
 
 				if len(data) > 0:
 					json = json[:-1]
