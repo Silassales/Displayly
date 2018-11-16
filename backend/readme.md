@@ -339,9 +339,9 @@ A sample response would look like:
 {
     "success": true,
     "images": [
-		"/var/images/57_test1.jpg",
-		"/var/images/57_test2.jpg",
-		"/var/images/57_test3.jpg"
+	"/var/images/57_test1.jpg",
+	"/var/images/57_test2.jpg",
+	"/var/images/57_test3.jpg"
     ]
 }
 ```
