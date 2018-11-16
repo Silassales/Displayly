@@ -82,4 +82,6 @@ If you want to unassign a scene to a display (effectively making the display sho
 
 If changed successfully, a `200` status code will be returned. Otherwise, `400` or `401` with an error message.
 
+**NOTE:** Only one scene can be assigned to a display.
+
 In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its displays.
