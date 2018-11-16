@@ -46,10 +46,12 @@ A sample response would look like:
         {
             "id": 1,
             "name": "A scene"
+	    "slides": []
         },
         {
             "id": 2,
             "name": "Another scene"
+	    "slides": [1, 2, 3]
         }
     ]
 }
@@ -57,6 +59,7 @@ A sample response would look like:
 
 * `id`: A unique identifier for the scene.
 * `name`: The name of the scene. This is not unique.
+* `slides`: An array of slides that are assigned to the scene (the groups of slides that will be shown on a display when the scene is being displayed on a display)
 
 **3. Assign Slides To A Scene**
 
