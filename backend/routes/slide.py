@@ -186,7 +186,7 @@ class SlideRoutes(object):
 				WHERE SlideId = %s"""
 
 			try:
-				cursor.execute(sql, (workspaceId,))
+				cursor.execute(sql, (slideId,))
 				data = cursor.fetchall()
 
 				json = '{"success": true, "images": ['
