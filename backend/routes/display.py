@@ -143,7 +143,7 @@ class DisplayRoutes(object):
 
 			db.close()
 
-	def on_put_assign(self, req, res, worksapceId, displayId):
+	def on_put_assign(self, req, res, workspaceId, displayId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
