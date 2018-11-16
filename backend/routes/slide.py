@@ -159,7 +159,7 @@ class SlideRoutes(object):
 
 			db.close()
 
-	def on_get(self, req, res, workspaceId, slideId):
+	def on_get_images(self, req, res, workspaceId, slideId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
