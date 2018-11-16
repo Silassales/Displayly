@@ -123,7 +123,7 @@ class SlideRoutes(object):
 				res.status = falcon.HTTP_401
 				res.body = '{"error":"Invalid token"}'
 				return
-			
+
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
@@ -170,7 +170,7 @@ class SlideRoutes(object):
 				res.status = falcon.HTTP_401
 				res.body = '{"error":"Invalid token"}'
 				return
-			
+
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):

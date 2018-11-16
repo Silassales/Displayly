@@ -15,7 +15,7 @@ class SceneRoutes(object):
 		try:
 			options = {'verify_exp': True}
 			decodedToken = jwt.decode(token, 'secret', verify='True', algorithms=['HS256'], options=options)
-	
+
 			if expectedResetToken == False or decodedToken["validForPasswordReset"] == None:
 				return decodedToken
 			return None
@@ -165,8 +165,8 @@ class SceneRoutes(object):
 
 				for sceneId, sceneName in data:
 					sql2 = """SELECT SlideId
-								FROM SlidesToScenes
-								WHERE SceneId = %s """
+						FROM SlidesToScenes
+						WHERE SceneId = %s """
 
 					cursor.execute(sql2, (sceneId,))
 					data2 = cursor.fetchall()
@@ -174,10 +174,12 @@ class SceneRoutes(object):
 					json += '{"id": ' + str(sceneId) + ', "name": "' + sceneName + '", "slides": ['
 
 					for slideId in data2:
-						json += slideId + ', '
+						json += str(slideId[0]) + ', '
 
-				if len(data) > 0:
-					json = json[:-2]
+					if len(data2) > 0:
+						json = json[:-2] + ']}'
+					else:
+						json += ']}'
 
 				res.status = falcon.HTTP_200
 				res.body = json + ']}'
