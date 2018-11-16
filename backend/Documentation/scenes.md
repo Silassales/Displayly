@@ -57,3 +57,27 @@ A sample response would look like:
 
 * `id`: A unique identifier for the scene.
 * `name`: The name of the scene. This is not unique.
+
+**3. Assign Slides To A Scene**
+
+Endpoint: `http://131.104.48.83:5000/workspaces/{workspaceId}/scenes/{sceneId}`
+
+You can assign multiple slides to a scene. To do so, in the body of the request, provide an array of slide ID's:
+
+```
+{
+	"slides": [1, 2, 3]
+}
+```
+
+To remove all slides from the scene:
+
+```
+{
+	"slides": []
+}
+```
+
+If changed successfully, a `200` status code will be returned. Otherwise, `400` or `401` with an error message.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its scenes.

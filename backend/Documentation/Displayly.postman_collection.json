@@ -535,6 +535,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Assign Slides",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDI0NzAyMjgsInVzZXJJZCI6Mzl9.n_yJSuOMHFO5V9HM0wjdppYtjsettA5Fj8arnAAaGhc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"slides\": []\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.83:5000/workspaces/57/scenes/12",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"83"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"57",
+								"scenes",
+								"12"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
