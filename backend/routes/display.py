@@ -171,7 +171,7 @@ class DisplayRoutes(object):
 				return
 
 			cursor = db.cursor()
-			sql = "INSERT INTO Displays (SceneId) VALUES (%s) WHERE DisplayId = %s"
+			sql = "UPDATE Displays SET SceneId = %s WHERE DisplayId = %s"
 
 			try:
 				cursor.execute(sql, (body['sceneId'], displayId, ))
