@@ -19,6 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {RecoverComponent} from './recover/recover.component';
 import {CreateWorkspaceModalComponent} from './create-workspace-modal/create-workspace-modal.component';
 import {CreateSceneModalComponent} from './create-scene-modal/create-scene-modal.component';
+import { CreateDisplayModalComponent } from './create-display-modal/create-display-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {CreateSceneModalComponent} from './create-scene-modal/create-scene-modal
     HomeComponent,
     RecoverComponent,
     CreateWorkspaceModalComponent,
-    CreateSceneModalComponent
+    CreateSceneModalComponent,
+    CreateDisplayModalComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import {CreateSceneModalComponent} from './create-scene-modal/create-scene-modal
   ],
   entryComponents: [
     CreateWorkspaceModalComponent,
-    CreateSceneModalComponent
+    CreateSceneModalComponent,
+    CreateDisplayModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
