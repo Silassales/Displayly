@@ -60,7 +60,7 @@ A sample response would look like:
 * `name`: The name of the display. This is not unique.
 * `sceneId`: The unique identifier of the scene that is currently being displayed on the display. `null` if no scene is assigned to the display.
 
-**3. Assing A Scene To A Display**
+**3. Assign A Scene To A Display**
 
 Endpoint: `PUT http://131.104.48.83:5000/workspaces/{workspaceId}/displays/{displayId}`
 
