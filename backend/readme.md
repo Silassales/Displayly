@@ -300,6 +300,52 @@ If the slide is saved successfully, the following will be returned:
 
 * `slideId`: The ID of the newly created slide.
 
+**2. Get A List Of Slides**
+
+Endpoint: `GET http://131.104.48.83:5000/workspaces/{workspaceId}/slides`
+
+There is no body required, instead, to get a list of slides belonging existing within a workspace, you specify the Workspace ID directly in the URL. For example, if I wanted to see the list of slides for a workspace with ID 1: `GET http://131.104.48.83:5000/workspaces/1/slides`.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to access its slides.
+
+**NOTE:** This endpoint does not return the file paths of the actual images within a slide. To fetch the images see the next endpoint described in this section
+
+A sample response would look like:
+
+```
+{
+    "success": true,
+    "slides": [
+        {
+            "id": 21,
+            "name": "A test slide",
+            "layoutId": 1
+        }
+    ]
+}
+```
+
+**3. Get Images Within A Slide**
+
+Endpoint: `GET http://131.104.48.83:5000/workspaces/{workspaceId}/slides/{slideId}`
+
+There is no body required, instead, to get the images that belong in a slide, you specify the Workspace ID and Slide ID directly in the URL. For example, if I wanted to get the list of images with a slide with Slide ID 2 which belongs to a workspace with Workspace ID 1: `GET http://131.104.48.83:5000/workspaces/1/slides/2`.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to access its slides/images.
+
+A sample response would look like:
+
+```
+{
+    "success": true,
+    "images": [
+		"/var/images/57_test1.jpg",
+		"/var/images/57_test2.jpg",
+		"/var/images/57_test3.jpg"
+    ]
+}
+```
+
 ----
 
 ### Displays
