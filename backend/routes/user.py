@@ -245,7 +245,7 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_400
 				return
 	
-			sql = "SELECT UserId FROM Users WHERE Name = %s"
+			sql = "SELECT UserId,Name FROM Users WHERE Name = %s"
 
 			try:
 				cursor = db.cursor()
