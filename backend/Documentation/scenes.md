@@ -45,12 +45,12 @@ A sample response would look like:
     "scenes": [
         {
             "id": 1,
-            "name": "A scene"
+            "name": "A scene",
 	    "slides": []
         },
         {
             "id": 2,
-            "name": "Another scene"
+            "name": "Another scene",
 	    "slides": [1, 2, 3]
         }
     ]
