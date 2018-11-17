@@ -209,3 +209,34 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_401
 
 			db.close()
+	
+	# Assign a user to a workspace
+	def on_post_giveaccess(self, req, res, workspaceId, userId):
+		res.status = falcon.HTTP_401
+		res.body = '{"feedback":"server reached"}'
+		return
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Authorization token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+
+			body = self.getBodyFromRequest(req)
+
+			if body == None or 'slides' not in body:
+				res.body = '{"error":"Slide ID\'s required."}'
+				res.status = falcon.HTTP_400
+				return
+
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
+				res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return

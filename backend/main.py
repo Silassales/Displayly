@@ -34,7 +34,7 @@ app.add_route('/user/reset', userRoutes, suffix='reset')
 app.add_route('/token', tokenRoutes)
 
 app.add_route('/workspaces', workspaceRoutes)
-
+app.add_route('/workspaces/{workspaceId}/users/{userId}', userRoutes, suffix='giveaccess')
 app.add_route('/workspaces/{workspaceId}/scenes', sceneRoutes)
 app.add_route('/workspaces/{workspaceId}/scenes/{sceneId}', sceneRoutes, suffix='assign')
 
