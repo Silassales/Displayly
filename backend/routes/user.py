@@ -23,7 +23,7 @@ class UserRoutes(object):
 			return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
-	def authroizedWorkspace(self, db, userId, workspaceId,sql):
+	def authroizedWorkspace(self, db, userId, workspaceId):
 		cursor = db.cursor()
 		sql = "SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s"
 
