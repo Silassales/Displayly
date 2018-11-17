@@ -23,9 +23,9 @@ class UserRoutes(object):
 			return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
-	def authroizedWorkspace(self, db, userId, workspaceId):
+	def authroizedWorkspace(self, db, userId, workspaceId,sql):
 		cursor = db.cursor()
-		sql = "SELECT WorkspaceId FROM UsersToWorkspaces WHERE UserId = %s"
+		sql = "SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s"
 
 		try:
 			cursor.execute(sql, (userId,))
@@ -231,36 +231,29 @@ class UserRoutes(object):
 		
 		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
-		if self.authroizedWorkspace(db,userId,workspaceId):
-			res.status = falcon.HTTP_200
-			res.body = '{"feedback":"this user can edit"}'
-		else:
-			res.status = falcon.HTTP_200
-			res.body = '{"feedback":"this user cannot edit"}'
-		body = self.getBodyFromRequest(req)
-		return
-		if req.auth == None:
+		if not self.authroizedWorkspace(db,userId,workspaceId):
+			res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
 			res.status = falcon.HTTP_401
-			res.body = '{"error":"Authorization token required"}'
+			db.close()
+			return
 		else:
-			tokenContents = self.decodeToken(req.auth)
-
-			if tokenContents == None:
-				res.status = falcon.HTTP_401
-				res.body = '{"error":"Invalid token"}'
-				return
-
 			body = self.getBodyFromRequest(req)
 
-			if body == None or 'slides' not in body:
-				res.body = '{"error":"Slide ID\'s required."}'
+			if body == None or 'newUser' not in body:
+				res.body = '{"error":"New User\s name required."}'
 				res.status = falcon.HTTP_400
 				return
+	
+			sql = "SELECT UserId FROM Users WHERE Name = %s"
 
-			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
-
-			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
-				res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
-				res.status = falcon.HTTP_401
+			try:
+				cursor.execute(sql, (body['newUser'],))
+				data = cursor.fetchone()
+				res.body = '{"feedback":"data"}'
+				res.status = falcon.HTTP_400
 				db.close()
-				return
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
+			
