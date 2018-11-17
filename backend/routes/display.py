@@ -171,10 +171,10 @@ class DisplayRoutes(object):
 				return
 
 			cursor = db.cursor()
-			sql = "UPDATE Displays SET SceneId = %s WHERE DisplayId = %s"
+			sql = "UPDATE Displays SET SceneId = %s WHERE DisplayId = %s AND WorkspaceId = %s"
 
 			try:
-				cursor.execute(sql, (body['sceneId'], displayId, ))
+				cursor.execute(sql, (body['sceneId'], displayId, workspaceId, ))
 				db.commit()
 
 				res.body = '{"success": true}'
