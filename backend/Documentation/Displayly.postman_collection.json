@@ -193,6 +193,39 @@
 						"description": "Get the list of workspaces that the user belongs to\n\nYou will need to include the user's JWT token in the \"Authorization\" header."
 					},
 					"response": []
+				},
+				{
+					"name": "Delete Workspace",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/workspaces/57",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"57"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -295,6 +328,41 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"sceneId\": null\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/workspaces/57/displays/10",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"57",
+								"displays",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Display",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM5LCJleHAiOjE1NDI1NTU4OTh9.9wcWhM3x9GMb93F5i_MJUApYV1ymMrPoiRT9YPjiNWM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://131.104.48.82:5000/workspaces/57/displays/10",
@@ -555,7 +623,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"slides\": []\n}"
+							"raw": "{\n\t\"slides\": [26]\n}"
 						},
 						"url": {
 							"raw": "http://131.104.48.82:5000/workspaces/57/scenes/12",
@@ -721,6 +789,41 @@
 								"57",
 								"slides",
 								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Slide",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM5LCJleHAiOjE1NDI1NTM1NzZ9.whdFft-FszU8a2EIKElctcxMimLr9PrDhAEKfjz8pjg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/workspaces/57/slides/26",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"57",
+								"slides",
+								"26"
 							]
 						}
 					},
