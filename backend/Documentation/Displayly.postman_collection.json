@@ -24,7 +24,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -65,7 +65,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -105,7 +105,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -150,7 +150,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -183,7 +183,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -227,7 +227,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -262,7 +262,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -282,7 +282,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDI0Njc2NjEsInVzZXJJZCI6Mzl9.DOVZ3JAaN6LdZLL6aPvA2RTdrHIkJd0a4ZwXmGEL8lQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM5LCJleHAiOjE1NDI1NDQ4ODN9.4JEjgJiZzvym8ryOxI6dpmPP9xoymOcjfN9jUk5zMn8",
 								"type": "text"
 							},
 							{
@@ -294,23 +294,23 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"sceneId\": 1\n}"
+							"raw": "{\n\t\"sceneId\": null\n}"
 						},
 						"url": {
-							"raw": "http://131.104.48.82:5000/workspaces/57/displays/11",
+							"raw": "http://131.104.48.82:5000/workspaces/57/displays/10",
 							"protocol": "http",
 							"host": [
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
 								"workspaces",
 								"57",
 								"displays",
-								"11"
+								"10"
 							]
 						}
 					},
@@ -344,7 +344,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -379,7 +379,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -413,7 +413,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -446,7 +446,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -469,7 +469,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMwLCJleHAiOjE1NDIzMzIwOTh9.Q7IhFGaNW4B400OAbLsWhk3gy-UvMiz3W7W-Dm3mnFk",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM5LCJleHAiOjE1NDI1NDQ4ODN9.4JEjgJiZzvym8ryOxI6dpmPP9xoymOcjfN9jUk5zMn8",
 								"type": "text"
 							},
 							{
@@ -481,21 +481,21 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"A scene3\"\n}"
+							"raw": "{\n\t\"name\": \"Domenic's Scene\"\n}"
 						},
 						"url": {
-							"raw": "http://131.104.48.82:5000/workspaces/39/scenes",
+							"raw": "http://131.104.48.82:5000/workspaces/57/scenes",
 							"protocol": "http",
 							"host": [
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
 								"workspaces",
-								"39",
+								"57",
 								"scenes"
 							]
 						}
@@ -524,7 +524,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -564,7 +564,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -572,6 +572,41 @@
 								"57",
 								"scenes",
 								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Scene",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjM5LCJleHAiOjE1NDI1NDQ4ODN9.4JEjgJiZzvym8ryOxI6dpmPP9xoymOcjfN9jUk5zMn8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/workspaces/57/scenes/14",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"57",
+								"scenes",
+								"14"
 							]
 						}
 					},
@@ -610,7 +645,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -644,7 +679,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
@@ -678,7 +713,7 @@
 								"131",
 								"104",
 								"48",
-								"83"
+								"82"
 							],
 							"port": "5000",
 							"path": [
