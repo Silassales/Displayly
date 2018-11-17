@@ -6,7 +6,7 @@ Workspaces
 
 **1. Create A New Workspace**
 
-Endpoint: `POST http://131.104.48.83:5000/workspaces`
+Endpoint: `POST http://131.104.48.82:5000/workspaces`
 
 In the body, you must include the following properties: Name (the name of the workspace).
 
@@ -29,7 +29,7 @@ If created successfully, the following will be returned:
 
 **2. Get A List Of Workspaces For A User**
 
-Endpoint: `GET http://131.104.48.83:5000/workspaces`
+Endpoint: `GET http://131.104.48.82:5000/workspaces`
 
 There is no body require for this endpoint. Simply provide the JWT token in the `Authorization` header for the user whom you wish to get a list of their workspaces.
 

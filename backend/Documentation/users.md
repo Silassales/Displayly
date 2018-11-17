@@ -6,7 +6,7 @@ Users
 
 **1. Registering A New User**
 
-Endpoint: `POST 131.104.48.83:5000/user/register`
+Endpoint: `POST 131.104.48.82:5000/user/register`
 
 In the body, you must include the following properties: Name, Email, Password, Security Question, and Security Answer.
 If the registration is successful, 200 status code will be returned, otherwise 400 with a description explaining why the account could not be created. 
@@ -25,7 +25,7 @@ An example of the body might look like:
 
 **2. Login**
 
-Endpoint: `POST 131.104.48.83:5000/user/login`
+Endpoint: `POST 131.104.48.82:5000/user/login`
 
 In the body, you must include the following properties: Email, and Password. If the login is successfull, you will receive 200 status code with the following response:
 
@@ -40,7 +40,7 @@ The JWT token must be used in future API requests that require a user to be auth
 
 **3. Get User Info**
 
-Endpoint: `GET 131.104.48.83:5000/user`
+Endpoint: `GET 131.104.48.82:5000/user`
 
 This endpoint will return the following information regarding the user: User ID, Name, and Email
 

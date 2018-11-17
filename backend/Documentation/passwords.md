@@ -8,7 +8,7 @@ There are 3 steps to resetting a password: getting the security question, valida
 
 **1. Get Security Question**
 
-Endpoint: `GET http://131.104.48.83:5000/user/forgot?email={email}`
+Endpoint: `GET http://131.104.48.82:5000/user/forgot?email={email}`
 
 `{email}`: The email address that belongs to the account whose password we are trying to change
 
@@ -23,7 +23,7 @@ If the email is valid, the question will be returned in the body:
 
 **2. Validating The Security Question Answer**
 
-Endpoint: `POST http://131.104.48.83:5000/user/forgot`
+Endpoint: `POST http://131.104.48.82:5000/user/forgot`
 
 In the body, you must include two properties; one that contains the email address of the account whose password we are trying to change, and another that contains the answer to the question:
 
@@ -46,7 +46,7 @@ If the answer is incorrect, a `401` error will be returned. If the answer is cor
 
 **3. Resetting The Password**
 
-Endpoint: `POST http://131.104.48.83:5000/user/reset`
+Endpoint: `POST http://131.104.48.82:5000/user/reset`
 
 In the body, you must include a property containing the new password:
 
