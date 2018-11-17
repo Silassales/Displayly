@@ -247,6 +247,7 @@ class UserRoutes(object):
 			sql = "SELECT UserId FROM Users WHERE Name = %s"
 
 			try:
+				cursor = db.cursor()
 				cursor.execute(sql, (body['newUser'],))
 				data = cursor.fetchone()
 				res.body = '{"feedback":"data"}'
