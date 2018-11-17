@@ -245,13 +245,25 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_400
 				return
 	
-			sql = "SELECT UserId,Name FROM Users WHERE Name = %s"
+			sql = "SELECT UserId FROM Users WHERE Name = %s"
 
 			try:
 				cursor = db.cursor()
 				cursor.execute(sql, (body['newUser'],))
 				data = cursor.fetchone()
+				
+				if data == None:
+					res.body = '{"error":"The specified User is not registered."}'
+					res.status = falcon.HTTP_400
+					db.close()
+					return
 				print(data)
+
+				idToAdd = data[0]
+				sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
+				cursor.execute(sql3, (idToAdd, workspaceId))
+				db.commit()
+				print("done")
 				db.close()
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
