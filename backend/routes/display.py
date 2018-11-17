@@ -207,7 +207,7 @@ class DisplayRoutes(object):
 				return
 
 			cursor = db.cursor()
-			sql = "DELETE FROM Display WHERE DisplayId = %s"
+			sql = "DELETE FROM Displays WHERE DisplayId = %s"
 
 			try:
 				cursor.execute(sql, (displayId,))
