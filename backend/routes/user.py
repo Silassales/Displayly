@@ -260,9 +260,9 @@ class UserRoutes(object):
 				print(data)
 
 				idToAdd = data[0]
-				sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
-				cursor.execute(sql3, (idToAdd, workspaceId))
-				db.commit()
+				# sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
+				# cursor.execute(sql3, (idToAdd, workspaceId))
+				# db.commit()
 				print("done")
 				db.close()
 
