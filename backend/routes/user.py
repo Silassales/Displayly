@@ -227,7 +227,7 @@ class UserRoutes(object):
 	
 	# Assign a user to a workspace
 	def on_post_giveaccess(self, req, res, workspaceId, userId):
-		
+		print("hello there")
 		
 		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
