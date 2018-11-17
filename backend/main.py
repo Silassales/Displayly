@@ -39,7 +39,7 @@ app.add_route('/workspaces/{workspaceId}/scenes', sceneRoutes)
 app.add_route('/workspaces/{workspaceId}/scenes/{sceneId}', sceneRoutes, suffix='withSceneId')
 
 app.add_route('/workspaces/{workspaceId}/slides', slideRoutes)
-app.add_route('/workspaces/{workspaceId}/slides/{slideId}', slideRoutes, suffix='images')
+app.add_route('/workspaces/{workspaceId}/slides/{slideId}', slideRoutes, suffix='withSlideId')
 
 app.add_route('/workspaces/{workspaceId}/displays', displayRoutes)
 app.add_route('/workspaces/{workspaceId}/displays/{displayId}', displayRoutes, suffix='assign')

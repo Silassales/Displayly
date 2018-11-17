@@ -159,7 +159,7 @@ class SlideRoutes(object):
 
 			db.close()
 
-	def on_get_images(self, req, res, workspaceId, slideId):
+	def on_get_withSlideId(self, req, res, workspaceId, slideId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
@@ -205,3 +205,41 @@ class SlideRoutes(object):
 				res.status = falcon.HTTP_400
 
 			db.close()
+
+	def on_delete_withSlideId(self, req, res, workspaceId, slideId):
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Authorization token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
+				res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return
+
+			cursor = db.cursor()
+			sql = "DELETE FROM Slides WHERE SlideId = %s"
+			sql2 = "DELETE FROM SlidesToScenes WHERE SlideId = %s"
+
+			try:
+				cursor.execute(sql, (slide,))
+				db.commit()
+
+				cursor.execute(sql2, (slideId,))
+				db.commit()
+
+				res.body = '{"success": true}'
+				res.status = falcon.HTTP_200
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_400
