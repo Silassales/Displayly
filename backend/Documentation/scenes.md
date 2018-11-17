@@ -63,7 +63,7 @@ A sample response would look like:
 
 **3. Assign Slides To A Scene**
 
-Endpoint: `http://131.104.48.82:5000/workspaces/{workspaceId}/scenes/{sceneId}`
+Endpoint: `PUT http://131.104.48.82:5000/workspaces/{workspaceId}/scenes/{sceneId}`
 
 You can assign multiple slides to a scene. To do so, in the body of the request, provide an array of slide ID's:
 
@@ -84,3 +84,13 @@ To remove all slides from the scene:
 If changed successfully, a `200` status code will be returned. Otherwise, `400` or `401` with an error message.
 
 In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its scenes.
+
+**4. Delete A Scene**
+
+Endpoint: `DELETE http://131.104.48.82:5000/workspaces/{workspaceId}/scenes/{sceneId}`
+
+No body is needed, just include the `sceneId` and the `workspaceId` that the scene belongs to in the URL.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its scenes.
+
+**IMPORTANT:** If a Display is currently displaying the scene you are trying to delete, the request will be rejected. You must unassign the scene from the display first.

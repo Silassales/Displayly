@@ -212,9 +212,13 @@ class SceneRoutes(object):
 
 			cursor = db.cursor()
 			sql = "DELETE FROM Scenes WHERE SceneId = %s"
+			sql2 = "DELETE FROM SlidesToScenes WHERE SceneId = %s"
 
 			try:
 				cursor.execute(sql, (sceneId,))
+				db.commit()
+
+				cursor.execute(sql2, (sceneId,))
 				db.commit()
 
 				res.body = '{"success": true}'
