@@ -42,13 +42,21 @@ If a user belongs to two workspaces, the response would look like:
         {
             "id": 1,
             "name": "A workspace",
-	    "isAdmin": true
+            "isAdmin": true
         },
         {
             "id": 2,
             "name": "Another workspace",
-	    "isAdmin": false
+            "isAdmin": false
         }
     ]
 }
 ```
+
+**4. Delete A Workspace**
+
+Endpoint: `DELETE http://131.104.48.82:5000/workspaces/{workspaceId}`
+
+No body is needed, just include the `workspaceId` that you wish to delete.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to delete it.

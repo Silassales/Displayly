@@ -85,3 +85,11 @@ If changed successfully, a `200` status code will be returned. Otherwise, `400` 
 **NOTE:** Only one scene can be assigned to a display.
 
 In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its displays.
+
+**4. Delete A Display**
+
+Endpoint: `DELETE http://131.104.48.82:5000/workspaces/{workspaceId}/displays/{displayId}`
+
+No body is needed, just include the `displaysId` and the `workspaceId` that the display belongs to in the URL.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its displays.
