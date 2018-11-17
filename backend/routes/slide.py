@@ -231,7 +231,7 @@ class SlideRoutes(object):
 			sql2 = "DELETE FROM SlidesToScenes WHERE SlideId = %s"
 
 			try:
-				cursor.execute(sql, (slide,))
+				cursor.execute(sql, (slideId,))
 				db.commit()
 
 				cursor.execute(sql2, (slideId,))
