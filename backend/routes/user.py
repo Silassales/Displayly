@@ -237,6 +237,7 @@ class UserRoutes(object):
 			db.close()
 			return
 		else:
+			print("admin has permission")
 			body = self.getBodyFromRequest(req)
 
 			if body == None or 'newUser' not in body:
@@ -250,8 +251,7 @@ class UserRoutes(object):
 				cursor = db.cursor()
 				cursor.execute(sql, (body['newUser'],))
 				data = cursor.fetchone()
-				res.body = '{"feedback":"data"}'
-				res.status = falcon.HTTP_400
+				print(data)
 				db.close()
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
