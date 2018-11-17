@@ -23,7 +23,22 @@ class UserRoutes(object):
 			return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
+	def authroizedWorkspace(self, db, userId, workspaceId):
+		cursor = db.cursor()
+		sql = "SELECT WorkspaceId FROM UsersToWorkspaces WHERE UserId = %s"
 
+		try:
+			cursor.execute(sql, (userId,))
+			data = cursor.fetchall()
+
+			for workspaceIdentifier in data:
+				if int(workspaceId) == int(workspaceIdentifier[0]):
+					return True
+
+			return False
+
+		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+			return False
 	def on_get(self, req, res):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
