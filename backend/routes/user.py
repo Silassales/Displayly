@@ -261,7 +261,7 @@ class UserRoutes(object):
 
 				idToAdd = data[0]
 				sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
-				cursor.execute(sql3, (idToAdd, workspaceId))
+				cursor.execute(sql3, (idToAdd, workspaceId,))
 				db.commit()
 				# print(idToAdd,workspaceId)
 				print("done")
