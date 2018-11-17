@@ -143,7 +143,7 @@ class DisplayRoutes(object):
 
 			db.close()
 
-	def on_put_assign(self, req, res, workspaceId, displayId):
+	def on_put_withDisplayId(self, req, res, workspaceId, displayId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
@@ -185,4 +185,37 @@ class DisplayRoutes(object):
 				res.status = falcon.HTTP_400
 
 			db.close()
-			
+
+	def on_delete_withDisplayId(self, req, res, workspaceId, displayId):
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Authorization token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
+				res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return
+
+			cursor = db.cursor()
+			sql = "DELETE FROM Display WHERE DisplayId = %s"
+
+			try:
+				cursor.execute(sql, (displayId,))
+				db.commit()
+
+				res.body = '{"success": true}'
+				res.status = falcon.HTTP_200
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_400

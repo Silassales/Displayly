@@ -97,3 +97,13 @@ A sample response would look like:
     ]
 }
 ```
+
+**4. Delete A Slide**
+
+Endpoint: `DELETE http://131.104.48.82:5000/workspaces/{workspaceId}/slides/{slideId}`
+
+No body is needed, just include the `slideId` and the `workspaceId` that the slide belongs to in the URL.
+
+In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request. Only users who have access to the specified `workspaceId` will be able to modify its slides.
+
+**IMPORTANT:** If a Scene is currently using the slide you are trying to delete, the request will be rejected. You must remove the slide from any scenes it is being used in first.
