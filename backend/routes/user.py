@@ -212,8 +212,17 @@ class UserRoutes(object):
 	
 	# Assign a user to a workspace
 	def on_post_giveaccess(self, req, res, workspaceId, userId):
-		res.status = falcon.HTTP_401
-		res.body = '{"feedback":"server reached"}'
+		
+		
+		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+		if self.authroizedWorkspace(db,userId,workspaceId):
+			res.status = falcon.HTTP_200
+			res.body = '{"feedback":"this user can edit"}'
+		else:
+			res.status = falcon.HTTP_200
+			res.body = '{"feedback":"this user cannot edit"}'
+		body = self.getBodyFromRequest(req)
 		return
 		if req.auth == None:
 			res.status = falcon.HTTP_401
