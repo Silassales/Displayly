@@ -45,3 +45,19 @@ Endpoint: `GET 131.104.48.83:5000/user`
 This endpoint will return the following information regarding the user: User ID, Name, and Email
 
 In order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request for the user you are trying to get details for.
+
+
+
+
+
+**4. Give a User Access to Workspace**
+
+Endpoint: `POST 131.104.48.82:5000/workspaces/{WorkspaceId}/users/{UserId}`
+
+In the body, you must include the email of the new user you want to give workspace access to. If the login is successfull, you will receive 200 status code with the following response:
+
+```
+{
+	"success": true
+}
+```
