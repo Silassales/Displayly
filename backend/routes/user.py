@@ -29,8 +29,8 @@ class UserRoutes(object):
 		sql = "SELECT WorkspaceId FROM %s WHERE AdminId = %s"
 
 		try:
-			print("table is ", table)
-			cursor.execute(sql, (table,userId))
+			print("table is-", table)
+			cursor.execute(sql, (table,userId, ))
 			# cursor.execute("SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s",(userId,))
 			data = cursor.fetchall()
 
