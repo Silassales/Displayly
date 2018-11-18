@@ -27,7 +27,7 @@ class UserRoutes(object):
 	def authroizedWorkspace(self, db, userId, workspaceId, mode):
 		cursor = db.cursor()
 
-		if mode is "AdminCheck":
+		if mode is "UsersToWorkspaces":
 			sql = "SELECT WorkspaceId FROM UsersToWorkspaces WHERE UserId = %s"
 		else:
 			sql = "SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s"
