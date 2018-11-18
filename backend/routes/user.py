@@ -24,14 +24,16 @@ class UserRoutes(object):
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
 
-	def authroizedWorkspace(self, db, userId, workspaceId, table):
+	def authroizedWorkspace(self, db, userId, workspaceId, mode):
 		cursor = db.cursor()
-		sql = "SELECT WorkspaceId FROM %s WHERE AdminId = %s"%(table,userId)
+
+		if mode is "AdminCheck":
+			sql = "SELECT WorkspaceId FROM UsersToWorkspaces WHERE UserId = %s"
+		else:
+			sql = "SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s"
 
 		try:
-			print("table is-%s"%(table))
-			cursor.execute(sql)
-			# cursor.execute("SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s",(userId,))
+			cursor.execute(sql, (userId,))
 			data = cursor.fetchall()
 
 			for workspaceIdentifier in data:
@@ -261,7 +263,7 @@ class UserRoutes(object):
 					db.close()
 					return
 
-				if not self.authroizedWorkspace(db,data[0],workspaceId,"UsersToWorkspaces"):
+				if not authroizedWorkspace(db,data[0],workspaceId,"UsersToWorkspaces"):
 					sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
 					
 					cursor.execute(sql3, (data[0], workspaceId,))
