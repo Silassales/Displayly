@@ -29,6 +29,7 @@ class UserRoutes(object):
 		sql = "SELECT WorkspaceId FROM %s WHERE AdminId = %s"
 
 		try:
+			print("table is ", table)
 			cursor.execute(sql, (table,userId,))
 			data = cursor.fetchall()
 
@@ -228,7 +229,8 @@ class UserRoutes(object):
 			db.close()
 	
 	# Assign a user to a workspace
-	def on_post_giveaccess(self, req, res, workspaceId, userId):		
+	def on_post_giveaccess(self, req, res, workspaceId, userId):
+		print("why wont you work")		
 		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 		if not self.authroizedWorkspace(db,userId,workspaceId,"Workspaces"):
