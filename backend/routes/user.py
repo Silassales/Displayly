@@ -23,12 +23,13 @@ class UserRoutes(object):
 			return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
-	def authroizedWorkspace(self, db, userId, workspaceId):
+
+	def authroizedWorkspace(self, db, userId, workspaceId, table):
 		cursor = db.cursor()
-		sql = "SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s"
+		sql = "SELECT WorkspaceId FROM %s WHERE AdminId = %s"
 
 		try:
-			cursor.execute(sql, (userId,))
+			cursor.execute(sql, (table,userId,))
 			data = cursor.fetchall()
 
 			for workspaceIdentifier in data:
@@ -39,6 +40,7 @@ class UserRoutes(object):
 
 		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 			return False
+
 	def on_get(self, req, res):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
@@ -226,18 +228,16 @@ class UserRoutes(object):
 			db.close()
 	
 	# Assign a user to a workspace
-	def on_post_giveaccess(self, req, res, workspaceId, userId):
-		print("hello there")
-		
+	def on_post_giveaccess(self, req, res, workspaceId, userId):		
 		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
-		if not self.authroizedWorkspace(db,userId,workspaceId):
+		if not self.authroizedWorkspace(db,userId,workspaceId,"Workspaces"):
 			res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
 			res.status = falcon.HTTP_401
 			db.close()
 			return
 		else:
-			print("admin has permission")
+			# admin has permission to make changes
 			body = self.getBodyFromRequest(req)
 
 			if body == None or 'newUser' not in body:
@@ -257,15 +257,13 @@ class UserRoutes(object):
 					res.status = falcon.HTTP_400
 					db.close()
 					return
-				print(data)
 
-				idToAdd = data[0]
-				sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
-				cursor.execute(sql3, (idToAdd, workspaceId,))
-				db.commit()
-				# print(idToAdd,workspaceId)
-				print("done")
-				db.close()
+				if not authroizedWorkspace(db,data[0],workspaceId,"UsersToWorkspaces"):
+					sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
+					
+					cursor.execute(sql3, (data[0], workspaceId,))
+					db.commit()
+					db.close()
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
