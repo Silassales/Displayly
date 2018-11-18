@@ -24,6 +24,27 @@ class UserRoutes(object):
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
 
+	def authroizedWorkspace(self, db, userId, workspaceId, mode):
+		cursor = db.cursor()
+
+		if mode is "UsersToWorkspaces":
+			sql = "SELECT WorkspaceId FROM UsersToWorkspaces WHERE UserId = %s"
+		else:
+			sql = "SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s"
+
+		try:
+			cursor.execute(sql, (userId,))
+			data = cursor.fetchall()
+
+			for workspaceIdentifier in data:
+				if int(workspaceId) == int(workspaceIdentifier[0]):
+					return True
+
+			return False
+
+		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+			return False
+
 	def on_get(self, req, res):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
@@ -209,3 +230,53 @@ class UserRoutes(object):
 				res.status = falcon.HTTP_401
 
 			db.close()
+	
+	# Assign a user to a workspace
+	def on_post_giveaccess(self, req, res, workspaceId, userId):
+
+		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+		if not self.authroizedWorkspace(db,userId,workspaceId,"Workspaces"):
+			res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
+			res.status = falcon.HTTP_401
+			db.close()
+			return
+		else:
+			# admin has permission to make changes
+			body = self.getBodyFromRequest(req)
+
+			if body == None or 'newUser' not in body:
+				res.body = '{"error":"New User\s name required."}'
+				res.status = falcon.HTTP_400
+				return
+	
+			sql = "SELECT UserId FROM Users WHERE Email = %s"
+
+			try:
+				cursor = db.cursor()
+				cursor.execute(sql, (body['newUser'],))
+				data = cursor.fetchone()
+				
+				if data == None:
+					res.body = '{"error":"The specified User is not registered."}'
+					res.status = falcon.HTTP_400
+					db.close()
+					return
+
+				if not self.authroizedWorkspace(db,data[0],workspaceId,"UsersToWorkspaces"):
+					sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
+					
+					cursor.execute(sql3, (data[0], workspaceId,))
+					db.commit()
+					res.body = '{"success": true}'
+					res.status = falcon.HTTP_200
+				else:
+					res.body = '{"error":"The user already has access to the qorkspace."}'
+					res.status = falcon.HTTP_400
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_401
+		
+			db.close()
+			
