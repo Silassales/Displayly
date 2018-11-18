@@ -30,7 +30,8 @@ class UserRoutes(object):
 
 		try:
 			print("table is ", table)
-			cursor.execute(sql, (table,userId,))
+			# cursor.execute(sql, (table,userId,))
+			cursor.execute("SELECT WorkspaceId FROM Workspace WHERE AdminId = %s",(userId,))
 			data = cursor.fetchall()
 
 			for workspaceIdentifier in data:
