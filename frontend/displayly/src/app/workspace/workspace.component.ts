@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {WorkspaceService} from '../workspace.service';
+import {MatDialog} from '@angular/material';
+import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-workspace-modal.component';
 
 @Component({
   selector: 'app-workspace-component',
@@ -7,9 +10,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkspaceComponent implements OnInit {
 
-  constructor() { }
+  adjustedCols: number;
+  adjustedColsList = {
+    xl: 6,
+    md: 3,
+    xs: 1
+  };
+  workspaces: Object;
+  loading = true;
 
-  ngOnInit() {
+  constructor(private workspaceService: WorkspaceService, private dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    if (window.innerWidth >= 1000) {
+      this.adjustedCols = this.adjustedColsList.xl;
+    } else if (window.innerWidth >= 500) {
+      this.adjustedCols = this.adjustedColsList.md;
+    } else {
+      this.adjustedCols = this.adjustedColsList.xs;
+    }
+    this.getWorkspaces();
+  }
+
+  onResize(event) {
+    if (event.target.innerWidth >= 1000) {
+      this.adjustedCols = this.adjustedColsList.xl;
+    } else if (event.target.innerWidth >= 500) {
+      this.adjustedCols = this.adjustedColsList.md;
+    } else {
+      this.adjustedCols = this.adjustedColsList.xs;
+    }
+  }
+
+  getWorkspaces() {
+    this.loading = true;
+    this.workspaceService.getWorkspaces().subscribe( workspaces => {
+      this.workspaces = workspaces;
+    }, err => {
+      // TODO: Add some error handling
+    }, () => this.loading = false);
+  }
+
+  elementClicked(workspace: number) {
+    // TODO: Make this go to something
+  }
+
+  addElementClicked() {
+    const dialogRef = this.dialog.open(CreateWorkspaceModalComponent, {
+      width: 'auto'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getWorkspaces();
+    });
   }
 
 }
