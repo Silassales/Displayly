@@ -13,22 +13,24 @@ import {RecoverComponent} from './recover/recover.component';
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
+  //{path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {
     path: 'dashboard',
     component: DisplaylyToolbarWrapperComponent,
     children: [
       {path: '', redirectTo: 'workspace', pathMatch: 'full'},
-      {path: 'workspace', component: WorkspaceComponent,
-      children:[
-
-      ]},
+      {path: 'workspace', component: WorkspaceComponent},
+      {path: 'workspaceWithID', component: SceneComponent},
+      {path: 'scene/:workspaceId', component: SceneComponent},
+      {path: 'slide/:workspaceId', component: SlideComponent},
+      {path: 'display/:workspaceId', component: DisplayComponent}
+      
   ]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'recover', component: RecoverComponent},
   {path: '**', redirectTo: 'dashboard'} // This route must be the last route in the array or it will trigger before routes after it.
-];
-
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

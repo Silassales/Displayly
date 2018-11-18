@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {SceneserviceService} from '../sceneservice.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {WorkspaceserviceService} from '../workspaceservice.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-workspace-component',
@@ -16,9 +16,19 @@ export class WorkspaceComponent implements OnInit {
     md: 5,
     xs: 1
   };
-  workspaces: Object;
 
-  constructor(private workspaceService: WorkspaceserviceService) { }
+  workspaces: Object;
+  id: number;
+
+  constructor(private workspaceService: WorkspaceserviceService, private router: Router) { }
+
+  gotoWorkspace(id: number) {
+    this.id = id;
+
+    console.log("WID: " + id + " vs " + this.id);
+
+    this.router.navigate(['dashboard/workspaceWithID/'], {queryParams: {workspaceId: this.id}});
+  }
 
   ngOnInit(): void {
     this.clicked = 0;
@@ -44,10 +54,6 @@ export class WorkspaceComponent implements OnInit {
 
   getWorkspaces(){
     this.workspaceService.getWorkspaces().subscribe( workspaces => this.workspaces = workspaces);
-  }
-
-  elementClicked(workspace: number) {
-    this.clicked = workspace;
   }
 
   addElementClicked() {

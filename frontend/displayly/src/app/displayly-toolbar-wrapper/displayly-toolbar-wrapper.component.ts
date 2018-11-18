@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-displayly-toolbar-wrapper',
@@ -9,7 +10,9 @@ import {Router} from '@angular/router';
 })
 export class DisplaylyToolbarWrapperComponent implements OnInit {
 
-  constructor(private auth: AuthenticationService, private router: Router) { }
+  constructor(private auth: AuthenticationService, private location: Location, private router: Router, private route: ActivatedRoute) { }
+
+  id: number;
 
   ngOnInit() {
     console.log(this.auth.isAuthenticated());
@@ -22,6 +25,27 @@ export class DisplaylyToolbarWrapperComponent implements OnInit {
     // Call logout and move the user to the homepage
     this.auth.logout();
     this.router.navigate(['/']);
+  }
+
+  inWorkspace() {
+    return this.location.isCurrentPathEqualTo("/dashboard/workspace");
+  }
+
+  idEvent(event: number) {
+    console.log("Getting id");
+    this.id = event;
+    console.log(this.id);
+  }
+  goToScene() {
+    console.log("Scene Function:");
+    console.log(this.id);
+    this.router.navigate(['dashboard/scene/', this.id]);
+  }
+  goToSlide() {
+    this.router.navigate(['dashboard/slide/', this.id]);
+  }
+  goToDisplay() {
+    this.router.navigate(['dashboard/display/', this.id]);
   }
 
 }

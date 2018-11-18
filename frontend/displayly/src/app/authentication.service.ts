@@ -8,7 +8,7 @@ import {catchError, map} from 'rxjs/operators';
 })
 export class AuthenticationService {
 
-  private host = '131.104.48.83:5000';
+  private host = '131.104.48.82:5000';
 
   constructor(private http: HttpClient) { }
 

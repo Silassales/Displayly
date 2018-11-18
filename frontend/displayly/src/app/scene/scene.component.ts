@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SceneserviceService} from '../sceneservice.service';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-scene',
@@ -16,12 +17,15 @@ export class SceneComponent implements OnInit {
     xs: 1
   };
   scenes = [];
+  id: number;
 
 
 
-  constructor(private sceneService: SceneserviceService) { }
+  constructor(private sceneService: SceneserviceService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = +this.route.snapshot.queryParamMap.get('workspaceId');
+    console.log("Scene: " + this.id);
     this.clicked = 0;
     if (window.innerWidth >= 1000) {
       this.adjustedCols = this.adjustedColsList.xl;
