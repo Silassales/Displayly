@@ -33,11 +33,14 @@ export class SceneComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
-    this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
-      this.router.navigate(['dashboard']);
-      return;
-    }
+    const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
+    console.log("Scene: " + id);
+    this.workspaceId = id.toString();
+    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
+    // if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
+    //   this.router.navigate(['dashboard']);
+    //   return;
+    // }
     this.getScenes();
   }
 

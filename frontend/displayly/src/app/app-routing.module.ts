@@ -18,6 +18,7 @@ const routes: Routes = [
     component: DisplaylyToolbarWrapperComponent,
     children: [
       {path: '', redirectTo: 'workspace', pathMatch: 'full'},
+      {path: 'workspaceWithId', component: SceneComponent},
       {path: 'workspace', component: WorkspaceComponent},
       {path: 'slide', component: SlideComponent},
       {path: 'scene', component: SceneComponent},

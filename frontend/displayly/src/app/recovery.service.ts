@@ -10,7 +10,7 @@ export class RecoveryService {
 
   private question: string;
   private token: string;
-  private host = '131.104.48.83:5000';
+  private host = '131.104.48.82:5000';
 
   constructor(private http: HttpClient) { }
 
