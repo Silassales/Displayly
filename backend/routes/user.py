@@ -233,7 +233,7 @@ class UserRoutes(object):
 	
 	# Assign a user to a workspace
 	def on_post_giveaccess(self, req, res, workspaceId, userId):
-		print("why wont you work")		
+
 		db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 		if not self.authroizedWorkspace(db,userId,workspaceId,"Workspaces"):
@@ -268,9 +268,15 @@ class UserRoutes(object):
 					
 					cursor.execute(sql3, (data[0], workspaceId,))
 					db.commit()
-					db.close()
+					res.body = '{"success": true}'
+					res.status = falcon.HTTP_200
+				else:
+					res.body = '{"error":"The user already has access to the qorkspace."}'
+					res.status = falcon.HTTP_400
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_401
+		
+			db.close()
 			
