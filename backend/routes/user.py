@@ -261,7 +261,7 @@ class UserRoutes(object):
 					db.close()
 					return
 
-				if not authroizedWorkspace(db,data[0],workspaceId,"UsersToWorkspaces"):
+				if not self.authroizedWorkspace(db,data[0],workspaceId,"UsersToWorkspaces"):
 					sql3 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
 					
 					cursor.execute(sql3, (data[0], workspaceId,))
