@@ -179,10 +179,10 @@ class SceneRoutes(object):
 					if len(data2) > 0:
 						json = json[:-2] + ']}'
 					else:
-						json += ']}'
+						json += ']},'
 
 				res.status = falcon.HTTP_200
-				res.body = json + ']}'
+				res.body = json[:-1] + ']}'
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
