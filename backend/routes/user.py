@@ -26,11 +26,11 @@ class UserRoutes(object):
 
 	def authroizedWorkspace(self, db, userId, workspaceId, table):
 		cursor = db.cursor()
-		sql = "SELECT WorkspaceId FROM %s WHERE AdminId = %s"
+		sql = "SELECT WorkspaceId FROM %s WHERE AdminId = %s"%(table,userId)
 
 		try:
 			print("table is-%s"%(table))
-			cursor.execute(sql, (table,userId))
+			cursor.execute(sql)
 			# cursor.execute("SELECT WorkspaceId FROM Workspaces WHERE AdminId = %s",(userId,))
 			data = cursor.fetchall()
 
