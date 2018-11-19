@@ -3,11 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
-import { Injectable } from '@angular/core';
-import {AuthenticationService} from './authentication.service';
-import {HttpClient} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +65,7 @@ export class SlideService {
     } else {
       return null;
     }
-    for (let i = 0; i < k; i ++) {
+    for (let i = 0; i < k; i++) {
       if (this.images[i]) {
         tempArray[i] = this.images[i];
       } else {
@@ -79,7 +74,7 @@ export class SlideService {
     }
     return tempArray;
   }
-  
+
   getSlides(workspaceId: string): Observable<Object[]> {
     return this.http.get(`http://${this.host}/workspaces/${workspaceId}/slides`, {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
