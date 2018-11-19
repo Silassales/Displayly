@@ -91,12 +91,13 @@ A sample response would look like:
 {
     "success": true,
     "images": [
-		"/var/images/57_test1.jpg",
-		"/var/images/57_test2.jpg",
-		"/var/images/57_test3.jpg"
+		"/imgs/57_test1.jpg",
+		"/imgs/57_test2.jpg",
+		"/imgs/57_test3.jpg"
     ]
 }
 ```
+requests to /imgs/* are mapped to /var/images/*, where the images are, via server conf due to /var/images/ not being a public directory
 
 **4. Delete A Slide**
 
