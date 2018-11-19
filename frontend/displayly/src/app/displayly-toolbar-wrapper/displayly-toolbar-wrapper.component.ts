@@ -24,12 +24,34 @@ export class DisplaylyToolbarWrapperComponent implements OnInit {
     const param: string[] = myUrl.split('?');
     const id: string[] = param[1].split('=');
     console.log(id[1]);
+    return id[1];
   }
 
   logout() {
     // Call logout and move the user to the homepage
     this.auth.logout();
     this.router.navigate(['/']);
+  }
+
+  showButton(){
+    return this.loc.isCurrentPathEqualTo('/dashboard/workspace');
+  }
+
+  onSlide(){
+    const id = this.onTestClick();
+    this.router.navigate(['dashboard/slide'], {queryParams: {workspaceId: id}});
+  }
+
+  onScene(){
+    const id= this.onTestClick();
+    this.router.navigate(['dashboard/scene'], {queryParams: {workspaceId: id}});
+
+  }
+
+  onDisplay(){
+    const id= this.onTestClick();
+    this.router.navigate(['dashboard/display'], {queryParams: {workspaceId: id}});
+    
   }
 
 }
