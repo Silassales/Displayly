@@ -1,9 +1,10 @@
 import falcon
-import json
 import jwt
+import json
+import base64
 import mysql.connector
 
-class DisplayRoutes(object):
+class SlideRoutes(object):
 	def getBodyFromRequest(self, req):
 		raw_json = req.bounded_stream.read()
 		data = raw_json.decode('utf8').replace("'", '\\"')
@@ -15,23 +16,12 @@ class DisplayRoutes(object):
 		try:
 			options = {'verify_exp': True}
 			decodedToken = jwt.decode(token, 'secret', verify='True', algorithms=['HS256'], options=options)
-	
+
 			if expectedResetToken == False or decodedToken["validForPasswordReset"] == None:
 				return decodedToken
 			return None
 		except (jwt.DecodeError, jwt.ExpiredSignatureError) as err:
 			return None
-
-	def intToBoolString(self, number):
-		if number == 1:
-			return "true"
-		else:
-			return "false"
-
-	def valueToString(self, value):
-		if value == None:
-			return 'null'
-		return str(value)
 
 	def authroizedWorkspace(self, db, userId, workspaceId):
 		cursor = db.cursor()
@@ -64,35 +54,61 @@ class DisplayRoutes(object):
 
 			body = self.getBodyFromRequest(req)
 
-			if body == None or 'name' not in body:
-				res.body = '{"error":"Display name required."}'
+			if body == None or 'name' not in body or 'layoutId' not in body or 'images' not in body:
+				res.body = '{"error":"Slide name, Layout Id and images are required."}'
 				res.status = falcon.HTTP_400
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
-				res.body = '{"error":"This user does not have permissions to add displays to this workspace."}'
+				res.body = '{"error":"This user does not have permissions to add scenes to this workspace."}'
 				res.status = falcon.HTTP_401
 				db.close()
 				return
 
 			cursor = db.cursor()
-			sql = "INSERT INTO Displays (Name, WorkspaceId) VALUES (%s, %s)"
-			sql2 = "SELECT MAX(DisplayId) FROM Displays"
+			sql = "INSERT INTO Slides (Name, WorkspaceId, LayoutId) VALUES (%s, %s, %s)"
+			sql2 = "SELECT MAX(SlideId) FROM Slides"
+
+			slideId = "0"
 
 			try:
-				cursor.execute(sql, (body['name'], workspaceId, ))
+				cursor.execute(sql, (body['name'], workspaceId, body['layoutId'],))
 				db.commit()
 				cursor.execute(sql2)
 				data = cursor.fetchone()
 
-				res.body = '{"success": true, "displayId": ' + str(data[0]) + '}'
-				res.status = falcon.HTTP_200
+				slideId = str(data[0])
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_400
+				db.close()
+				return
+
+			for image in body['images']:
+				imageData = base64.b64decode(image['data'])
+				with open("/var/images/" + workspaceId + "_" + image['name'], "wb+") as f:
+					f.write(imageData)
+
+				sql3 = "INSERT INTO ImagesToSlides (ImagePath, SlideId) VALUES (%s, %s)"
+
+				try:
+					cursor.execute(sql3, (workspaceId + "_" + image['name'], slideId,))
+					db.commit()
+
+					res.body = '{"success": true, "slideId": ' + slideId + '}'
+					res.status = falcon.HTTP_200
+
+				except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+					res.body = '{' + '"error":"{}"'.format(e) + '}'
+					res.status = falcon.HTTP_400
+					db.close()
+					return
+
+			res.body = '{"success": true, "slideId": ' + slideId + '}'
+			res.status = falcon.HTTP_200
 
 			db.close()
 
@@ -111,25 +127,25 @@ class DisplayRoutes(object):
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
-				res.body = '{"error":"This user does not have permissions to view displays that belong to this workspace."}'
+				res.body = '{"error":"This user does not have permissions to view slides that belong to this workspace."}'
 				res.status = falcon.HTTP_401
 				db.close()
 				return
 
 			cursor = db.cursor()
 
-			sql = """SELECT DisplayId, Name, SceneId
-				FROM Displays
-				WHERE Displays.WorkspaceId = %s"""
+			sql = """SELECT SlideId, Name, LayoutId
+				FROM Slides
+				WHERE WorkspaceId = %s"""
 
 			try:
 				cursor.execute(sql, (workspaceId,))
 				data = cursor.fetchall()
 
-				json = '{"success": true, "displays": ['
+				json = '{"success": true, "slides": ['
 
-				for displayId, displayName, sceneId in data:
-					json += ('{"id": ' + str(displayId) + ', "name": "' + displayName + '", "sceneId": ' + self.valueToString(sceneId) + '},')
+				for slideId, slideName, layoutId in data:
+					json += ('{"id": ' + str(slideId) + ', "name": "' + slideName + '", "layoutId": ' + str(layoutId) + '},')
 
 				if len(data) > 0:
 					json = json[:-1]
@@ -143,7 +159,7 @@ class DisplayRoutes(object):
 
 			db.close()
 
-	def on_put_withDisplayId(self, req, res, workspaceId, displayId):
+	def on_get_withSlideId(self, req, res, workspaceId, slideId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
@@ -158,27 +174,31 @@ class DisplayRoutes(object):
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 
 			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
-				res.body = '{"error":"This user does not have permissions to view displays that belong to this workspace."}'
+				res.body = '{"error":"This user does not have permissions to view slides that belong to this workspace."}'
 				res.status = falcon.HTTP_401
 				db.close()
 				return
 
-			body = self.getBodyFromRequest(req)
-
-			if body == None or 'sceneId' not in body:
-				res.body = '{"error":"\'sceneId\' field required (value can be null)."}'
-				res.status = falcon.HTTP_400
-				return
-
 			cursor = db.cursor()
-			sql = "UPDATE Displays SET SceneId = %s WHERE DisplayId = %s AND WorkspaceId = %s"
+
+			sql = """SELECT ImagePath
+				FROM ImagesToSlides
+				WHERE SlideId = %s"""
 
 			try:
-				cursor.execute(sql, (body['sceneId'], displayId, workspaceId, ))
-				db.commit()
+				cursor.execute(sql, (slideId,))
+				data = cursor.fetchall()
 
-				res.body = '{"success": true}'
+				json = '{"success": true, "images": ['
+
+				for imageName in data:
+					json += ('"/var/images/' + str(imageName[0]) + '",')
+
+				if len(data) > 0:
+					json = json[:-1]
+
 				res.status = falcon.HTTP_200
+				res.body = json + ']}'
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
@@ -186,7 +206,7 @@ class DisplayRoutes(object):
 
 			db.close()
 
-	def on_delete_withDisplayId(self, req, res, workspaceId, displayId):
+	def on_delete_withSlideId(self, req, res, workspaceId, slideId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
 			res.body = '{"error":"Authorization token required"}'
@@ -207,10 +227,14 @@ class DisplayRoutes(object):
 				return
 
 			cursor = db.cursor()
-			sql = "DELETE FROM Displays WHERE DisplayId = %s"
+			sql = "DELETE FROM Slides WHERE SlideId = %s"
+			sql2 = "DELETE FROM SlidesToScenes WHERE SlideId = %s"
 
 			try:
-				cursor.execute(sql, (displayId,))
+				cursor.execute(sql, (slideId,))
+				db.commit()
+
+				cursor.execute(sql2, (slideId,))
 				db.commit()
 
 				res.body = '{"success": true}'
