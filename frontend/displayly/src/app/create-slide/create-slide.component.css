@@ -1,0 +1,23 @@
+.name-input {
+  margin-top: 25px;
+  width: 250px;
+}
+
+.row {
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5em;
+  font-family: "Roboto", sans-serif;
+  margin: 20px 0;
+}
+
+.button {
+  width: 10%;
+  margin: 20px auto;
+}
+
+.highlight {
+  border: aqua solid 5px;
+}

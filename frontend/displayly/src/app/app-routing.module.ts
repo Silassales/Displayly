@@ -9,6 +9,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
 import {RecoverComponent} from './recover/recover.component';
+import {LayoutTemplateComponent} from './layout-template/layout-template.component';
 
 const routes: Routes = [
 
