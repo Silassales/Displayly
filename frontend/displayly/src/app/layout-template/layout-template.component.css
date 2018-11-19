@@ -1,0 +1,15 @@
+.row {
+  width: 100%;
+  text-align: center;
+  margin: 5% 0;
+}
+
+.spacer {
+  display: inline-block;
+  width: 25%;
+}
+
+.small-spacer {
+  display: inline-block;
+  width: 2%;
+}

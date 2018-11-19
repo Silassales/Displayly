@@ -19,6 +19,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {RecoverComponent} from './recover/recover.component';
 import {CreateWorkspaceModalComponent} from './create-workspace-modal/create-workspace-modal.component';
 import {CreateSceneModalComponent} from './create-scene-modal/create-scene-modal.component';
+import { CreateSlideComponent } from './create-slide/create-slide.component';
+import {BoxComponent, LayoutTemplateComponent} from './layout-template/layout-template.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,10 @@ import {CreateSceneModalComponent} from './create-scene-modal/create-scene-modal
     HomeComponent,
     RecoverComponent,
     CreateWorkspaceModalComponent,
-    CreateSceneModalComponent
+    CreateSceneModalComponent,
+    CreateSlideComponent,
+    LayoutTemplateComponent,
+    BoxComponent
   ],
   imports: [
     BrowserModule,

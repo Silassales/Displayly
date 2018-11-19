@@ -1,0 +1,7 @@
+<div class="box-wrapper" style="display: inline-block" [style.width.%]="width" (click)="selectImg()">
+  <div class="box" [ngClass]="(!encodedImg) ? 'shadow' : ''">
+    <mat-icon *ngIf="!encodedImg" class="icon">add_photo_alternate</mat-icon>
+    <img *ngIf="encodedImg" [src]="encodedImg" class="fill-img">
+  </div>
+</div>
+<input [id]="'imgInput' + imgId" class="hidden" type="file" accept="image/*" (change)="onFileChange($event)">

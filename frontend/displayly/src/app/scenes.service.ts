@@ -8,7 +8,7 @@ import {catchError, map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ScenesService {
-  private host = '131.104.48.83:5000';
+  private host = '131.104.48.82:5000';
 
   constructor(private auth: AuthenticationService, private http: HttpClient) {
   }
