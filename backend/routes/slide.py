@@ -181,15 +181,17 @@ class SlideRoutes(object):
 
 			cursor = db.cursor()
 
-			sql = """SELECT ImagePath
+			sql = """SELECT ImagesToSlides.ImagePath, Slides.LayoutId
 				FROM ImagesToSlides
-				WHERE SlideId = %s"""
+				INNER JOIN Slides
+				ON Slides.SlideId = ImagesToSlides.SlideId
+				WHERE ImagesToSlides.SlideId = %s"""
 
 			try:
 				cursor.execute(sql, (slideId,))
 				data = cursor.fetchall()
 
-				json = '{"success": true, "images": ['
+				json = '{"success": true, "layoutId": ' + str(data[0][1]) + ', "images": ['
 
 				for imageName in data:
 					# json += ('"/var/images/' + str(imageName[0]) + '",')
