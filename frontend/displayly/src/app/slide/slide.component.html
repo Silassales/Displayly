@@ -1,4 +1,5 @@
 <div *ngIf="loading; else mainContent" class="full-width">
+
   <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
 </div>
 <ng-template #mainContent>
@@ -13,9 +14,10 @@
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
-        <mat-grid-tile class="grid-element content-element" *ngFor="let slide of slides" (click)="elementClicked(slide)">
+        <mat-grid-tile class="grid-element content-element" *ngFor="let slide of slides"
+                       (click)="elementClicked(slide)">
           <mat-card class="slide-card">
-            <mat-icon>view_compact</mat-icon>
+            <mat-icon>view_carousel</mat-icon>
             <mat-card-content>
               {{slide.name}}
             </mat-card-content>
@@ -39,3 +41,4 @@
     </div>
   </ng-template>
 </ng-template>
+

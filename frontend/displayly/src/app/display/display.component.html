@@ -13,9 +13,10 @@
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
-        <mat-grid-tile class="grid-element content-element" *ngFor="let display of displays" (click)="elementClicked(display)">
+        <mat-grid-tile class="grid-element content-element" *ngFor="let display of displays"
+                       (click)="elementClicked(display)">
           <mat-card class="display-card">
-            <mat-icon>tv</mat-icon>
+            <mat-icon>view_carousel</mat-icon>
             <mat-card-content>
               {{display.name}}
             </mat-card-content>
