@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {ScenesService} from '../scenes.service';
 import {DisplaysService} from '../display.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-scene-modal',
@@ -20,6 +21,7 @@ export class AddSceneModalComponent implements OnInit {
   constructor(private sceneService: ScenesService,
               private displayService: DisplaysService,
               private dialog: MatDialog,
+              private router: Router,
               @Inject(MAT_DIALOG_DATA) private data: any) {
   }
 
@@ -54,6 +56,10 @@ export class AddSceneModalComponent implements OnInit {
       res => this.dialog.closeAll(),
       err => console.log(err)
     );
+  }
+
+  showDisplay() {
+    window.open(`/showDisplay?displayId=${this.displayId}&workspaceId=${this.workspaceId}`, '_blank');
   }
 
 }

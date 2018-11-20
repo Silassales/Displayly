@@ -37,11 +37,6 @@ export class SceneComponent implements OnInit {
     }
     const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
     this.workspaceId = id.toString();
-    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspaceId id from the url, redirect to the dashboard
-    //   this.router.navigate(['dashboard']);
-    //   return;
-    // }
     this.getScenes();
   }
 

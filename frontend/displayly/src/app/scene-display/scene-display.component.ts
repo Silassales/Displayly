@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SlideService} from '../slide.service';
 import {interval} from 'rxjs';
@@ -11,8 +11,8 @@ import {ScenesService} from '../scenes.service';
 })
 export class SceneDisplayComponent implements OnInit {
 
-  workspaceId: string;
-  sceneId: string;
+  @Input() workspaceId: string;
+  _sceneId: string;
   slides = [];
   visibleIndex = 0;
 
@@ -23,17 +23,22 @@ export class SceneDisplayComponent implements OnInit {
     if (!this.workspaceId) {
       this.workspaceId = this.route.snapshot.queryParamMap.get('workspaceId');
     }
-    if (!this.sceneId) {
-      this.sceneId = this.route.snapshot.queryParamMap.get('sceneId');
-    }
+
     this.fetchSlides();
 
     interval(8000).subscribe(() => this.incrementIndex()); // Trigger a slide change every 8 seconds
   }
 
+  @Input()
+  set sceneId(sceneId: string) {
+    this._sceneId = sceneId;
+    this.fetchSlides();
+  }
+
   fetchSlides() {
-    this.sceneService.getSlides(this.workspaceId, this.sceneId).subscribe(
+    this.sceneService.getSlides(this.workspaceId, this._sceneId).subscribe(
       slideIds => {
+        this.slides = [];
         for (const slideId of slideIds) {
           this.slideService.getSlideDetails(this.workspaceId, slideId).subscribe(
             slide => {

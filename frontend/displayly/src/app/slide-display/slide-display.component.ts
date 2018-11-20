@@ -19,17 +19,11 @@ export class SlideDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.workspaceId) {
+    if (this.route.snapshot.queryParamMap.get('slideId') && this.route.snapshot.queryParamMap.get('workspaceId')) {
       this.workspaceId = this.route.snapshot.queryParamMap.get('workspaceId');
-    }
-    if (!this.slideId) {
       this.slideId = this.route.snapshot.queryParamMap.get('slideId');
+      this.getSlideImages();
     }
-    // if (!this.workspaceId || !this.slideId) { // If we dont have the workspaceId or slideId redirect to workspaces
-    //   this.router.navigate(['./dashboard/workspaces']);
-    //   return;
-    // }
-    // this.getSlideImages();
   }
 
   showSlide(): boolean {

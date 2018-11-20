@@ -26,6 +26,7 @@ import { SlideDisplayComponent } from './slide-display/slide-display.component';
 import { AddSlidesModalComponent } from './add-slides-modal/add-slides-modal.component';
 import { SceneDisplayComponent } from './scene-display/scene-display.component';
 import { AddSceneModalComponent } from './add-scene-modal/add-scene-modal.component';
+import { ShowDisplayComponent } from './show-display/show-display.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AddSceneModalComponent } from './add-scene-modal/add-scene-modal.compon
     SlideDisplayComponent,
     AddSlidesModalComponent,
     SceneDisplayComponent,
-    AddSceneModalComponent
+    AddSceneModalComponent,
+    ShowDisplayComponent
   ],
   imports: [
     BrowserModule,
