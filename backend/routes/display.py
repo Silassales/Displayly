@@ -186,6 +186,45 @@ class DisplayRoutes(object):
 
 			db.close()
 
+	def on_get_withDisplayId(self, req, res, workspaceId, displayId):
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Authorization token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
+				res.body = '{"error":"This user does not have permissions to view displays in this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return
+
+			cursor = db.cursor()
+			sql = """SELECT DisplayId, Name, SceneId
+					FROM Displays
+					WHERE Displays.WorkspaceId = %s
+					AND Displays.DisplayId = %s"""
+
+			try:
+				cursor.execute(sql, (workspaceId, sceneId,))
+				data = cursor.fetchone()
+
+				json = '{"success": true, {"id": ' + str(data[0]) + ', "name": ' + data[1] + ', "sceneId": ' + self.valueToString(sceneId) + '}'
+
+				res.body = json + ']}'
+				res.status = falcon.HTTP_200
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_400
+
 	def on_delete_withDisplayId(self, req, res, workspaceId, displayId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
