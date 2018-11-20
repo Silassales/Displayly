@@ -222,7 +222,7 @@ class SceneRoutes(object):
 					WHERE SlidesToScenes.SceneId = %s """
 
 			try:
-				cursor.execute(sql, (sceneId,))
+				cursor.execute(sql, (workspaceId, sceneId,))
 				data = db.fetchall()
 
 				json = '{"success": true, "slides": ['
