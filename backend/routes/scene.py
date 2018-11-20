@@ -228,7 +228,7 @@ class SceneRoutes(object):
 				json = '{"success": true, "slides": ['
 
 				for slideId in data:
-					json += slideId + ","
+					json += str(slideId) + ","
 
 				res.body = json[:-1] + "]}"
 				res.status = falcon.HTTP_200
