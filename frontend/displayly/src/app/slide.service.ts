@@ -87,4 +87,17 @@ export class SlideService {
       })
     );
   }
+
+  getSlideDetails(workspaceId: string, slideId: string): Observable<Object> {
+    return this.http.get(`http://${this.host}/workspaces/${workspaceId}/slides/${slideId}`, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    }).pipe(
+      map(response => {
+        return response;
+      }),
+      catchError(error => {
+        return throwError(error);
+      })
+    );
+  }
 }

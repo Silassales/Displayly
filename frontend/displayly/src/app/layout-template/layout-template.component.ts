@@ -6,16 +6,22 @@ import {SlideService} from '../slide.service';
   templateUrl: './layout-template.component.html',
   styleUrls: ['./layout-template.component.css']
 })
-export class LayoutTemplateComponent implements OnInit {
+export class LayoutTemplateComponent {
 
   @Input() width: number;
   @Input() layoutId: number;
   @Input() functional: boolean;
+  @Input() images: string[];
   boxWidth = 30;
 
-  constructor(private slides: SlideService) { }
+  constructor() {
+  }
 
-  ngOnInit() {
+  getImage(imgId: number): string {
+    if (!this.images) {
+      return null;
+    }
+    return this.images[imgId - 1];
   }
 
 }
@@ -30,6 +36,7 @@ export class BoxComponent {
   @Input() width: number; // Get the passed in width from the parent
   @Input() imgId: number;
   @Input() functional: boolean;
+  @Input() imagePath: string;
   private reader: FileReader;
   encodedImg: string;
   imgName: string;
@@ -48,6 +55,16 @@ export class BoxComponent {
     }
 
     document.getElementById(`imgInput${this.imgId}`).click();
+  }
+
+  getImgSrc(): string {
+    if (this.encodedImg) {
+      return this.encodedImg;
+    }
+    if (this.imagePath) {
+      return `http://131.104.48.82${this.imagePath}`;
+    }
+    return null;
   }
 
   onFileChange(event) {

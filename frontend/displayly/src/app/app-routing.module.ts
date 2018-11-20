@@ -10,6 +10,8 @@ import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
 import {RecoverComponent} from './recover/recover.component';
 import {LayoutTemplateComponent} from './layout-template/layout-template.component';
+import {CreateSlideComponent} from './create-slide/create-slide.component';
+import {SlideDisplayComponent} from './slide-display/slide-display.component';
 
 const routes: Routes = [
 
@@ -18,10 +20,16 @@ const routes: Routes = [
     path: 'dashboard',
     component: DisplaylyToolbarWrapperComponent,
     children: [
-      {path: '', redirectTo: 'workspace', pathMatch: 'full'},
+      {path: '', redirectTo: 'workspaceId', pathMatch: 'full'},
       {path: 'workspaceWithId', component: SceneComponent},
-      {path: 'workspace', component: WorkspaceComponent},
-      {path: 'slide', component: SlideComponent},
+      {path: 'workspaceId', component: WorkspaceComponent},
+      {
+        path: 'slide', component: SlideComponent
+        // children: [
+        //   {path: 'create', component: CreateSlideComponent}
+        // ]
+      },
+      {path: 'createSlide', component: CreateSlideComponent},
       {path: 'scene', component: SceneComponent},
       {path: 'display', component: DisplayComponent}
     ]
@@ -29,6 +37,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'recover', component: RecoverComponent},
+  {path: 'test', component: SlideDisplayComponent}, // TODO: This route is used for testing. delete it later
   {path: '**', redirectTo: 'dashboard'} // This route must be the last route in the array or it will trigger before routes after it.
 ];
 

@@ -19,7 +19,7 @@ export class CreateSceneModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.workspaceId = this.data['workspaceId']; // Grab the workspace id from the parent component
+    this.workspaceId = this.data['workspaceId']; // Grab the workspaceId id from the parent component
   }
 
   submit() {

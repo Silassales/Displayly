@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {SlideService} from '../slide.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,13 +14,20 @@ export class CreateSlideComponent implements OnInit {
   name: string;
   stepTwo = false;
   loading = false;
-  workspace = '58';
+  workspaceId: string;
 
-  constructor(private slides: SlideService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private slides: SlideService, private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.slides.reset();
-    this.workspace = this.route.snapshot.paramMap.get('workspaceId');
+    // const id: number = this.route.snapshot.queryParamMap.get('workspaceId');
+    // console.log(id);
+    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
+    this.workspaceId = this.route.snapshot.queryParamMap.get('workspaceId');
+    if (!this.workspaceId) {
+      this.router.navigate(['./dashboard/workspaces']);
+    }
   }
 
   buttonDisabled() {
@@ -38,14 +45,14 @@ export class CreateSlideComponent implements OnInit {
   }
 
   saveDisabled(): boolean {
-      return this.slides.prepareImgsArray() === null || this.loading;
+    return this.slides.prepareImgsArray() === null || this.loading;
   }
 
   save() {
     this.loading = true;
-    this.slides.createSlide(this.workspace, this.name).subscribe(
+    this.slides.createSlide(this.workspaceId, this.name).subscribe(
       res => {
-        this.router.navigate(['./slides']);
+        this.router.navigate(['dashboard/slide'], {queryParams: {workspaceId: this.workspaceId}});
       }, err => {
         console.log(err);
       }, () => this.loading = false

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SlideService} from '../slide.service';
 import {MatDialog} from '@angular/material';
@@ -16,7 +16,7 @@ export class SlideComponent implements OnInit {
     xs: 1
   };
   slides = [];
-  workspaceId: string; // Stores the workspace id from the path
+  workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
 
   constructor(private route: ActivatedRoute, private slidesService: SlideService, private dialog: MatDialog, private router: Router) {
@@ -31,10 +31,9 @@ export class SlideComponent implements OnInit {
       this.adjustedCols = this.adjustedColsList.xs;
     }
     const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
-    console.log('Slide: ' + id);
     this.workspaceId = id.toString();
     // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
+    // if (!this.workspaceId) { // If we couldn't grab the workspaceId id from the url, redirect to the dashboard
     //   this.router.navigate(['dashboard']);
     //   return;
     // }
@@ -62,15 +61,17 @@ export class SlideComponent implements OnInit {
       }, () => this.loading = false
     );
   }
-  elementClicked(scene: number) {
+
+  elementClicked(slide: string) {
     // TODO: Make this go to something
+    this.router.navigate(['test'], {queryParams: {workspaceId: this.workspaceId, slideId: slide['id']}});
   }
 
-  // addElementClicked() {
-  // jack is doing this
-  // }
+  addElementClicked() {
+    this.router.navigate(['dashboard/createSlide'], {queryParams: {workspaceId: this.workspaceId}});
+  }
 
-    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
+  // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
 
   // elementClicked(slide: number) {
   //   // TODO: Make this go to something
