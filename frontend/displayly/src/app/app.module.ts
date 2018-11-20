@@ -23,6 +23,7 @@ import { CreateSlideComponent } from './create-slide/create-slide.component';
 import {BoxComponent, LayoutTemplateComponent} from './layout-template/layout-template.component';
 import { CreateDisplayModalComponent } from './create-display-modal/create-display-modal.component';
 import { SlideDisplayComponent } from './slide-display/slide-display.component';
+import { AddSlidesModalComponent } from './add-slides-modal/add-slides-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SlideDisplayComponent } from './slide-display/slide-display.component';
     LayoutTemplateComponent,
     BoxComponent,
     CreateDisplayModalComponent,
-    SlideDisplayComponent
+    SlideDisplayComponent,
+    AddSlidesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { SlideDisplayComponent } from './slide-display/slide-display.component';
   entryComponents: [
     CreateWorkspaceModalComponent,
     CreateSceneModalComponent,
-    CreateDisplayModalComponent
+    CreateDisplayModalComponent,
+    AddSlidesModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

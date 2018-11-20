@@ -1,9 +1,11 @@
 <div *ngIf="loading; else mainContent" class="full-width">
   <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
 </div>
+<mat-error>{{error}}</mat-error>
+
 <ng-template #mainContent>
   <div *ngIf="scenes; else else_block">
-    <div style="margin: 30px">
+    <div *ngIf="!loading && !error" style="margin: 30px">
       <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
         <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
           <mat-card class="scene-card">
@@ -25,7 +27,7 @@
     </div>
   </div>
   <ng-template #else_block>
-    <div style="margin: 30px">
+    <div *ngIf="!loading && !error" style="margin: 30px">
       <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
         <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
           <mat-card class="scene-card">

@@ -45,3 +45,13 @@ a.form-alternative {
 .cursor-hover:hover {
   cursor: pointer;
 }
+
+.title {
+  font-size: 1.5em;
+  font-family: "Roboto", sans-serif;
+  margin: 20px 0;
+}
+
+.highlight {
+  border: #4055af solid 5px;
+}

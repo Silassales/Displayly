@@ -3,6 +3,7 @@ import {ScenesService} from '../scenes.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {CreateSceneModalComponent} from '../create-scene-modal/create-scene-modal.component';
+import {AddSlidesModalComponent} from '../add-slides-modal/add-slides-modal.component';
 
 @Component({
   selector: 'app-scene',
@@ -20,6 +21,7 @@ export class SceneComponent implements OnInit {
   scenes = [];
   workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
+  error: string;
 
 
   constructor(private route: ActivatedRoute, private scenesService: ScenesService, private dialog: MatDialog, private router: Router) {
@@ -34,7 +36,6 @@ export class SceneComponent implements OnInit {
       this.adjustedCols = this.adjustedColsList.xs;
     }
     const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
-    console.log("Scene: " + id);
     this.workspaceId = id.toString();
     // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
     // if (!this.workspaceId) { // If we couldn't grab the workspaceId id from the url, redirect to the dashboard
@@ -56,19 +57,46 @@ export class SceneComponent implements OnInit {
 
   getScenes() {
     this.loading = true;
-    this.scenesService.getScenes(this.workspaceId).subscribe(
-      scenes => {
-        this.scenes = scenes; // Set the scenes
-      },
-      err => {
-        // TODO handle error here
-      }, () => this.loading = false
-    );
-    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
+    this.error = null;
+    this.scenes = [
+      {
+        'id': 39,
+        'name': 'yoyo some scene',
+        'slides': [
+          39,
+          40
+        ]
+      }
+    ];
+    this.loading = false;
+    // this.scenesService.getScenes(this.workspaceId).subscribe(
+    //   scenes => {
+    //     console.log(scenes)
+    //     this.scenes = scenes; // Set the scenes
+    //     this.loading = false;
+    //   },
+    //   err => {
+    //     this.error = err['error']['error'];
+    //     // TODO handle error here
+    //     console.log(err);
+    //     this.loading = false;
+    //   }, () => this.loading = false
+    // );
   }
 
   elementClicked(scene: number) {
     // TODO: Make this go to something
+    console.log(scene);
+    const dialogRef = this.dialog.open(AddSlidesModalComponent, {
+      width: '80%',
+      data: {
+        'workspaceId': this.workspaceId,
+        'sceneId': scene['id'].toString(),
+        'slides': scene['slides'],
+        'sceneName': scene['name']
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => this.getScenes());
   }
 
   addElementClicked() {

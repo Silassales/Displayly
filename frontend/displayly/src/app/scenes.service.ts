@@ -33,4 +33,12 @@ export class ScenesService {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
     });
   }
+
+  putSlides(workspaceId: string, sceneId: string, slides: string[]): Observable<Object> {
+    return this.http.put(`http://${this.host}/workspaces/${workspaceId}/scenes/${sceneId}`, {
+      slides
+    }, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
+  }
 }
