@@ -23,7 +23,6 @@ export class DisplaylyToolbarWrapperComponent implements OnInit {
     const myUrl: string = this.loc.path(false);
     const param: string[] = myUrl.split('?');
     const id: string[] = param[1].split('=');
-    console.log(id[1]);
     return id[1];
   }
 

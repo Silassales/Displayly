@@ -34,4 +34,24 @@ export class DisplaysService {
     });
   }
 
+  getDisplay(workspaceId: string, displayId: string): Observable<Object> {
+    return this.http.get(`http://${this.host}/workspaces/${workspaceId}/displays/${displayId}`, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    }).pipe(
+      map(response => {
+        return response['display']; // Strip away the information we dont need from the response
+      }),
+      catchError(error => {
+        return throwError(error);
+      })
+    );
+  }
+
+  putScene(workspaceId: string, displayId: string, sceneId: string): Observable<Object> {
+    return this.http.put(`http://${this.host}/workspaces/${workspaceId}/displays/${displayId}`, {
+      sceneId
+    }, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
+  }
 }

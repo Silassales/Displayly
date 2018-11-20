@@ -4,6 +4,8 @@ import {DisplaysService} from '../display.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {CreateDisplayModalComponent} from '../create-display-modal/create-display-modal.component';
+import {AddSlidesModalComponent} from '../add-slides-modal/add-slides-modal.component';
+import {AddSceneModalComponent} from '../add-scene-modal/add-scene-modal.component';
 
 @Component({
   selector: 'app-display',
@@ -33,13 +35,7 @@ export class DisplayComponent implements OnInit {
       this.adjustedCols = this.adjustedColsList.xs;
     }
     const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
-    console.log('Slide: ' + id);
     this.workspaceId = id.toString();
-    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspaceId id from the url, redirect to the dashboard
-    //   this.router.navigate(['dashboard']);
-    //   return;
-    // }
     this.getDisplays();
   }
 
@@ -63,13 +59,7 @@ export class DisplayComponent implements OnInit {
         // TODO handle error here
       }, () => this.loading = false
     );
-
-    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
   }
-
-  // elementClicked(slide: number) {
-  //   // TODO: Make this go to something
-  // }
 
   addElementClicked() {
     const dialogRef = this.dialog.open(CreateDisplayModalComponent, {
@@ -82,5 +72,18 @@ export class DisplayComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getDisplays(); // Refresh the scenes after the dialog has closed
     });
+  }
+
+  elementClicked(display) {
+    const dialogRef = this.dialog.open(AddSceneModalComponent, {
+      width: '80%',
+      data: {
+        'workspaceId': this.workspaceId,
+        'displayId': display['id'].toString(),
+        'selectedScene': display['sceneId'],
+        'displayName': display['name']
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => this.getDisplays());
   }
 }

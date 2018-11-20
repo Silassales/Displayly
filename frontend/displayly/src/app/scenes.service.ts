@@ -33,4 +33,25 @@ export class ScenesService {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
     });
   }
+
+  putSlides(workspaceId: string, sceneId: string, slides: string[]): Observable<Object> {
+    return this.http.put(`http://${this.host}/workspaces/${workspaceId}/scenes/${sceneId}`, {
+      slides
+    }, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
+  }
+
+  getSlides(workspaceId: string, sceneId: string): Observable<string[]> {
+    return this.http.get(`http://${this.host}/workspaces/${workspaceId}/scenes/${sceneId}`, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    }).pipe(
+      map(response => {
+        return response['slides'].map(String); // Strip away the information we dont need from the response
+      }),
+      catchError(error => {
+        return throwError(error);
+      })
+    );
+  }
 }

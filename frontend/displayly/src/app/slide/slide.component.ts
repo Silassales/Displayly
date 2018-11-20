@@ -32,11 +32,7 @@ export class SlideComponent implements OnInit {
     }
     const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
     this.workspaceId = id.toString();
-    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspaceId id from the url, redirect to the dashboard
-    //   this.router.navigate(['dashboard']);
-    //   return;
-    // }
+
     this.getSlides();
   }
 
@@ -63,30 +59,11 @@ export class SlideComponent implements OnInit {
   }
 
   elementClicked(slide: string) {
-    // TODO: Make this go to something
-    this.router.navigate(['test'], {queryParams: {workspaceId: this.workspaceId, slideId: slide['id']}});
+    window.open(`/showSlide?slideId=${slide['id']}&workspaceId=${this.workspaceId}`, '_blank');
+    // this.router.navigate(['showSlide'], {queryParams: {workspaceId: this.workspaceId, slideId: slide['id']}});
   }
 
   addElementClicked() {
     this.router.navigate(['dashboard/createSlide'], {queryParams: {workspaceId: this.workspaceId}});
   }
-
-  // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
-
-  // elementClicked(slide: number) {
-  //   // TODO: Make this go to something
-  // }
-
-  // addElementClicked() {
-  //   const dialogRef = this.dialog.open(CreateSceneModalComponent, {
-  //     width: 'auto',
-  //     data: {
-  //       workspaceId: this.workspaceId
-  //     }
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.getSlides(); // Refresh the scenes after the dialog has closed
-  //   });
-  // }
 }
