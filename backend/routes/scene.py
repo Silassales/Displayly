@@ -223,7 +223,7 @@ class SceneRoutes(object):
 
 			try:
 				cursor.execute(sql, (workspaceId, sceneId,))
-				data = db.fetchall()
+				data = cursor.fetchall()
 
 				json = '{"success": true, "slides": ['
 
