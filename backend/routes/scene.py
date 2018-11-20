@@ -194,6 +194,50 @@ class SceneRoutes(object):
 
 			db.close()
 
+	def on_get_withSceneId(self, req, res, workspaceId, sceneId):
+		if req.auth == None:
+			res.status = falcon.HTTP_401
+			res.body = '{"error":"Authorization token required"}'
+		else:
+			tokenContents = self.decodeToken(req.auth)
+
+			if tokenContents == None:
+				res.status = falcon.HTTP_401
+				res.body = '{"error":"Invalid token"}'
+				return
+
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
+				res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return
+
+			cursor = db.cursor()
+			sql = """SELECT SlidesToScenes.SlideId
+					FROM SlidesToScenes
+					INNER JOIN Scenes
+					ON Scenes.WorkspaceId = %s
+					WHERE SlidesToScenes.SceneId = %s """
+
+			try:
+				cursor.execute(sql, (sceneId,))
+				data = db.fetchall()
+
+				json = '{"success": true, "slides": ['
+
+				for slideId in data {
+					json += slideId + ","
+				}
+
+				res.body = json[:-1] + "]}"
+				res.status = falcon.HTTP_200
+
+			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.status = falcon.HTTP_400
+
 	def on_delete_withSceneId(self, req, res, workspaceId, sceneId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
