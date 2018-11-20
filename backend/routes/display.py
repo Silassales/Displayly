@@ -213,7 +213,7 @@ class DisplayRoutes(object):
 					AND Displays.DisplayId = %s"""
 
 			try:
-				cursor.execute(sql, (workspaceId, sceneId,))
+				cursor.execute(sql, (workspaceId, displayId,))
 				data = cursor.fetchone()
 
 				json = '{"success": true, {"id": ' + str(data[0]) + ', "name": ' + data[1] + ', "sceneId": ' + self.valueToString(sceneId) + '}'
