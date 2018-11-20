@@ -58,35 +58,21 @@ export class SceneComponent implements OnInit {
   getScenes() {
     this.loading = true;
     this.error = null;
-    this.scenes = [
-      {
-        'id': 39,
-        'name': 'yoyo some scene',
-        'slides': [
-          39,
-          40
-        ]
-      }
-    ];
-    this.loading = false;
-    // this.scenesService.getScenes(this.workspaceId).subscribe(
-    //   scenes => {
-    //     console.log(scenes)
-    //     this.scenes = scenes; // Set the scenes
-    //     this.loading = false;
-    //   },
-    //   err => {
-    //     this.error = err['error']['error'];
-    //     // TODO handle error here
-    //     console.log(err);
-    //     this.loading = false;
-    //   }, () => this.loading = false
-    // );
+    this.scenesService.getScenes(this.workspaceId).subscribe(
+      scenes => {
+        this.scenes = scenes; // Set the scenes
+        this.loading = false;
+      },
+      err => {
+        this.error = err['error']['error'];
+        // TODO handle error here
+        console.log(err);
+        this.loading = false;
+      }, () => this.loading = false
+    );
   }
 
   elementClicked(scene: number) {
-    // TODO: Make this go to something
-    console.log(scene);
     const dialogRef = this.dialog.open(AddSlidesModalComponent, {
       width: '80%',
       data: {

@@ -17,15 +17,17 @@ export class AddSlidesModalComponent implements OnInit {
   loading = true;
   selectedSlides: string[];
 
-  constructor(private slideService: SlideService, private scenesService: ScenesService, @Inject(MAT_DIALOG_DATA) private data: any) { }
+  constructor(private slideService: SlideService,
+              private dialog: MatDialog,
+              private scenesService: ScenesService,
+              @Inject(MAT_DIALOG_DATA) private data: any) {
+  }
 
   ngOnInit() {
-    console.log(this.data);
     this.workspaceId = this.data['workspaceId'];
     this.sceneName = this.data['sceneName'];
     this.sceneId = this.data['sceneId'];
     this.selectedSlides = this.data['slides'].map(String);
-    console.log(this.selectedSlides);
     this.getSlides();
 
   }
@@ -56,11 +58,11 @@ export class AddSlidesModalComponent implements OnInit {
     this.selectedSlides = this.selectedSlides.sort();
     this.scenesService.putSlides(this.workspaceId, this.sceneId, this.selectedSlides).subscribe(
       res => {
-        console.log(res);
+        this.dialog.closeAll();
       }, err => {
         console.log(err);
       }
-    )
+    );
   }
 
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SlideService} from '../slide.service';
 import {interval} from 'rxjs';
+import {ScenesService} from '../scenes.service';
 
 @Component({
   selector: 'app-scene-display',
@@ -15,7 +16,7 @@ export class SceneDisplayComponent implements OnInit {
   slides = [];
   visibleIndex = 0;
 
-  constructor(private route: ActivatedRoute, private slideService: SlideService) {
+  constructor(private route: ActivatedRoute, private slideService: SlideService, private sceneService: ScenesService) {
   }
 
   ngOnInit() {
@@ -27,31 +28,30 @@ export class SceneDisplayComponent implements OnInit {
     }
     this.fetchSlides();
 
-
     interval(8000).subscribe(() => this.incrementIndex()); // Trigger a slide change every 8 seconds
   }
 
   fetchSlides() {
-    // TODO: use the api for this
-    const temp = [
-      39,
-      40
-    ].map(String);
-
-    for (const slideId of temp) {
-      this.slideService.getSlideDetails(this.workspaceId, slideId).subscribe(
-        res => {
-          this.slides.push(res);
-        }, err => {
-          console.log(err);
+    this.sceneService.getSlides(this.workspaceId, this.sceneId).subscribe(
+      slideIds => {
+        for (const slideId of slideIds) {
+          this.slideService.getSlideDetails(this.workspaceId, slideId).subscribe(
+            slide => {
+              this.slides.push(slide);
+            }, err => {
+              console.log(err);
+            }
+          );
         }
-      );
-    }
+      }, err => {
+        console.log(err);
+      }
+    );
   }
 
   incrementIndex() {
     if (this.visibleIndex + 1 < this.slides.length) {
-      this.visibleIndex ++;
+      this.visibleIndex++;
     } else {
       this.visibleIndex = 0;
     }
