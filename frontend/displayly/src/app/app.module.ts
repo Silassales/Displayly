@@ -25,6 +25,7 @@ import { CreateDisplayModalComponent } from './create-display-modal/create-displ
 import { SlideDisplayComponent } from './slide-display/slide-display.component';
 import { AddSlidesModalComponent } from './add-slides-modal/add-slides-modal.component';
 import { SceneDisplayComponent } from './scene-display/scene-display.component';
+import { AddSceneModalComponent } from './add-scene-modal/add-scene-modal.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SceneDisplayComponent } from './scene-display/scene-display.component';
     CreateDisplayModalComponent,
     SlideDisplayComponent,
     AddSlidesModalComponent,
-    SceneDisplayComponent
+    SceneDisplayComponent,
+    AddSceneModalComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import { SceneDisplayComponent } from './scene-display/scene-display.component';
     CreateWorkspaceModalComponent,
     CreateSceneModalComponent,
     CreateDisplayModalComponent,
-    AddSlidesModalComponent
+    AddSlidesModalComponent,
+    AddSceneModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

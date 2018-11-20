@@ -47,7 +47,7 @@ export class ScenesService {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
     }).pipe(
       map(response => {
-        return response['scenes'].map(String); // Strip away the information we dont need from the response
+        return response['slides'].map(String); // Strip away the information we dont need from the response
       }),
       catchError(error => {
         return throwError(error);

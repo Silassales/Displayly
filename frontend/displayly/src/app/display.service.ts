@@ -34,4 +34,11 @@ export class DisplaysService {
     });
   }
 
+  putScene(workspaceId: string, displayId: string, sceneId: string) {
+    return this.http.put(`http://${this.host}/workspaces/${workspaceId}/displays/${displayId}`, {
+      sceneId
+    }, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
+  }
 }
