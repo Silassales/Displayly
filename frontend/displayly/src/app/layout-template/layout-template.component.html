@@ -1,26 +1,26 @@
-<div *ngIf="layoutId == 1" class="container" [style.width.%]="width">
+<div *ngIf="layoutId == 1" class="container cursor-hover" [style.width.%]="width">
   <div class="row">
-    <app-box [imgId]="1" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="1" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(1)"></app-box>
     <div class="spacer"></div>
-    <app-box [imgId]="2" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="2" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(2)"></app-box>
   </div>
   <div class="row">
-    <app-box [imgId]="3" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="3" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(3)"></app-box>
   </div>
 </div>
-<div *ngIf="layoutId == 2" class="container" [style.width.%]="width">
+<div *ngIf="layoutId == 2" class="container cursor-hover" [style.width.%]="width">
   <div class="row">
-    <app-box [imgId]="1" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="1" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(1)"></app-box>
     <div class="small-spacer"></div>
-    <app-box [imgId]="2" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="2" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(2)"></app-box>
     <div class="small-spacer"></div>
-    <app-box [imgId]="3" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="3" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(3)"></app-box>
   </div>
   <div class="row">
-    <app-box [imgId]="4" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="4" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(4)"></app-box>
     <div class="small-spacer"></div>
-    <app-box [imgId]="5" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="5" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(5)"></app-box>
     <div class="small-spacer"></div>
-    <app-box [imgId]="6" [width]="boxWidth" [functional]="functional"></app-box>
+    <app-box [imgId]="6" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(6)"></app-box>
   </div>
 </div>

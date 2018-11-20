@@ -4,10 +4,6 @@
   position: relative;
 }
 
-.box:hover {
-  cursor: pointer;
-}
-
 .icon {
   position: absolute;
   top: 0;

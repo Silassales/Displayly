@@ -1,11 +1,12 @@
 <div *ngIf="loading; else mainContent" class="full-width">
+
   <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
 </div>
 <ng-template #mainContent>
   <div *ngIf="slides; else else_block">
     <div style="margin: 30px">
       <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
           <mat-card class="slide-card">
             <mat-icon>add</mat-icon>
             <mat-card-content>
@@ -13,9 +14,10 @@
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
-        <mat-grid-tile class="grid-element content-element" *ngFor="let slide of slides" (click)="elementClicked(slide)">
+        <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let slide of slides"
+                       (click)="elementClicked(slide)">
           <mat-card class="slide-card">
-            <mat-icon>view_compact</mat-icon>
+            <mat-icon>view_carousel</mat-icon>
             <mat-card-content>
               {{slide.name}}
             </mat-card-content>
@@ -27,7 +29,7 @@
   <ng-template #else_block>
     <div style="margin: 30px">
       <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
           <mat-card class="slide-card">
             <mat-icon>add</mat-icon>
             <mat-card-content>
@@ -39,3 +41,4 @@
     </div>
   </ng-template>
 </ng-template>
+

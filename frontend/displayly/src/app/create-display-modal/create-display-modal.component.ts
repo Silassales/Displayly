@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import {DisplayService} from '../display.service';
+import {DisplaysService} from '../display.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 
 @Component({
@@ -15,11 +15,11 @@ export class CreateDisplayModalComponent implements OnInit {
   error = '';
   workspaceId = '';
 
-  constructor(private displayService: DisplayService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) private data: any) {
+  constructor(private displayService: DisplaysService, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) private data: any) {
   }
 
   ngOnInit() {
-    this.workspaceId = this.data['workspaceId']; // Grab the workspace id from the parent component
+    this.workspaceId = this.data['workspaceId'];
   }
 
   submit() {
@@ -27,12 +27,14 @@ export class CreateDisplayModalComponent implements OnInit {
       this.dialog.closeAll();
     }, err => {
       this.loading = false;
-      // If authentication was not successful, display the error. If no error was provided, show a generic error
+
       this.error = (err.error.error) ? err.error.error : 'There was an error with the system, try again later';
+
     });
   }
 
   buttonDisabled() {
     return this.displayValidator.hasError('required') || this.loading;
   }
+
 }

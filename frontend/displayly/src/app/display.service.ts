@@ -1,18 +1,19 @@
-import { Injectable } from '@angular/core';
-import {Observable, of, throwError} from 'rxjs';
+import {Injectable} from '@angular/core';
 import {AuthenticationService} from './authentication.service';
 import {HttpClient} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DisplayService {
-  private host = '131.104.48.83:5000';
+export class DisplaysService {
+  private host = '131.104.48.82:5000';
 
-  constructor(private auth: AuthenticationService, private http: HttpClient) { }
+  constructor(private auth: AuthenticationService, private http: HttpClient) {
+  }
 
-  getDisplays(workspaceId: string): Observable<String[]> {
+  getDisplays(workspaceId: string): Observable<Object[]> {
     return this.http.get(`http://${this.host}/workspaces/${workspaceId}/displays`, {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
     }).pipe(
@@ -32,4 +33,5 @@ export class DisplayService {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
     });
   }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WorkspaceService} from '../workspace.service';
 import {MatDialog} from '@angular/material';
+import {Router} from '@angular/router'
 import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-workspace-modal.component';
 
 @Component({
@@ -8,6 +9,7 @@ import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-wo
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.css']
 })
+
 export class WorkspaceComponent implements OnInit {
 
   adjustedCols: number;
@@ -19,7 +21,7 @@ export class WorkspaceComponent implements OnInit {
   workspaces: Object;
   loading = true;
 
-  constructor(private workspaceService: WorkspaceService, private dialog: MatDialog) { }
+  constructor(private workspaceService: WorkspaceService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     if (window.innerWidth >= 1000) {
@@ -52,7 +54,7 @@ export class WorkspaceComponent implements OnInit {
   }
 
   elementClicked(workspace: number) {
-    // TODO: Make this go to something
+    this.router.navigate(['dashboard/workspaceWithId'], {queryParams: {workspaceId: workspace}});
   }
 
   addElementClicked() {
