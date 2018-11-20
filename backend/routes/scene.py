@@ -230,7 +230,10 @@ class SceneRoutes(object):
 				for slideId in data:
 					json += str(slideId[0]) + ","
 
-				res.body = json[:-1] + "]}"
+				if len(data) > 0:
+					json = json[:-1];
+
+				res.body = json + "]}"
 				res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
