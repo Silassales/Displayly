@@ -216,7 +216,7 @@ class DisplayRoutes(object):
 				cursor.execute(sql, (workspaceId, displayId,))
 				data = cursor.fetchone()
 
-				json = '{"success": true, {"id": ' + str(data[0]) + ', "name": ' + str(data[1]) + ', "sceneId": ' + self.valueToString(data[2]) + '}'
+				json = '{"success": true, {"id": ' + str(data[0]) + ', "name": "' + data[1] + '", "sceneId": ' + self.valueToString(data[2]) + '}'
 
 				res.body = json + '}'
 				res.status = falcon.HTTP_200
