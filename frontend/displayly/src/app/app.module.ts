@@ -24,6 +24,7 @@ import {BoxComponent, LayoutTemplateComponent} from './layout-template/layout-te
 import { CreateDisplayModalComponent } from './create-display-modal/create-display-modal.component';
 import { SlideDisplayComponent } from './slide-display/slide-display.component';
 import { AddSlidesModalComponent } from './add-slides-modal/add-slides-modal.component';
+import { SceneDisplayComponent } from './scene-display/scene-display.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddSlidesModalComponent } from './add-slides-modal/add-slides-modal.com
     BoxComponent,
     CreateDisplayModalComponent,
     SlideDisplayComponent,
-    AddSlidesModalComponent
+    AddSlidesModalComponent,
+    SceneDisplayComponent
   ],
   imports: [
     BrowserModule,

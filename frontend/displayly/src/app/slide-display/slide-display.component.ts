@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SlideService} from '../slide.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -9,24 +9,27 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class SlideDisplayComponent implements OnInit {
 
-  workspaceId: string;
-  slideId: string;
-  loading = true;
-  layoutId: string;
-  images: string[];
+  @Input() workspaceId: string;
+  @Input() slideId: string;
+  loading = false;
+  @Input() layoutId: string;
+  @Input() images: string[];
 
   constructor(private route: ActivatedRoute, private router: Router, private slidesService: SlideService) {
   }
 
   ngOnInit() {
-    this.workspaceId = this.route.snapshot.queryParamMap.get('workspaceId');
-    this.slideId = this.route.snapshot.queryParamMap.get('slideId');
-
-    if (!this.workspaceId || !this.slideId) { // If we dont have the workspaceId or slideId redirect to workspaces
-      this.router.navigate(['./dashboard/workspaces']);
-      return;
+    if (!this.workspaceId) {
+      this.workspaceId = this.route.snapshot.queryParamMap.get('workspaceId');
     }
-    this.getSlideImages();
+    if (!this.slideId) {
+      this.slideId = this.route.snapshot.queryParamMap.get('slideId');
+    }
+    // if (!this.workspaceId || !this.slideId) { // If we dont have the workspaceId or slideId redirect to workspaces
+    //   this.router.navigate(['./dashboard/workspaces']);
+    //   return;
+    // }
+    // this.getSlideImages();
   }
 
   showSlide(): boolean {

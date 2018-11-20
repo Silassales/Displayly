@@ -12,6 +12,7 @@ import {RecoverComponent} from './recover/recover.component';
 import {LayoutTemplateComponent} from './layout-template/layout-template.component';
 import {CreateSlideComponent} from './create-slide/create-slide.component';
 import {SlideDisplayComponent} from './slide-display/slide-display.component';
+import {SceneDisplayComponent} from './scene-display/scene-display.component';
 
 const routes: Routes = [
 
@@ -37,7 +38,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'recover', component: RecoverComponent},
-  {path: 'test', component: SlideDisplayComponent}, // TODO: This route is used for testing. delete it later
+  {path: 'test', component: SceneDisplayComponent}, // TODO: This route is used for testing. delete it later
   {path: '**', redirectTo: 'dashboard'} // This route must be the last route in the array or it will trigger before routes after it.
 ];
 
