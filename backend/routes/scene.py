@@ -177,7 +177,7 @@ class SceneRoutes(object):
 						json += str(slideId[0]) + ', '
 
 					if len(data2) > 0:
-						json = json[:-2] + ']}'
+						json = json[:-2] + ']},'
 					else:
 						json += ']},'
 
@@ -231,7 +231,7 @@ class SceneRoutes(object):
 					json += str(slideId[0]) + ","
 
 				if len(data) > 0:
-					json = json[:-1];
+					json = json[:-1]
 
 				res.body = json + "]}"
 				res.status = falcon.HTTP_200
