@@ -19,3 +19,8 @@
   box-sizing: border-box;
   text-align: center;
 }
+
+.sort-form-field {
+  padding-top: 15px;
+  padding-left: 30px;
+}
