@@ -214,19 +214,20 @@ class SlideRoutes(object):
 			try:
 				cursor.execute(sql, (slideId,))
 				data = cursor.fetchall()
-
-				json = '{"success": true, "layoutId": ' + str(data[0][1]) + ', "images": ['
-
-				for imageName in data:
-					# json += ('"/var/images/' + str(imageName[0]) + '",')
-					# change below made at jack's request
-					json += ('"/imgs/' + str(imageName[0]) + '",')
+				json = ""
 
 				if len(data) > 0:
-					json = json[:-1]
+					json = '{"success": true, "layoutId": ' + str(data[0][1]) + ', "images": ['
 
-				res.status = falcon.HTTP_200
-				res.body = json + ']}'
+					for imageName in data:
+						json += ('"/imgs/' + str(imageName[0]) + '",')
+
+					json = json[:-1] + "]}"
+					res.status = falcon.HTTP_200
+				else:
+					json = '{"error":"No images on slide"}'
+					res.status = falcon.HTTP_400
+				res.body = json
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
