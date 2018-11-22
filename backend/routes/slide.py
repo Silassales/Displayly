@@ -40,6 +40,30 @@ class SlideRoutes(object):
 		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 			return False
 
+	def scenesUsingSlide(self, slideId, db):
+		sql = """SELECT Name
+				FROM Scenes
+				WHERE SlideId = %s"""
+
+		cursor = db.cursor()
+
+		try:
+			cursor.execute(sql, (slideId,))
+			data = cursor.fetchall()
+
+			json = '{"error": "This slide can not be deleted. Check that no scenes are using this slide, then try deleting again.", "names": ["'
+
+			for sceneName in data:
+				json += sceneName + '",'
+
+			if len(data) > 0:
+				json = json[:-1]
+			
+			return json + ']}'
+
+		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+			return '{"error":"This slide can not be deleted. Check that no scenes are using this slide, then try deleting again."}'
+
 	def on_post(self, req, res, workspaceId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
@@ -245,5 +269,7 @@ class SlideRoutes(object):
 				res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
-				res.body = '{"error":"This slide can not be deleted. Check that no scenes are using this slide, then try deleting again."}'
+				res.body = scenesUsingSlide(slideId, db)
 				res.status = falcon.HTTP_400
+
+			db.close()
