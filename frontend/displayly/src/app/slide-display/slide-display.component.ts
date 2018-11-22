@@ -23,6 +23,12 @@ export class SlideDisplayComponent implements OnInit {
       this.workspaceId = this.route.snapshot.queryParamMap.get('workspaceId');
       this.slideId = this.route.snapshot.queryParamMap.get('slideId');
       this.getSlideImages();
+    } else {
+      // if this component is being used directly within another component's template (as a preview for example)
+      // the workspace id and slide id will be injected directly and not in the URL and we still want to load the images
+      if (this.workspaceId && this.slideId) {
+        this.getSlideImages();
+      }
     }
   }
 
