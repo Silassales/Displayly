@@ -16,6 +16,7 @@ export class SlideComponent implements OnInit {
     xs: 1
   };
   slides = [];
+  sortTypes = ['ID', 'Name'];
   workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
 
