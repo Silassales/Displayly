@@ -49,17 +49,17 @@ class SlideRoutes(object):
 		cursor = db.cursor()
 
 		try:
-			cursor.execute(sql, (slideId,))
+			cursor.execute(sql, (slideId, ))
 			data = cursor.fetchall()
 
-			json = '{"error": "This slide can not be deleted. Check that no scenes are using this slide, then try deleting again.", "names": ["'
+			json = '{"error": "This slide can not be deleted. Check that no scenes are using this slide, then try deleting again.", "scenes": ["'
 
 			for sceneName in data:
-				json += sceneName + '",'
+				json += str(sceneName[0]) + '",'
 
 			if len(data) > 0:
 				json = json[:-1]
-			
+
 			return json + ']}'
 
 		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
