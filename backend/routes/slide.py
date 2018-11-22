@@ -245,5 +245,5 @@ class SlideRoutes(object):
 				res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
-				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.body = '{"error":"This slide can not be deleted. Check that no scenes are using this slide, then try deleting again."}'
 				res.status = falcon.HTTP_400
