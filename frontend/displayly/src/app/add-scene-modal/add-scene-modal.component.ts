@@ -58,8 +58,4 @@ export class AddSceneModalComponent implements OnInit {
     );
   }
 
-  showDisplay() {
-    window.open(`/showDisplay?displayId=${this.displayId}&workspaceId=${this.workspaceId}`, '_blank');
-  }
-
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SlideService} from '../slide.service';
 import {MatDialog} from '@angular/material';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-slide',
@@ -19,6 +20,8 @@ export class SlideComponent implements OnInit {
   sortTypes = ['Id', 'Name'];
   workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
+  selected: number;
+  error: string;
 
   constructor(private route: ActivatedRoute, private slidesService: SlideService, private dialog: MatDialog, private router: Router) {
   }
@@ -49,19 +52,49 @@ export class SlideComponent implements OnInit {
 
   getSlides() {
     this.loading = true;
+    this.error = '';
+    this.selected = null;
     this.slidesService.getSlides(this.workspaceId).subscribe(
       slides => {
         this.slides = slides; // Set the scenes
       },
       err => {
-        // TODO handle error here
+        this.error = err['error']['error'];
       }, () => this.loading = false
     );
   }
 
-  elementClicked(slide: string) {
-    window.open(`/showSlide?slideId=${slide['id']}&workspaceId=${this.workspaceId}`, '_blank');
-    // this.router.navigate(['showSlide'], {queryParams: {workspaceId: this.workspaceId, slideId: slide['id']}});
+  elementClicked(slide) {
+    if (this.selected === slide['id']) {
+      this.selected = null;
+    } else {
+      this.selected = slide['id'];
+    }
+  }
+
+  previewSlide() {
+    window.open(`/showSlide?slideId=${this.selected}&workspaceId=${this.workspaceId}`, '_blank');
+  }
+
+  deleteSlide() {
+    this.dialog.open(ConfirmDialogComponent, {
+      width: 'auto',
+      data: {
+        question: `Are you sure you want to delete this slide?`,
+        yes: () => {
+          this.error = '';
+          this.slidesService.deleteSlide(this.workspaceId, this.selected).subscribe(
+            res => this.getSlides(),
+            err => {
+              this.error = err['error']['error'];
+              console.log(err);
+            }
+          );
+        },
+        no: () => {
+        }
+      }
+    });
   }
 
   addElementClicked() {
@@ -69,14 +102,18 @@ export class SlideComponent implements OnInit {
   }
 
   sortOptionClicked(sortOption: string) {
-    if(sortOption === 'Id' || sortOption === 'Default') {
-      this.slides.sort((a,b) => {
+    if (sortOption === 'Id' || sortOption === 'Default') {
+      this.slides.sort((a, b) => {
         return a.id - b.id;
       });
     } else if (sortOption === 'Name') {
       this.slides.sort((a, b) => {
-        if (a.name < b.name) { return -1; }
-        if (a.name > b.name) { return 1; }
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
         return 0;
       });
     }

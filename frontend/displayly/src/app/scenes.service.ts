@@ -54,4 +54,10 @@ export class ScenesService {
       })
     );
   }
+
+  deleteScene(workspaceId: string, sceneId: number): Observable<Object> {
+    return this.http.delete(`http://${this.host}/workspaces/${workspaceId}/scenes/${sceneId}`, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
+  }
 }

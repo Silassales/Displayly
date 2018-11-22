@@ -26,7 +26,6 @@ export class SlideService {
       return;
     }
     this.layoutId = layoutId;
-    console.log(this.layoutId);
   }
 
   setImgIndex(index: number, name: string, data: string) {
@@ -91,13 +90,12 @@ export class SlideService {
   getSlideDetails(workspaceId: string, slideId: string): Observable<Object> {
     return this.http.get(`http://${this.host}/workspaces/${workspaceId}/slides/${slideId}`, {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
-    }).pipe(
-      map(response => {
-        return response;
-      }),
-      catchError(error => {
-        return throwError(error);
-      })
-    );
+    });
+  }
+
+  deleteSlide(workspaceId: string, slideId: number): Observable<Object> {
+    return this.http.delete(`http://${this.host}/workspaces/${workspaceId}/slides/${slideId}`, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
   }
 }
