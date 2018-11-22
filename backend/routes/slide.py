@@ -271,7 +271,7 @@ class SlideRoutes(object):
 				res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
-				res.body = scenesUsingSlide(slideId, db)
+				res.body = self.scenesUsingSlide(slideId, db)
 				res.status = falcon.HTTP_400
 
 			db.close()
