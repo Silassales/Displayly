@@ -4,8 +4,8 @@
 <ng-template #mainContent>
   <mat-form-field class="sort-form-field">
     <mat-select placeholder="Sort By">
-      <mat-option>Default</mat-option>
-      <mat-option *ngFor="let sortType of sortTypes" [value]="sortType">{{sortType}}</mat-option>
+      <mat-option (click)="sortOptionClicked('Default')">Default</mat-option>
+      <mat-option *ngFor="let sortType of sortTypes" [value]="sortType" (click)="sortOptionClicked(sortType)">{{sortType}}</mat-option>
     </mat-select>
   </mat-form-field>
   <div *ngIf="slides; else else_block">

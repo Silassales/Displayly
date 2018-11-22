@@ -16,7 +16,7 @@ export class SlideComponent implements OnInit {
     xs: 1
   };
   slides = [];
-  sortTypes = ['ID', 'Name'];
+  sortTypes = ['Id', 'Name'];
   workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
 
@@ -66,5 +66,19 @@ export class SlideComponent implements OnInit {
 
   addElementClicked() {
     this.router.navigate(['dashboard/createSlide'], {queryParams: {workspaceId: this.workspaceId}});
+  }
+
+  sortOptionClicked(sortOption: string) {
+    if(sortOption === 'Id' || sortOption === 'Default') {
+      this.slides.sort((a,b) => {
+        return a.id - b.id;
+      });
+    } else if (sortOption === 'Name') {
+      this.slides.sort((a, b) => {
+        if (a.name < b.name) { return -1; }
+        if (a.name > b.name) { return 1; }
+        return 0;
+      });
+    }
   }
 }
