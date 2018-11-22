@@ -10,10 +10,12 @@
                  [ngClass]="selectedSlides.indexOf(slide['id'].toString()) > -1 ? 'highlight' : ''"
                  (click)="elementClicked(slide)">
     <mat-card class="slide-card">
-      <mat-icon>dashboard</mat-icon>
       <mat-card-content>
-        {{slide.name}}
+        <app-slide-display [workspaceId]="workspaceId" [slideId]="slide.id"></app-slide-display>
       </mat-card-content>
+      <mat-card-footer>
+        {{slide.name}}
+      </mat-card-footer>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
