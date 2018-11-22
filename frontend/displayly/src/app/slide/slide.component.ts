@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SlideService} from '../slide.service';
 import {MatDialog} from '@angular/material';
-// import {CreateSl} from '../create-scene-modal/create-scene-modal.component';
 
 @Component({
   selector: 'app-slide',
@@ -17,14 +16,13 @@ export class SlideComponent implements OnInit {
     xs: 1
   };
   slides = [];
-  workspaceId: string; // Stores the workspace id from the path
+  workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
-
 
   constructor(private route: ActivatedRoute, private slidesService: SlideService, private dialog: MatDialog, private router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (window.innerWidth >= 1000) {
       this.adjustedCols = this.adjustedColsList.xl;
     } else if (window.innerWidth >= 500) {
@@ -32,12 +30,9 @@ export class SlideComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
-    this.workspaceId = '61';
-    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
-    //   this.router.navigate(['dashboard']);
-    //   return;
-    // }
+    const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
+    this.workspaceId = id.toString();
+
     this.getSlides();
   }
 
@@ -51,23 +46,24 @@ export class SlideComponent implements OnInit {
     }
   }
 
-  private getSlides() {
+  getSlides() {
     this.loading = true;
     this.slidesService.getSlides(this.workspaceId).subscribe(
       slides => {
-        this.slides = slides; // Set the slides
+        this.slides = slides; // Set the scenes
       },
       err => {
         // TODO handle error here
       }, () => this.loading = false
     );
   }
-  elementClicked(scene: number) {
-    // TODO: Make this go to something
+
+  elementClicked(slide: string) {
+    window.open(`/showSlide?slideId=${slide['id']}&workspaceId=${this.workspaceId}`, '_blank');
+    // this.router.navigate(['showSlide'], {queryParams: {workspaceId: this.workspaceId, slideId: slide['id']}});
   }
 
-  // addElementClicked() {
-  // jack is doing this
-  // }
-
+  addElementClicked() {
+    this.router.navigate(['dashboard/createSlide'], {queryParams: {workspaceId: this.workspaceId}});
+  }
 }

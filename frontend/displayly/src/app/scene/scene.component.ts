@@ -3,6 +3,7 @@ import {ScenesService} from '../scenes.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {CreateSceneModalComponent} from '../create-scene-modal/create-scene-modal.component';
+import {AddSlidesModalComponent} from '../add-slides-modal/add-slides-modal.component';
 
 @Component({
   selector: 'app-scene',
@@ -18,8 +19,9 @@ export class SceneComponent implements OnInit {
     xs: 1
   };
   scenes = [];
-  workspaceId: string; // Stores the workspace id from the path
+  workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
+  error: string;
 
 
   constructor(private route: ActivatedRoute, private scenesService: ScenesService, private dialog: MatDialog, private router: Router) {
@@ -33,12 +35,8 @@ export class SceneComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
-    this.workspaceId = '61';
-    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
-    //   this.router.navigate(['dashboard']);
-    //   return;
-    // }
+    const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
+    this.workspaceId = id.toString();
     this.getScenes();
   }
 
@@ -54,19 +52,32 @@ export class SceneComponent implements OnInit {
 
   getScenes() {
     this.loading = true;
+    this.error = null;
     this.scenesService.getScenes(this.workspaceId).subscribe(
       scenes => {
         this.scenes = scenes; // Set the scenes
+        this.loading = false;
       },
       err => {
+        this.error = err['error']['error'];
         // TODO handle error here
+        console.log(err);
+        this.loading = false;
       }, () => this.loading = false
     );
-    // this.sceneService.getScenes().subscribe( scenes => this.scenes = scenes);
   }
 
   elementClicked(scene: number) {
-    // TODO: Make this go to something
+    const dialogRef = this.dialog.open(AddSlidesModalComponent, {
+      width: '80%',
+      data: {
+        'workspaceId': this.workspaceId,
+        'sceneId': scene['id'].toString(),
+        'slides': scene['slides'],
+        'sceneName': scene['name']
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => this.getScenes());
   }
 
   addElementClicked() {

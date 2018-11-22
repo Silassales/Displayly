@@ -19,7 +19,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {RecoverComponent} from './recover/recover.component';
 import {CreateWorkspaceModalComponent} from './create-workspace-modal/create-workspace-modal.component';
 import {CreateSceneModalComponent} from './create-scene-modal/create-scene-modal.component';
+import { CreateSlideComponent } from './create-slide/create-slide.component';
+import {BoxComponent, LayoutTemplateComponent} from './layout-template/layout-template.component';
 import { CreateDisplayModalComponent } from './create-display-modal/create-display-modal.component';
+import { SlideDisplayComponent } from './slide-display/slide-display.component';
+import { AddSlidesModalComponent } from './add-slides-modal/add-slides-modal.component';
+import { SceneDisplayComponent } from './scene-display/scene-display.component';
+import { AddSceneModalComponent } from './add-scene-modal/add-scene-modal.component';
+import { ShowDisplayComponent } from './show-display/show-display.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +42,15 @@ import { CreateDisplayModalComponent } from './create-display-modal/create-displ
     RecoverComponent,
     CreateWorkspaceModalComponent,
     CreateSceneModalComponent,
-    CreateDisplayModalComponent
+    CreateSlideComponent,
+    LayoutTemplateComponent,
+    BoxComponent,
+    CreateDisplayModalComponent,
+    SlideDisplayComponent,
+    AddSlidesModalComponent,
+    SceneDisplayComponent,
+    AddSceneModalComponent,
+    ShowDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +62,9 @@ import { CreateDisplayModalComponent } from './create-display-modal/create-displ
   entryComponents: [
     CreateWorkspaceModalComponent,
     CreateSceneModalComponent,
-    CreateDisplayModalComponent
+    CreateDisplayModalComponent,
+    AddSlidesModalComponent,
+    AddSceneModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

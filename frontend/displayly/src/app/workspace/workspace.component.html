@@ -5,7 +5,7 @@
   <div *ngIf="workspaces; else else_block">
     <div style="margin: 30px">
       <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
           <mat-card class="workspace-card">
             <mat-icon>add</mat-icon>
             <mat-card-content>
@@ -13,7 +13,7 @@
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
-        <mat-grid-tile class="grid-element content-element" *ngFor="let workspace of workspaces['workspaces']"
+        <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let workspace of workspaces['workspaces']"
                        (click)="elementClicked(workspace['id'])">
           <mat-card class="workspace-card">
             <mat-icon>work</mat-icon>
@@ -28,7 +28,7 @@
   <ng-template #else_block>
     <div style="margin: 30px">
       <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
-        <mat-grid-tile class="grid-element add-element" (click)="addElementClicked()">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
           <mat-card class="workspace-card">
             <mat-icon>add</mat-icon>
             <mat-card-content>

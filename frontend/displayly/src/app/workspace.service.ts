@@ -9,7 +9,7 @@ import {HttpHeaders, HttpClient} from '@angular/common/http';
 export class WorkspaceService {
 
 
-  private host = '131.104.48.83:5000';
+  private host = '131.104.48.82:5000';
 
   constructor(private auth: AuthenticationService, private http: HttpClient) {
   }

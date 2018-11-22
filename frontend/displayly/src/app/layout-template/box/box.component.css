@@ -1,0 +1,26 @@
+.box {
+  width: 100%;
+  padding-top: 56.25%; /* This padding creates a 16:9 ratio */
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.fill-img {
+  width: 100%;
+  object-fit: cover;
+  margin-top: -56.25%;
+  max-height: 100%;
+}

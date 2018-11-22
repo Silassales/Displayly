@@ -1,0 +1,13 @@
+.name-input {
+  margin-top: 25px;
+  width: 250px;
+}
+
+.row {
+  text-align: center;
+}
+
+.button {
+  width: 10%;
+  margin: 20px auto;
+}

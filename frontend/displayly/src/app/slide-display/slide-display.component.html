@@ -1,0 +1,7 @@
+<div *ngIf="loading">
+  <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
+</div>
+<div *ngIf="showSlide()">
+  <app-layout-template [layoutId]="layoutId" [functional]="false" [images]="images" [width]="70"></app-layout-template>
+</div>
+

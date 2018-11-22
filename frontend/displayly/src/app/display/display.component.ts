@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+
+import {Component, OnInit} from '@angular/core';
+import {DisplaysService} from '../display.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DisplayService} from '../display.service';
 import {MatDialog} from '@angular/material';
 import {CreateDisplayModalComponent} from '../create-display-modal/create-display-modal.component';
+import {AddSlidesModalComponent} from '../add-slides-modal/add-slides-modal.component';
+import {AddSceneModalComponent} from '../add-scene-modal/add-scene-modal.component';
 
 @Component({
   selector: 'app-display',
@@ -10,7 +13,6 @@ import {CreateDisplayModalComponent} from '../create-display-modal/create-displa
   styleUrls: ['./display.component.css']
 })
 export class DisplayComponent implements OnInit {
-
   adjustedCols: number;
   adjustedColsList = {
     xl: 6,
@@ -18,11 +20,10 @@ export class DisplayComponent implements OnInit {
     xs: 1
   };
   displays = [];
-  workspaceId: string; // Stores the workspace id from the path
+  workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
 
-
-  constructor(private route: ActivatedRoute, private displayService: DisplayService, private dialog: MatDialog, private router: Router) {
+  constructor(private route: ActivatedRoute, private displayService: DisplaysService, private dialog: MatDialog, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -33,12 +34,8 @@ export class DisplayComponent implements OnInit {
     } else {
       this.adjustedCols = this.adjustedColsList.xs;
     }
-    this.workspaceId = '61';
-    // this.workspaceId = this.route.snapshot.paramMap.get('workspaceId');
-    // if (!this.workspaceId) { // If we couldn't grab the workspace id from the url, redirect to the dashboard
-    //   this.router.navigate(['dashboard']);
-    //   return;
-    // }
+    const id: number = +this.route.snapshot.queryParamMap.get('workspaceId');
+    this.workspaceId = id.toString();
     this.getDisplays();
   }
 
@@ -52,7 +49,7 @@ export class DisplayComponent implements OnInit {
     }
   }
 
-  private getDisplays() {
+  getDisplays() {
     this.loading = true;
     this.displayService.getDisplays(this.workspaceId).subscribe(
       displays => {
@@ -62,10 +59,6 @@ export class DisplayComponent implements OnInit {
         // TODO handle error here
       }, () => this.loading = false
     );
-  }
-
-  elementClicked(scene: number) {
-    // TODO: Make this go to something
   }
 
   addElementClicked() {
@@ -79,5 +72,18 @@ export class DisplayComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getDisplays(); // Refresh the scenes after the dialog has closed
     });
+  }
+
+  elementClicked(display) {
+    const dialogRef = this.dialog.open(AddSceneModalComponent, {
+      width: '80%',
+      data: {
+        'workspaceId': this.workspaceId,
+        'displayId': display['id'].toString(),
+        'selectedScene': display['sceneId'],
+        'displayName': display['name']
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => this.getDisplays());
   }
 }

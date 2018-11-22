@@ -1,0 +1,20 @@
+<div class="row title">
+  Select slides to add to '{{sceneName}}'
+</div>
+<button *ngIf="!loading" style="margin-bottom: 20px" class="button" mat-raised-button color="primary"
+        [disabled]="loading" (click)="saveSlides()">
+  Save
+</button>
+<mat-grid-list *ngIf="!loading" [cols]="5" gutterSize="30px" (window:resize)="onResize($event)">
+  <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let slide of slides"
+                 [ngClass]="selectedSlides.indexOf(slide['id'].toString()) > -1 ? 'highlight' : ''"
+                 (click)="elementClicked(slide)">
+    <mat-card class="slide-card">
+      <mat-icon>dashboard</mat-icon>
+      <mat-card-content>
+        {{slide.name}}
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-spinner *ngIf="loading" [diameter]="50" class="center-div"></mat-spinner>
