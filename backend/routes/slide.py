@@ -41,9 +41,10 @@ class SlideRoutes(object):
 			return False
 
 	def scenesUsingSlide(self, slideId, db):
-		sql = """SELECT Name
-				FROM Scenes
-				WHERE SlideId = %s"""
+		sql = """SELECT Scenes.Name FROM Scenes 
+				INNER JOIN SlidesToScenes 
+				ON Scenes.SceneId = SlidesToScenes.SceneId 
+				WHERE SlidesToScenes.SlideId = %s"""
 
 		cursor = db.cursor()
 
