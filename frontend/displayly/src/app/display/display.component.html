@@ -2,6 +2,12 @@
   <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
 </div>
 <ng-template #mainContent>
+  <mat-error>{{error}}</mat-error>
+  <div class="button-row" style="margin-top: 10px">
+    <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="showDisplay()">Show Display</button>
+    <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="editDisplay()">Edit Display</button>
+    <button mat-raised-button color="error" class="button" [disabled]="!selected" (click)="deleteDisplay()">Delete Display</button>
+  </div>
   <div *ngIf="displays; else else_block">
     <div style="margin: 30px">
       <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
@@ -14,7 +20,8 @@
           </mat-card>
         </mat-grid-tile>
         <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let display of displays"
-                       (click)="elementClicked(display)">
+                       (click)="elementClicked(display)"
+                       [ngClass]="(display === selected) ? 'highlight' : ''">
           <mat-card class="display-card">
             <mat-icon>tv</mat-icon>
             <mat-card-content>

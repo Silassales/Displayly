@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {CreateSceneModalComponent} from '../create-scene-modal/create-scene-modal.component';
 import {AddSlidesModalComponent} from '../add-slides-modal/add-slides-modal.component';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-scene',
@@ -22,6 +23,7 @@ export class SceneComponent implements OnInit {
   workspaceId: string; // Stores the workspaceId id from the path
   loading: boolean;
   error: string;
+  selected: number;
 
 
   constructor(private route: ActivatedRoute, private scenesService: ScenesService, private dialog: MatDialog, private router: Router) {
@@ -53,6 +55,7 @@ export class SceneComponent implements OnInit {
   getScenes() {
     this.loading = true;
     this.error = null;
+    this.selected = null;
     this.scenesService.getScenes(this.workspaceId).subscribe(
       scenes => {
         this.scenes = scenes; // Set the scenes
@@ -67,17 +70,12 @@ export class SceneComponent implements OnInit {
     );
   }
 
-  elementClicked(scene: number) {
-    const dialogRef = this.dialog.open(AddSlidesModalComponent, {
-      width: '80%',
-      data: {
-        'workspaceId': this.workspaceId,
-        'sceneId': scene['id'].toString(),
-        'slides': scene['slides'],
-        'sceneName': scene['name']
-      }
-    });
-    dialogRef.afterClosed().subscribe(() => this.getScenes());
+  elementClicked(scene) {
+    if (this.selected === scene) {
+      this.selected = null;
+    } else {
+      this.selected = scene;
+    }
   }
 
   addElementClicked() {
@@ -90,6 +88,40 @@ export class SceneComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.getScenes(); // Refresh the scenes after the dialog has closed
+    });
+  }
+
+  editScene() {
+    const dialogRef = this.dialog.open(AddSlidesModalComponent, {
+      width: '80%',
+      data: {
+        'workspaceId': this.workspaceId,
+        'sceneId': this.selected['id'].toString(),
+        'slides': this.selected['slides'],
+        'sceneName': this.selected['name']
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => this.getScenes());
+  }
+
+  deleteScene() {
+    this.dialog.open(ConfirmDialogComponent, {
+      width: 'auto',
+      data: {
+        question: `Are you sure you want to delete this scene?`,
+        yes: () => {
+          this.error = '';
+          this.scenesService.deleteScene(this.workspaceId, this.selected['id']).subscribe(
+            res => this.getScenes(),
+            err => {
+              this.error = err['error']['error'];
+              console.log(err);
+            }
+          );
+        },
+        no: () => {
+        }
+      }
     });
   }
 }

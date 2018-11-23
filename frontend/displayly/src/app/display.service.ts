@@ -54,4 +54,10 @@ export class DisplaysService {
       headers: this.auth.buildAuthHeader() // build the auth header using the auth token
     });
   }
+
+  deleteDisplay(workspaceId: string, displayId: number): Observable<Object> {
+    return this.http.delete(`http://${this.host}/workspaces/${workspaceId}/displays/${displayId}`, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
+  }
 }

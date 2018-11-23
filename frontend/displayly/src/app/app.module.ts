@@ -27,6 +27,7 @@ import { AddSlidesModalComponent } from './add-slides-modal/add-slides-modal.com
 import { SceneDisplayComponent } from './scene-display/scene-display.component';
 import { AddSceneModalComponent } from './add-scene-modal/add-scene-modal.component';
 import { ShowDisplayComponent } from './show-display/show-display.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ShowDisplayComponent } from './show-display/show-display.component';
     AddSlidesModalComponent,
     SceneDisplayComponent,
     AddSceneModalComponent,
-    ShowDisplayComponent
+    ShowDisplayComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { ShowDisplayComponent } from './show-display/show-display.component';
     CreateSceneModalComponent,
     CreateDisplayModalComponent,
     AddSlidesModalComponent,
-    AddSceneModalComponent
+    AddSceneModalComponent,
+    ConfirmDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
