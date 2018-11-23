@@ -41,9 +41,9 @@ class SceneRoutes(object):
 
 	def displaysUsingScene(self, sceneId, db):
 		sql = """SELECT Displays.Name FROM Displays 
-				INNER JOIN Slides
+				INNER JOIN Scenes
 				ON Displays.SceneId = Scenes.SceneId 
-				WHERE Scenes.SlideId = %s"""
+				WHERE Scenes.SceneId = %s"""
 
 		cursor = db.cursor()
 
