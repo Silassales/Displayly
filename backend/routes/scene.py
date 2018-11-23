@@ -39,6 +39,31 @@ class SceneRoutes(object):
 		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 			return False
 
+	def displaysUsingScene(self, sceneId, db):
+		sql = """SELECT Displays.Name FROM Displays 
+				INNER JOIN Slides
+				ON Displays.SceneId = Scenes.SceneId 
+				WHERE Scenes.SlideId = %s"""
+
+		cursor = db.cursor()
+
+		try:
+			cursor.execute(sql, (sceneId, ))
+			data = cursor.fetchall()
+
+			json = '{"error": "This scene can not be deleted. Check that no displays are using this scene, then try deleting again.", "displays": ['
+
+			for displayName in data:
+				json += '"' + str(displayName[0]) + '",'
+
+			if len(data) > 0:
+				json = json[:-1]
+
+			return json + ']}'
+
+		except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
+			return '{"error":"This scene can not be deleted. Check that no displays are using this scene, then try deleting again."}'
+
 	def on_post(self, req, res, workspaceId):
 		if req.auth == None:
 			res.status = falcon.HTTP_401
@@ -275,5 +300,5 @@ class SceneRoutes(object):
 				res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
-				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				res.body = self.displaysUsingScene(sceneId, db)
 				res.status = falcon.HTTP_400
