@@ -69,7 +69,8 @@ If the login is successfull, you will receive 200 status code with the following
 ```
 
 **5. JWT Token Refreshing**
- Endpoint: `GET http://131.104.48.83:5000/token`
+
+Endpoint: `GET http://131.104.48.83:5000/token`
  
 When a user logs in, the JWT token generate is set to expire in 30 minutes. Use this endpoint to get a new JWT token that will expiry 30 minutes from when it is issued.
 
