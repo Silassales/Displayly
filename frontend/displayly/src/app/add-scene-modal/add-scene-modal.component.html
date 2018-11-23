@@ -6,7 +6,6 @@
           [disabled]="loading" (click)="saveScene()">
     Save
   </button>
-  <button class="button" mat-raised-button color="secondary" [disabled]="loading" (click)="showDisplay()">Show Display</button>
 </div>
 <mat-grid-list *ngIf="!loading" [cols]="5" gutterSize="30px" (window:resize)="onResize($event)">
   <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let scene of scenes"

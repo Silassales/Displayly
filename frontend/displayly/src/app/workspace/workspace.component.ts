@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WorkspaceService} from '../workspace.service';
 import {MatDialog} from '@angular/material';
-import {Router} from '@angular/router'
+import {Router} from '@angular/router';
 import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-workspace-modal.component';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-workspace-component',
@@ -20,8 +21,11 @@ export class WorkspaceComponent implements OnInit {
   };
   workspaces: Object;
   loading = true;
+  selected: number;
+  error: string;
 
-  constructor(private workspaceService: WorkspaceService, private dialog: MatDialog, private router: Router) { }
+  constructor(private workspaceService: WorkspaceService, private dialog: MatDialog, private router: Router) {
+  }
 
   ngOnInit(): void {
     if (window.innerWidth >= 1000) {
@@ -46,15 +50,20 @@ export class WorkspaceComponent implements OnInit {
 
   getWorkspaces() {
     this.loading = true;
-    this.workspaceService.getWorkspaces().subscribe( workspaces => {
+    this.selected = null;
+    this.workspaceService.getWorkspaces().subscribe(workspaces => {
       this.workspaces = workspaces;
     }, err => {
-      // TODO: Add some error handling
+      this.error = err['error']['error'];
     }, () => this.loading = false);
   }
 
   elementClicked(workspace: number) {
-    this.router.navigate(['dashboard/workspaceWithId'], {queryParams: {workspaceId: workspace}});
+    if (this.selected === workspace) {
+      this.selected = null;
+    } else {
+      this.selected = workspace;
+    }
   }
 
   addElementClicked() {
@@ -64,6 +73,31 @@ export class WorkspaceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.getWorkspaces();
+    });
+  }
+
+  enterWorkspace() {
+    this.router.navigate(['dashboard/workspaceWithId'], {queryParams: {workspaceId: this.selected}});
+  }
+
+  deleteWorkspace() {
+    this.dialog.open(ConfirmDialogComponent, {
+      width: 'auto',
+      data: {
+        question: `Are you sure you want to delete this workspace?`,
+        yes: () => {
+          this.error = '';
+          this.workspaceService.deleteWorkspace(this.selected).subscribe(
+            res => this.getWorkspaces(),
+            err => {
+              this.error = err['error']['error'];
+              console.log(err);
+            }
+          );
+        },
+        no: () => {
+        }
+      }
     });
   }
 

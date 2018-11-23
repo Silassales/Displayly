@@ -27,5 +27,11 @@ export class WorkspaceService {
       headers: this.auth.buildAuthHeader()
     });
   }
+
+  deleteWorkspace(workspaceId: number): Observable<Object> {
+    return this.http.delete(`http://${this.host}/workspaces/${workspaceId}`, {
+      headers: this.auth.buildAuthHeader() // build the auth header using the auth token
+    });
+  }
 }
 

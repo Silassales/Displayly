@@ -55,3 +55,12 @@ a.form-alternative {
 .highlight {
   border: #4055af solid 5px;
 }
+
+.button-row {
+  padding-left: 30px;
+}
+
+.button-row > button {
+  display: inline-block;
+  margin-right: 5px;
+}
