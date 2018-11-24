@@ -22,7 +22,7 @@ export class SlideService {
   }
 
   setLayoutId(layoutId: number) {
-    if (layoutId !== 1 && layoutId !== 2) {
+    if (layoutId !== 1 && layoutId !== 2 && layoutId !== 3) {
       return;
     }
     this.layoutId = layoutId;
@@ -61,6 +61,8 @@ export class SlideService {
       k = 3;
     } else if (this.layoutId === 2) {
       k = 6;
+    } else if (this.layoutId === 3) {
+      k = 1;
     } else {
       return null;
     }
