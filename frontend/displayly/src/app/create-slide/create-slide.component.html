@@ -8,12 +8,16 @@
   </div>
   <div class="row">
     <app-layout-template class="shadow" [ngClass]="(selectedLayout == 1) ? 'highlight' : ''"
-                         style="display: inline-block; width: 35%" [width]="100" [layoutId]="1" [functional]="false"
+                         style="display: inline-block; width: 25%" [width]="100" [layoutId]="1" [functional]="false"
                          (click)="select(1)"></app-layout-template>
     <div style="display: inline-block; width: 5%"></div>
     <app-layout-template class="shadow" [ngClass]="(selectedLayout == 2) ? 'highlight' : ''"
-                         style="display: inline-block; width: 35%" [width]="100" [layoutId]="2" [functional]="false"
+                         style="display: inline-block; width: 25%" [width]="100" [layoutId]="2" [functional]="false"
                          (click)="select(2)"></app-layout-template>
+    <div style="display: inline-block; width: 5%"></div>
+    <app-layout-template class="shadow" [ngClass]="(selectedLayout == 3) ? 'highlight' : ''"
+                         style="display: inline-block; width: 25%" [width]="100" [layoutId]="3" [functional]="false"
+                         (click)="select(3)"></app-layout-template>
   </div>
   <button class="button" mat-raised-button color="primary" [disabled]="buttonDisabled()" (click)="next()">Next</button>
 </div>

@@ -24,3 +24,8 @@
     <app-box [imgId]="6" [width]="boxWidth" [functional]="functional" [imagePath]="getImage(6)"></app-box>
   </div>
 </div>
+<div *ngIf="layoutId == 3" class="cursor-hover center-div" [style.width.%]="width">
+  <div class="row">
+    <app-box [imgId]="1" [width]="fullSlideWidth" [functional]="functional" [imagePath]="getImage(1)"></app-box>
+  </div>
+</div>

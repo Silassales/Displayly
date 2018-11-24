@@ -13,6 +13,7 @@ export class LayoutTemplateComponent {
   @Input() functional: boolean;
   @Input() images: string[];
   boxWidth = 30;
+  fullSlideWidth = 72; // temporary, doesn't look quite right
 
   constructor() {
   }
