@@ -216,14 +216,19 @@ class DisplayRoutes(object):
 				cursor.execute(sql, (workspaceId, displayId,))
 				data = cursor.fetchone()
 
-				json = '{"success": true, "display": {"id": ' + str(data[0]) + ', "name": "' + data[1] + '", "sceneId": ' + self.valueToString(data[2]) + '}'
+				if len(data) == 0:
+					res.body = '{"error": "No display found"}' 
+					res.status = falcon.HTTP_400
+				else:
+					json = '{"success": true, "display": {"id": ' + str(data[0]) + ', "name": "' + data[1] + '", "sceneId": ' + self.valueToString(data[2]) + '}'
 
-				res.body = json + '}'
-				res.status = falcon.HTTP_200
+					res.body = json + '}'
+					res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_400
+			db.close()
 
 	def on_delete_withDisplayId(self, req, res, workspaceId, displayId):
 		if req.auth == None:
