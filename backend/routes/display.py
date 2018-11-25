@@ -216,7 +216,7 @@ class DisplayRoutes(object):
 				cursor.execute(sql, (workspaceId, displayId,))
 				data = cursor.fetchone()
 
-				if len(data) == 0:
+				if data == None:
 					res.body = '{"error": "No display found"}' 
 					res.status = falcon.HTTP_400
 				else:
