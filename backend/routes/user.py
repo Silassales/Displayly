@@ -94,7 +94,10 @@ class UserRoutes(object):
 				res.body = '{"success": true}'
 				res.status = falcon.HTTP_200
 			except (mysql.connector.errors.IntegrityError) as e:
-				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				if err.errno == errorcode.ER_DUP_ENTRY:
+					res.body = '{"error":"The email provided is already being used for another account."}'
+				else:
+					res.body = '{' + '"error":"{}"'.format(e) + '}'
 				res.status = falcon.HTTP_400
 
 			db.close()
