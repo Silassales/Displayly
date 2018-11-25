@@ -3,6 +3,7 @@ import json
 import jwt
 import bcrypt
 import mysql.connector
+from mysql.connector import errorcode
 from datetime import datetime, timedelta
 
 class UserRoutes(object):
@@ -94,7 +95,7 @@ class UserRoutes(object):
 				res.body = '{"success": true}'
 				res.status = falcon.HTTP_200
 			except (mysql.connector.errors.IntegrityError) as e:
-				if err.errno == errorcode.ER_DUP_ENTRY:
+				if e.errno == errorcode.ER_DUP_ENTRY:
 					res.body = '{"error":"The email provided is already being used for another account."}'
 				else:
 					res.body = '{' + '"error":"{}"'.format(e) + '}'
