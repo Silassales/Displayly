@@ -8,7 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModulesModule} from './material-modules/material-modules.module';
 
 import {DisplaylyToolbarWrapperComponent} from './displayly-toolbar-wrapper/displayly-toolbar-wrapper.component';
-import {WorkspaceComponent} from './workspace/workspace.component';
+import {WorkspaceComponent, WorkspaceHelpDialogComponent} from './workspace/workspace.component';
 import {DisplayComponent} from './display/display.component';
 import {SlideComponent} from './slide/slide.component';
 import {SceneComponent} from './scene/scene.component';
@@ -34,6 +34,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AppComponent,
     DisplaylyToolbarWrapperComponent,
     WorkspaceComponent,
+    WorkspaceHelpDialogComponent,
     DisplayComponent,
     SlideComponent,
     SceneComponent,
@@ -67,7 +68,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     CreateDisplayModalComponent,
     AddSlidesModalComponent,
     AddSceneModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    WorkspaceHelpDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

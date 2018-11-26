@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WorkspaceService} from '../workspace.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {Router} from '@angular/router';
 import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-workspace-modal.component';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
@@ -101,4 +101,21 @@ export class WorkspaceComponent implements OnInit {
     });
   }
 
+  openWorkspaceHelpDialog() {
+    const dialogRef = this.dialog.open(WorkspaceHelpDialogComponent, {
+      width: '25%'
+    });
+  }
+}
+
+@Component({
+  selector: 'app-workspace-help-dialog',
+  templateUrl: 'workspace-help-dialog.html'
+})
+export class WorkspaceHelpDialogComponent {
+  constructor(public dialogRef: MatDialogRef<WorkspaceHelpDialogComponent>) { }
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
 }
