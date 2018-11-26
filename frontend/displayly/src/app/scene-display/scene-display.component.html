@@ -1,0 +1,3 @@
+<div *ngFor="let slide of slides; index as i" class="slide full-width" [id]="'layout'+i">
+  <app-slide-display [ngClass]="(i === visibleIndex) ? '' : 'hidden'" [images]="slide['images']" [layoutId]="slide['layoutId']"></app-slide-display>
+</div>

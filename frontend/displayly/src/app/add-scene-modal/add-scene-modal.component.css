@@ -1,0 +1,21 @@
+.grid-element {
+  border-radius: 5px;
+}
+
+.slide-card {
+  padding-top: 30%;
+}
+
+.content-element mat-card {
+  width: 95%;
+  height: 95%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.add-element mat-card {
+  width: 95%;
+  height: 95%;
+  box-sizing: border-box;
+  text-align: center;
+}

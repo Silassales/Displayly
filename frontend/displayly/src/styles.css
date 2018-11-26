@@ -2,7 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 * {
-    margin: 0;
+  margin: 0;
 }
 
 .form-container {
@@ -32,4 +32,35 @@ img.form-logo {
 a.form-alternative {
   display: inline-block;
   margin-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.shadow {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cursor-hover:hover {
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.5em;
+  font-family: "Roboto", sans-serif;
+  margin: 20px 0;
+}
+
+.highlight {
+  border: #4055af solid 5px;
+}
+
+.button-row {
+  padding-left: 30px;
+}
+
+.button-row > button {
+  display: inline-block;
+  margin-right: 5px;
 }

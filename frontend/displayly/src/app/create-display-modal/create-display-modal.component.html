@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>
+  Create a new display
+  <mat-divider></mat-divider>
+</h1>
+<div mat-dialog-content class="full-width">
+  <mat-error>{{error}}</mat-error>
+  <mat-form-field>
+    <input matInput placeholder="display name" required [formControl]="displayValidator">
+    <mat-error *ngIf="displayValidator.invalid">This field is required</mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="buttonDisabled()" (click)="submit()">
+    <mat-spinner *ngIf="loading" [diameter]="25" style="margin: 0 auto;"></mat-spinner>
+    <div *ngIf="!loading">Create</div>
+  </button>
+</div>

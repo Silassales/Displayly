@@ -1,0 +1,22 @@
+<div class="row title">
+  Select scene to add to '{{displayName}}'
+</div>
+<div *ngIf="!loading" style="margin-bottom: 20px">
+  <button style="margin-right: 5px" class="button" mat-raised-button color="primary"
+          [disabled]="loading" (click)="saveScene()">
+    Save
+  </button>
+</div>
+<mat-grid-list *ngIf="!loading" [cols]="5" gutterSize="30px" (window:resize)="onResize($event)">
+  <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let scene of scenes"
+                 [ngClass]="selectedScene === scene['id'] ? 'highlight' : ''"
+                 (click)="elementClicked(scene)">
+    <mat-card class="slide-card">
+      <mat-icon>view_carousel</mat-icon>
+      <mat-card-content>
+        {{scene.name}}
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-spinner *ngIf="loading" [diameter]="50" class="center-div"></mat-spinner>
