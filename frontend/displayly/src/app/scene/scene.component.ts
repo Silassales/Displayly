@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ScenesService} from '../scenes.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {CreateSceneModalComponent} from '../create-scene-modal/create-scene-modal.component';
 import {AddSlidesModalComponent} from '../add-slides-modal/add-slides-modal.component';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {WorkspaceHelpDialogComponent} from '../workspace/workspace.component';
 
 @Component({
   selector: 'app-scene',
@@ -123,5 +124,23 @@ export class SceneComponent implements OnInit {
         }
       }
     });
+  }
+
+  openSceneHelpDialog() {
+    const dialogRef = this.dialog.open(SceneHelpDialogComponent, {
+      width: '25%'
+    });
+  }
+}
+
+@Component({
+  selector: 'app-scene-help-dialog',
+  templateUrl: 'scene-help-dialog.html'
+})
+export class SceneHelpDialogComponent {
+  constructor(public dialogRef: MatDialogRef<SceneHelpDialogComponent>) { }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

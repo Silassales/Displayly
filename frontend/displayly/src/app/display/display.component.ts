@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {DisplaysService} from '../display.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {CreateDisplayModalComponent} from '../create-display-modal/create-display-modal.component';
 import {AddSceneModalComponent} from '../add-scene-modal/add-scene-modal.component';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {WorkspaceHelpDialogComponent} from '../workspace/workspace.component';
 
 @Component({
   selector: 'app-display',
@@ -120,5 +121,23 @@ export class DisplayComponent implements OnInit {
         }
       }
     });
+  }
+
+  openDisplayHelpDialog() {
+    const dialogRef = this.dialog.open(DisplayHelpDialogComponent, {
+      width: '25%'
+    });
+  }
+}
+
+@Component({
+  selector: 'app-display-help-dialog',
+  templateUrl: 'display-help-dialog.html'
+})
+export class DisplayHelpDialogComponent {
+  constructor(public dialogRef: MatDialogRef<DisplayHelpDialogComponent>) { }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }
