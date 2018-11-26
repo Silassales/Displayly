@@ -9,9 +9,9 @@ import {MaterialModulesModule} from './material-modules/material-modules.module'
 
 import {DisplaylyToolbarWrapperComponent} from './displayly-toolbar-wrapper/displayly-toolbar-wrapper.component';
 import {WorkspaceComponent, WorkspaceHelpDialogComponent} from './workspace/workspace.component';
-import {DisplayComponent} from './display/display.component';
-import {SlideComponent} from './slide/slide.component';
-import {SceneComponent} from './scene/scene.component';
+import {DisplayComponent, DisplayHelpDialogComponent} from './display/display.component';
+import {SlideComponent, SlideHelpDialogComponent} from './slide/slide.component';
+import {SceneComponent, SceneHelpDialogComponent} from './scene/scene.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
@@ -36,8 +36,11 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     WorkspaceComponent,
     WorkspaceHelpDialogComponent,
     DisplayComponent,
+    DisplayHelpDialogComponent,
     SlideComponent,
+    SlideHelpDialogComponent,
     SceneComponent,
+    SceneHelpDialogComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
@@ -69,7 +72,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AddSlidesModalComponent,
     AddSceneModalComponent,
     ConfirmDialogComponent,
-    WorkspaceHelpDialogComponent
+    WorkspaceHelpDialogComponent,
+    SlideHelpDialogComponent,
+    SceneHelpDialogComponent,
+    DisplayHelpDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

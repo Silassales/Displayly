@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Workspaces</h1>
+<h1 mat-dialog-title>Displays</h1>
 <div mat-dialog-content>
   <mat-accordion>
     <mat-expansion-panel>
@@ -8,9 +8,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <p>
-        Workspaces are used separate content into unique components to organize your work. Any slides, scenes or
-        displays created will be unique to
-        the workspace that they are created in.
+        Displays allow your to control what digital signs display which content.
       </p>
     </mat-expansion-panel>
     <mat-expansion-panel>
@@ -19,15 +17,17 @@
           Usage
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>
-        You will need to select a workspace to work in before you can create any slides, scenes
-        or displays. You can do this from the page you are currently on.
-      </p>
+      To show content on a display:
+      <ul>
+        <li>First create this display on the current page</li>
+        <li>Then select which scene you want to be shown on this display</li>
+        <li>Then open up this same page on the physical display, select the display you want and then press 'Show
+          Display'
+        </li>
+      </ul>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close] cdkFocusInitial>Ok</button>
 </div>
-
-

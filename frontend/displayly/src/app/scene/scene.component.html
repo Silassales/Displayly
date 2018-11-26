@@ -7,6 +7,9 @@
   <div class="button-row" style="margin-top: 10px;">
     <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="editScene()">Edit Scene</button>
     <button mat-raised-button color="error" class="button" [disabled]="!selected" (click)="deleteScene()">Delete Scene</button>
+    <button mat-icon-button (click)="openSceneHelpDialog()">
+      <mat-icon>help</mat-icon>
+    </button>
   </div>
   <div *ngIf="scenes; else else_block">
     <div *ngIf="!loading" style="margin: 30px">

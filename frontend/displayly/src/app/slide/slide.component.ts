@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SlideService} from '../slide.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {WorkspaceHelpDialogComponent} from '../workspace/workspace.component';
 
 @Component({
   selector: 'app-slide',
@@ -117,5 +118,23 @@ export class SlideComponent implements OnInit {
         return 0;
       });
     }
+  }
+
+  openSlideHelpDialog() {
+    const dialogRef = this.dialog.open(SlideHelpDialogComponent, {
+      width: '25%'
+    });
+  }
+}
+
+@Component({
+  selector: 'app-slide-help-dialog',
+  templateUrl: 'slide-help-dialog.html'
+})
+export class SlideHelpDialogComponent {
+  constructor(public dialogRef: MatDialogRef<SlideHelpDialogComponent>) { }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }
