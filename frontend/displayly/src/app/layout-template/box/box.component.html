@@ -1,0 +1,11 @@
+<div class="box-wrapper" style="display: inline-block" [style.width.%]="width" (click)="selectImg()">
+  <div class="box" [ngClass]="{'shadow': (!encodedImg && !imagePath), 'cursor-hover': functional }">
+    <div *ngIf="imagePath">
+      <img [src]="getImgSrc()" class="fill-img" [id]="'img' + imgId">
+    </div>
+    <mat-icon *ngIf="!encodedImg && !imagePath" class="icon">add_photo_alternate</mat-icon>
+    <img *ngIf="encodedImg" [src]="encodedImg" class="fill-img">
+  </div>
+</div>
+<input *ngIf="functional" [id]="'imgInput' + imgId" class="hidden" type="file" accept="image/*"
+       (change)="onFileChange($event)">

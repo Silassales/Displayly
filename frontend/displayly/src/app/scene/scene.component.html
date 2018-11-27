@@ -1,4 +1,51 @@
-<section style = "height: 50vh; border: 4px solid red">
+<div *ngIf="loading; else mainContent" class="full-width">
+  <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
+</div>
 
-</section>
-  
+<ng-template #mainContent>
+  <mat-error>{{error}}</mat-error>
+  <div class="button-row" style="margin-top: 10px;">
+    <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="editScene()">Edit Scene</button>
+    <button mat-raised-button color="error" class="button" [disabled]="!selected" (click)="deleteScene()">Delete Scene</button>
+    <button mat-icon-button (click)="openSceneHelpDialog()">
+      <mat-icon>help</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="scenes; else else_block">
+    <div *ngIf="!loading" style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
+          <mat-card class="scene-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Scene</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let scene of scenes" [ngClass]="(scene === selected) ? 'highlight' : ''" (click)="elementClicked(scene)">
+          <mat-card class="scene-card">
+            <mat-icon>view_carousel</mat-icon>
+            <mat-card-content>
+              {{scene.name}}
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  <ng-template #else_block>
+    <div *ngIf="!loading" style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
+          <mat-card class="scene-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Scene</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </ng-template>
+</ng-template>
+

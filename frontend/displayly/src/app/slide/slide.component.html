@@ -1,4 +1,61 @@
-<section style = "height: 50vh; border: 4px solid yellow">
+<div *ngIf="loading; else mainContent" class="full-width">
+  <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
+</div>
+<ng-template #mainContent>
+  <div class="mat-error">{{error}}</div>
+  <mat-form-field class="sort-form-field">
+    <mat-select placeholder="Sort By">
+      <mat-option (click)="sortOptionClicked('Default')">Default</mat-option>
+      <mat-option *ngFor="let sortType of sortTypes" [value]="sortType" (click)="sortOptionClicked(sortType)">
+        {{sortType}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="button-row">
+    <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="previewSlide()">Preview Slide</button>
+    <button mat-raised-button color="error" class="button" [disabled]="!selected" (click)="deleteSlide()">Delete Slide</button>
+    <button mat-icon-button (click)="openSlideHelpDialog()">
+      <mat-icon>help</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="slides; else else_block">
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
+          <mat-card class="slide-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Slide</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let slide of slides"
+                       (click)="elementClicked(slide)">
+          <mat-card class="slide-card" [ngClass]="(slide['id'] === selected) ? 'highlight' : ''">
+            <mat-card-content>
+              <app-slide-display [workspaceId]="workspaceId" [slideId]="slide.id"></app-slide-display>
+            </mat-card-content>
+            <mat-card-footer>
+              {{slide.name}}
+            </mat-card-footer>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  <ng-template #else_block>
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
+          <mat-card class="slide-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Slide</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </ng-template>
+</ng-template>
 
-</section>
-  

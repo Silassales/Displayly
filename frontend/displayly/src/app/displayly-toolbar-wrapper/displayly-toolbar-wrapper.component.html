@@ -10,9 +10,9 @@
 <mat-sidenav-container id = "pageBody">
 	<mat-sidenav id="mySidenav" mode="side" #sidenav opened>
 		<button [routerLink] = "['/dashboard/workspace']" mat-button>Workspaces</button>
-		<button [routerLink] = "['/dashboard/slide']" mat-button>Slides</button>
-		<button [routerLink] = "['/dashboard/scene']" mat-button>Scenes</button>
-		<button [routerLink] = "['/dashboard/display']" mat-button>Displays</button>
+		<button (click)="onSlide()" [disabled]='showButton()' mat-button>Slides</button>
+		<button (click)="onScene()" [disabled]='showButton()' mat-button>Scenes</button>
+		<button (click)="onDisplay()" [disabled]='showButton()' mat-button>Displays</button>
 	</mat-sidenav>
   <mat-sidenav-content  id="innerComponent">
 		<router-outlet #myAss></router-outlet>

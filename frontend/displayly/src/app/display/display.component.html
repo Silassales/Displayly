@@ -1,3 +1,53 @@
-<section style = "height: 50vh; border: 4px solid blue">
+<div *ngIf="loading; else mainContent" class="full-width">
+  <mat-spinner [diameter]="100" class="center-div"></mat-spinner>
+</div>
+<ng-template #mainContent>
+  <mat-error>{{error}}</mat-error>
+  <div class="button-row" style="margin-top: 10px">
+    <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="showDisplay()">Show Display</button>
+    <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="editDisplay()">Edit Display</button>
+    <button mat-raised-button color="error" class="button" [disabled]="!selected" (click)="deleteDisplay()">Delete Display</button>
+    <button mat-icon-button (click)="openDisplayHelpDialog()">
+      <mat-icon>help</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="displays; else else_block">
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
+          <mat-card class="display-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Display</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-element content-element cursor-hover" *ngFor="let display of displays"
+                       (click)="elementClicked(display)"
+                       [ngClass]="(display === selected) ? 'highlight' : ''">
+          <mat-card class="display-card">
+            <mat-icon>tv</mat-icon>
+            <mat-card-content>
+              {{display.name}}
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+  <ng-template #else_block>
+    <div style="margin: 30px">
+      <mat-grid-list [cols]="adjustedCols" gutterSize="30px" (window:resize)="onResize($event)">
+        <mat-grid-tile class="grid-element add-element cursor-hover" (click)="addElementClicked()">
+          <mat-card class="display-card">
+            <mat-icon>add</mat-icon>
+            <mat-card-content>
+              <p>Display</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </ng-template>
+</ng-template>
 
-</section>

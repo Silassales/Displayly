@@ -1,0 +1,35 @@
+<div *ngIf="!stepTwo" class="form-container">
+  <mat-form-field class="name-input center-div">
+    <input matInput placeholder="slide name" required [formControl]="slideNameValidator">
+  </mat-form-field>
+
+  <div class="row title">
+    Select a template:
+  </div>
+  <div class="row">
+    <app-layout-template class="shadow" [ngClass]="(selectedLayout == 1) ? 'highlight' : ''"
+                         style="display: inline-block; width: 25%" [width]="100" [layoutId]="1" [functional]="false"
+                         (click)="select(1)"></app-layout-template>
+    <div style="display: inline-block; width: 5%"></div>
+    <app-layout-template class="shadow" [ngClass]="(selectedLayout == 2) ? 'highlight' : ''"
+                         style="display: inline-block; width: 25%" [width]="100" [layoutId]="2" [functional]="false"
+                         (click)="select(2)"></app-layout-template>
+    <div style="display: inline-block; width: 5%"></div>
+    <app-layout-template class="shadow" [ngClass]="(selectedLayout == 3) ? 'highlight' : ''"
+                         style="display: inline-block; width: 25%" [width]="100" [layoutId]="3" [functional]="false"
+                         (click)="select(3)"></app-layout-template>
+  </div>
+  <button class="button" mat-raised-button color="primary" [disabled]="buttonDisabled()" (click)="next()">Next</button>
+</div>
+<div *ngIf="stepTwo">
+  <app-layout-template class="shadow" [width]="100" [layoutId]="selectedLayout"
+                       [functional]="true"></app-layout-template>
+  <div class="row">
+    <button class="button" mat-raised-button color="primary" (click)="stepTwo = false">Back</button>
+    <div style="display: inline-block; width: 5%"></div>
+    <button class="button" mat-raised-button color="primary" [disabled]="saveDisabled()" (click)="save()">
+      <mat-spinner *ngIf="loading" [diameter]="25" style="margin: 0 auto;"></mat-spinner>
+      <div *ngIf="!loading">Save</div>
+    </button>
+  </div>
+</div>
