@@ -181,6 +181,8 @@ class WorkspaceRoutes(object):
 				res.body = '{"error":"Invalid token"}'
 				return
 
+			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
+
 			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
 				res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
 				res.status = falcon.HTTP_401
@@ -194,7 +196,6 @@ class WorkspaceRoutes(object):
 				res.status = falcon.HTTP_400
 				return
 
-			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
 			sql = "SELECT UserId FROM Users WHERE Email = %s"
 			sql2 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
