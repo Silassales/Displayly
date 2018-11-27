@@ -190,7 +190,7 @@ class WorkspaceRoutes(object):
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
-			sql = "INSERT INTO UsersToWorkspaces (UserId, WorksapceId) VALUES (%s, %s)"
+			sql = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
 
 			try:
 				cursor.execute(sql, (body['userId'], workspaceId, ))
