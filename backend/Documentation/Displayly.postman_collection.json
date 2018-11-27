@@ -6,6 +6,920 @@
 	},
 	"item": [
 		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"password\": \"mypassword\",\n\t\"name\": \"Billy Bob\",\n\t\"question\": \"Where were you born?\",\n\t\"answer\": \"Toronto\"\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5200/user/register",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5200",
+							"path": [
+								"user",
+								"register"
+							]
+						},
+						"description": "Register a new User.\n\nIn the body, you must include the following properties: Name, Email, Password, Security Question, and Security Answer. If the registration is successful, 200 status code will be returned, otherwise 400 with a description explaining why the account could not be created."
+					},
+					"response": [
+						{
+							"name": "Register New User (Successful)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"password\": \"mypassword\",\n\t\"name\": \"Billy Bob\",\n\t\"question\": \"Where were you born?\",\n\t\"answer\": \"Toronto\"\n}"
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user/register",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 20:24:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "17"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true\n}"
+						},
+						{
+							"name": "Register New User (Duplicate User)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"password\": \"mypassword\",\n\t\"name\": \"Billy Bob\",\n\t\"question\": \"Where were you born?\",\n\t\"answer\": \"Toronto\"\n}"
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5200/user/register",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5200",
+									"path": [
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 20:31:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "content-length",
+									"value": "73"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"The email provided is already being used for another account.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"test@yahoo.ca\",\n\t\"password\":\"mypassword\"\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/user/login",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"login"
+							]
+						},
+						"description": "Login with a username and password.\n\nIn the body, you must include the following properties: Email, and Password. If the login is successful, you will receive 200 status code with a JWT token in the response body. This will be required access other endpoints that require user authentication."
+					},
+					"response": [
+						{
+							"name": "Login User (Successful)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\":\"test@yahoo.ca\",\n\t\"password\":\"mypassword\"\n}"
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user/login",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 20:34:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "149"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDMyNjQ0NjYsInVzZXJJZCI6NDl9.wR2kt3y0JT78KeJqEyn-PGYVbuaASNlNkK9zzUJsqXE\"\n}"
+						},
+						{
+							"name": "Invalid Credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\":\"test@yahoo.ca\",\n\t\"password\":\"mypasswo\"\n}"
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user/login",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 20:34:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "31"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Invalid credentials\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get User Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "The logged in user's JWT token",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/user",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"user"
+							]
+						},
+						"description": "This endpoint will return the following information regarding the user: User ID, Name, and Email\n\nIn order to access this endpoint, you must include the JWT token in the \"Authorization\" header of the network request for the user you are trying to get details for."
+					},
+					"response": [
+						{
+							"name": "Invalid Token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "someInvalidToken",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 20:39:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "25"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Invalid token\"\n}"
+						},
+						{
+							"name": "Get User Info",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDMyNjQ3MDYsInVzZXJJZCI6NDl9.ywutZPAtqfyL_abTIoN7hmKdyB2vQ7-V2HNSH1X3ZXs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 20:38:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "78"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"userId\": 49,\n    \"email\": \"test@yahoo.ca\",\n    \"name\": \"Billy Bob\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Forgot Password",
+			"item": [
+				{
+					"name": "Get Security Question",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/user/forgot?email={{email}}",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"forgot"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{email}}"
+								}
+							]
+						},
+						"description": "Get the security question for an account to begin the password reset process. The URL format is `/user/forgot?email={{email}}`, where `{{email}}` is the email address of the account that needs its password reset.\n\nNo JWT authentication is required."
+					},
+					"response": [
+						{
+							"name": "Get Security Question",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user/forgot?email=test@yahoo.ca",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user",
+										"forgot"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test@yahoo.ca"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 21:30:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "52"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"question\": \"Where were you born?\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Security Question Answer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"answer\": \"Toronto\"\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/user/forgot",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"forgot"
+							]
+						},
+						"description": "Validate the answer to the security question.\n\nIn the body, you must include two properties; `email` (the email address that belongs to the user trying to reset their password), and `answer` (the answer to their security question)\n\nNo JWT authentication is required.\n\nIf successful, a JWT token will be returned. This token is ONLY an access token to reset the password of the user ID encoded in the token and will not work on any other endpoints. \n\nIMPORTANT NOTE: This token expires 5 minutes after it is issued. If it expires, you must restart the password reset process."
+					},
+					"response": [
+						{
+							"name": "Security Question Answer",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"answer\": \"Toronto\"\n}"
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user/forgot",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user",
+										"forgot"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 21:31:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "193"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"resetToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2YWxpZEZvclBhc3N3b3JkUmVzZXQiOnRydWUsImV4cCI6MTU0MzE4MTgwNiwidXNlcklkIjo0OX0.lyAxgHutBFZnJG16zJjiVznQSnQZSAmA8_9KTodWklQ\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"description": "The JWT token",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"mynewpassword\"\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/user/reset",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"reset"
+							]
+						},
+						"description": "Provide a new `password` for the user in the body.\n\nIn order to access this endpoint, you must include the JWT password reset token in the `Authorization` header of the network request.\n\nIf the password is successfully saved, a `200` status code will be returned, otherwise `400` or `401` with a description explaining why the password could not be reset.\n\nIMPORTANT: The reset access token will expire 5 minutes after being issued. If the token expiries, you will need to call the previous endpoint (answer validation) to get a new token. Also, after reseting the password, this token can not be used to access other endpoints. You will need to login using the proper login endpoint to get a \"full\" access token."
+					},
+					"response": [
+						{
+							"name": "Reset Password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2YWxpZEZvclBhc3N3b3JkUmVzZXQiOnRydWUsImV4cCI6MTU0MzE4MTgwNiwidXNlcklkIjo0OX0.lyAxgHutBFZnJG16zJjiVznQSnQZSAmA8_9KTodWklQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"password\": \"mynewpassword\"\n}"
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5000/user/reset",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5000",
+									"path": [
+										"user",
+										"reset"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Nov 2018 21:33:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "content-length",
+									"value": "17"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Workspaces",
 			"item": [
 				{
@@ -126,6 +1040,130 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": true,\n    \"workspaceId\": 75\n}"
+						}
+					]
+				},
+				{
+					"name": "Add User To Workspace",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"description": "The logged in user's JWT token",
+								"key": "Authorization",
+								"type": "text",
+								"value": ""
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"dbianchi@uoguelph.ca\"\n}"
+						},
+						"url": {
+							"raw": "http://131.104.48.82:5000/workspaces/{{workspaceId}}",
+							"protocol": "http",
+							"host": [
+								"131",
+								"104",
+								"48",
+								"82"
+							],
+							"port": "5000",
+							"path": [
+								"workspaces",
+								"{{workspaceId}}"
+							]
+						},
+						"description": "Add a user to a workspace.\n\nIn the body, you must include the email address of the user you want to add to your workspace.\n\nIn order to access this endpoint, you must include the JWT token in the `Authorization` header of the network request."
+					},
+					"response": [
+						{
+							"name": "Add User To Workspace",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"description": "The logged in user's JWT token",
+										"key": "Authorization",
+										"type": "text",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDM0MzMyODQsInVzZXJJZCI6NTh9.wyXxbtlZytN-LExX3cY35791sGu_pDvEZ0sTjaZ6B2s"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\": \"test@yahoo.ca\"\n}"
+								},
+								"url": {
+									"raw": "http://131.104.48.82:5200/workspaces/84",
+									"protocol": "http",
+									"host": [
+										"131",
+										"104",
+										"48",
+										"82"
+									],
+									"port": "5200",
+									"path": [
+										"workspaces",
+										"84"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "gunicorn/19.9.0"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 27 Nov 2018 19:29:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "*"
+								},
+								{
+									"key": "content-length",
+									"value": "81"
+								},
+								{
+									"key": "access-control-max-age",
+									"value": "1728000"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true\n}"
 						}
 					]
 				},
@@ -1794,920 +2832,6 @@
 								{
 									"key": "Date",
 									"value": "Sun, 25 Nov 2018 21:28:57 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "17"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true\n}"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "Register User",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"password\": \"mypassword\",\n\t\"name\": \"Billy Bob\",\n\t\"question\": \"Where were you born?\",\n\t\"answer\": \"Toronto\"\n}"
-						},
-						"url": {
-							"raw": "http://131.104.48.82:5200/user/register",
-							"protocol": "http",
-							"host": [
-								"131",
-								"104",
-								"48",
-								"82"
-							],
-							"port": "5200",
-							"path": [
-								"user",
-								"register"
-							]
-						},
-						"description": "Register a new User.\n\nIn the body, you must include the following properties: Name, Email, Password, Security Question, and Security Answer. If the registration is successful, 200 status code will be returned, otherwise 400 with a description explaining why the account could not be created."
-					},
-					"response": [
-						{
-							"name": "Register New User (Successful)",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"password\": \"mypassword\",\n\t\"name\": \"Billy Bob\",\n\t\"question\": \"Where were you born?\",\n\t\"answer\": \"Toronto\"\n}"
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user/register",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user",
-										"register"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 20:24:18 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "17"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true\n}"
-						},
-						{
-							"name": "Register New User (Duplicate User)",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"password\": \"mypassword\",\n\t\"name\": \"Billy Bob\",\n\t\"question\": \"Where were you born?\",\n\t\"answer\": \"Toronto\"\n}"
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5200/user/register",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5200",
-									"path": [
-										"user",
-										"register"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 20:31:03 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								},
-								{
-									"key": "content-length",
-									"value": "73"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": \"The email provided is already being used for another account.\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Login User",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"email\":\"test@yahoo.ca\",\n\t\"password\":\"mypassword\"\n}"
-						},
-						"url": {
-							"raw": "http://131.104.48.82:5000/user/login",
-							"protocol": "http",
-							"host": [
-								"131",
-								"104",
-								"48",
-								"82"
-							],
-							"port": "5000",
-							"path": [
-								"user",
-								"login"
-							]
-						},
-						"description": "Login with a username and password.\n\nIn the body, you must include the following properties: Email, and Password. If the login is successful, you will receive 200 status code with a JWT token in the response body. This will be required access other endpoints that require user authentication."
-					},
-					"response": [
-						{
-							"name": "Login User (Successful)",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"email\":\"test@yahoo.ca\",\n\t\"password\":\"mypassword\"\n}"
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user/login",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user",
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 20:34:26 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "149"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDMyNjQ0NjYsInVzZXJJZCI6NDl9.wR2kt3y0JT78KeJqEyn-PGYVbuaASNlNkK9zzUJsqXE\"\n}"
-						},
-						{
-							"name": "Invalid Credentials",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"email\":\"test@yahoo.ca\",\n\t\"password\":\"mypasswo\"\n}"
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user/login",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user",
-										"login"
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 20:34:49 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "31"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": \"Invalid credentials\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Get User Info",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"description": "The logged in user's JWT token",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://131.104.48.82:5000/user",
-							"protocol": "http",
-							"host": [
-								"131",
-								"104",
-								"48",
-								"82"
-							],
-							"port": "5000",
-							"path": [
-								"user"
-							]
-						},
-						"description": "This endpoint will return the following information regarding the user: User ID, Name, and Email\n\nIn order to access this endpoint, you must include the JWT token in the \"Authorization\" header of the network request for the user you are trying to get details for."
-					},
-					"response": [
-						{
-							"name": "Invalid Token",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "someInvalidToken",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user"
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 20:39:06 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "25"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": \"Invalid token\"\n}"
-						},
-						{
-							"name": "Get User Info",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDMyNjQ3MDYsInVzZXJJZCI6NDl9.ywutZPAtqfyL_abTIoN7hmKdyB2vQ7-V2HNSH1X3ZXs",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 20:38:32 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "78"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"userId\": 49,\n    \"email\": \"test@yahoo.ca\",\n    \"name\": \"Billy Bob\"\n}"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Forgot Password",
-			"item": [
-				{
-					"name": "Get Security Question",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://131.104.48.82:5000/user/forgot?email={{email}}",
-							"protocol": "http",
-							"host": [
-								"131",
-								"104",
-								"48",
-								"82"
-							],
-							"port": "5000",
-							"path": [
-								"user",
-								"forgot"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "{{email}}"
-								}
-							]
-						},
-						"description": "Get the security question for an account to begin the password reset process. The URL format is `/user/forgot?email={{email}}`, where `{{email}}` is the email address of the account that needs its password reset.\n\nNo JWT authentication is required."
-					},
-					"response": [
-						{
-							"name": "Get Security Question",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user/forgot?email=test@yahoo.ca",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user",
-										"forgot"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test@yahoo.ca"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 21:30:30 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "52"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"question\": \"Where were you born?\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Security Question Answer",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"answer\": \"Toronto\"\n}"
-						},
-						"url": {
-							"raw": "http://131.104.48.82:5000/user/forgot",
-							"protocol": "http",
-							"host": [
-								"131",
-								"104",
-								"48",
-								"82"
-							],
-							"port": "5000",
-							"path": [
-								"user",
-								"forgot"
-							]
-						},
-						"description": "Validate the answer to the security question.\n\nIn the body, you must include two properties; `email` (the email address that belongs to the user trying to reset their password), and `answer` (the answer to their security question)\n\nNo JWT authentication is required.\n\nIf successful, a JWT token will be returned. This token is ONLY an access token to reset the password of the user ID encoded in the token and will not work on any other endpoints. \n\nIMPORTANT NOTE: This token expires 5 minutes after it is issued. If it expires, you must restart the password reset process."
-					},
-					"response": [
-						{
-							"name": "Security Question Answer",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"email\": \"test@yahoo.ca\",\n\t\"answer\": \"Toronto\"\n}"
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user/forgot",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user",
-										"forgot"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 21:31:46 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "content-length",
-									"value": "193"
-								},
-								{
-									"key": "access-control-allow-methods",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-origin",
-									"value": "*"
-								},
-								{
-									"key": "access-control-allow-headers",
-									"value": "*"
-								},
-								{
-									"key": "access-control-max-age",
-									"value": "1728000"
-								},
-								{
-									"key": "content-type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"resetToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2YWxpZEZvclBhc3N3b3JkUmVzZXQiOnRydWUsImV4cCI6MTU0MzE4MTgwNiwidXNlcklkIjo0OX0.lyAxgHutBFZnJG16zJjiVznQSnQZSAmA8_9KTodWklQ\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Reset Password",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "",
-								"description": "The JWT token",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"password\": \"mynewpassword\"\n}"
-						},
-						"url": {
-							"raw": "http://131.104.48.82:5000/user/reset",
-							"protocol": "http",
-							"host": [
-								"131",
-								"104",
-								"48",
-								"82"
-							],
-							"port": "5000",
-							"path": [
-								"user",
-								"reset"
-							]
-						},
-						"description": "Provide a new `password` for the user in the body.\n\nIn order to access this endpoint, you must include the JWT password reset token in the `Authorization` header of the network request.\n\nIf the password is successfully saved, a `200` status code will be returned, otherwise `400` or `401` with a description explaining why the password could not be reset.\n\nIMPORTANT: The reset access token will expire 5 minutes after being issued. If the token expiries, you will need to call the previous endpoint (answer validation) to get a new token. Also, after reseting the password, this token can not be used to access other endpoints. You will need to login using the proper login endpoint to get a \"full\" access token."
-					},
-					"response": [
-						{
-							"name": "Reset Password",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2YWxpZEZvclBhc3N3b3JkUmVzZXQiOnRydWUsImV4cCI6MTU0MzE4MTgwNiwidXNlcklkIjo0OX0.lyAxgHutBFZnJG16zJjiVznQSnQZSAmA8_9KTodWklQ",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"password\": \"mynewpassword\"\n}"
-								},
-								"url": {
-									"raw": "http://131.104.48.82:5000/user/reset",
-									"protocol": "http",
-									"host": [
-										"131",
-										"104",
-										"48",
-										"82"
-									],
-									"port": "5000",
-									"path": [
-										"user",
-										"reset"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "gunicorn/19.9.0"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 25 Nov 2018 21:33:48 GMT"
 								},
 								{
 									"key": "Connection",
