@@ -206,7 +206,7 @@ class WorkspaceRoutes(object):
 
 				if data == None:
 					res.body = '{"error": "User with that email does not exist"}'
-					res.status = falcon.HTTP_400
+					res.status = falcon.HTTP_404
 				else:
 					cursor.execute(sql2, (data[0], workspaceId, ))
 					db.commit()
