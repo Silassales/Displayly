@@ -181,23 +181,37 @@ class WorkspaceRoutes(object):
 				res.body = '{"error":"Invalid token"}'
 				return
 
+			if not self.authroizedWorkspace(db, tokenContents['userId'], workspaceId):
+				res.body = '{"error":"This user does not have permissions to make modifications in this workspace."}'
+				res.status = falcon.HTTP_401
+				db.close()
+				return
+
 			body = self.getBodyFromRequest(req)
 
-			if body == None or 'userId' not in body:
-				res.body = '{"error":"User ID required."}'
+			if body == None or 'email' not in body:
+				res.body = '{"error":"Email required."}'
 				res.status = falcon.HTTP_400
 				return
 
 			db = mysql.connector.connect(host="localhost", user="root", password="de5ign", port="3306", db="displayly")
 			cursor = db.cursor()
-			sql = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
+			sql = "SELECT UserId FROM Users WHERE Email = %s"
+			sql2 = "INSERT INTO UsersToWorkspaces (UserId, WorkspaceId) VALUES (%s, %s)"
 
 			try:
-				cursor.execute(sql, (body['userId'], workspaceId, ))
-				db.commit()
+				cursor.execute(sql, (body['email'],))
+				data = cursor.fetchone()
 
-				res.body = '{"success": true }'
-				res.status = falcon.HTTP_200
+				if data == None:
+					res.body = '{"error": "User with that email does not exist"}'
+					res.status = falcon.HTTP_400
+				else:
+					cursor.execute(sql2, (data[0], workspaceId, ))
+					db.commit()
+
+					res.body = '{"success": true }'
+					res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
 				res.body = '{' + '"error":"{}"'.format(e) + '}'
