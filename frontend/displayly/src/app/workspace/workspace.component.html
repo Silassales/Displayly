@@ -6,6 +6,9 @@
   <div class="button-row" style="margin-top: 10px;">
     <button mat-raised-button color="primary" class="button" [disabled]="!selected" (click)="enterWorkspace()">Enter Workspace</button>
     <button mat-raised-button color="error" class="button" [disabled]="!selected" (click)="deleteWorkspace()">Delete Workspace</button>
+    <button mat-icon-button matTooltip="Add a user to this workspace" [disabled]="!selected" (click)="addUserToWorkspace()" >
+      <mat-icon>add</mat-icon>
+    </button>
     <button mat-icon-button (click)="openWorkspaceHelpDialog()">
       <mat-icon>help</mat-icon>
     </button>

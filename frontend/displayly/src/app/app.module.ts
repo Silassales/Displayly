@@ -28,6 +28,7 @@ import { SceneDisplayComponent } from './scene-display/scene-display.component';
 import { AddSceneModalComponent } from './add-scene-modal/add-scene-modal.component';
 import { ShowDisplayComponent } from './show-display/show-display.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { AddUserToWorkspaceComponent } from './add-user-to-workspace/add-user-to-workspace.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     SceneDisplayComponent,
     AddSceneModalComponent,
     ShowDisplayComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    AddUserToWorkspaceComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     WorkspaceHelpDialogComponent,
     SlideHelpDialogComponent,
     SceneHelpDialogComponent,
-    DisplayHelpDialogComponent
+    DisplayHelpDialogComponent,
+    AddUserToWorkspaceComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

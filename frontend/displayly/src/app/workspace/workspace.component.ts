@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {Router} from '@angular/router';
 import {CreateWorkspaceModalComponent} from '../create-workspace-modal/create-workspace-modal.component';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {AddUserToWorkspaceComponent} from '../add-user-to-workspace/add-user-to-workspace.component';
 
 @Component({
   selector: 'app-workspace-component',
@@ -104,6 +105,15 @@ export class WorkspaceComponent implements OnInit {
   openWorkspaceHelpDialog() {
     const dialogRef = this.dialog.open(WorkspaceHelpDialogComponent, {
       width: '25%'
+    });
+  }
+
+  addUserToWorkspace() {
+    this.dialog.open(AddUserToWorkspaceComponent, {
+      width: 'auto',
+      data: {
+        workspaceId: this.selected,
+      }
     });
   }
 }

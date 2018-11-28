@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Add user to Workspace</h1>
+<div mat-dialog-content class="full-width">
+  <mat-error>{{error}}</mat-error>
+  <mat-form-field>
+    <input matInput placeholder="user's email address" required [formControl]="addUserValidator">
+    <mat-error *ngIf="addUserValidator.invalid">This field is required</mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="buttonDisabled()" (click)="add()">Add</button>
+  <button mat-raised-button color="error" (click)="cancel()">Cancel</button>
+</div>
