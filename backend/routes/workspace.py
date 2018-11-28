@@ -206,7 +206,7 @@ class WorkspaceRoutes(object):
 				data = cursor.fetchone()
 
 				if data == None:
-					res.body = '{"error": "User with that email does not exist"}'
+					res.body = '{"error": "Could not add user to workspace."}'
 					res.status = falcon.HTTP_404
 				else:
 					cursor.execute(sql2, (data[0], workspaceId, ))
