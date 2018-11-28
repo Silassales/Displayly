@@ -2,6 +2,7 @@ import falcon
 import json
 import jwt
 import mysql.connector
+from mysql.connector import errorcode
 
 class WorkspaceRoutes(object):
 	def getBodyFromRequest(self, req):
@@ -215,7 +216,10 @@ class WorkspaceRoutes(object):
 					res.status = falcon.HTTP_200
 
 			except (mysql.connector.errors.IntegrityError, mysql.connector.errors.ProgrammingError) as e:
-				res.body = '{' + '"error":"{}"'.format(e) + '}'
+				if e.errno == errorcode.ER_DUP_ENTRY:
+					res.body = '{"error":"User already belongs to this workspace."}'
+				else:
+					res.body = '{"error":"Could not add user to workspace."}'
 				res.status = falcon.HTTP_400
 
 			db.close()
